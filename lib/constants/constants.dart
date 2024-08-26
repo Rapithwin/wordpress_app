@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class WoocommerceInfo {
-  static String baseUrl = "";
+  static String baseUrl = "localhost/wordpress/wp-json/wc/v3/";
   // End points
   static String costumerURL = "costumers";
 }

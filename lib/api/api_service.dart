@@ -1,13 +1,17 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:crypto/crypto.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:wordpress_app/constants/constants.dart';
+import 'package:wordpress_app/models/woocommerce/costumer_model.dart';
 
 class APIService {
   final String consumerKey = dotenv.env["CONSUMER_KEY"]!;
   final String consumerSecret = dotenv.env["CONSUMER_SECRET"]!;
 
   String generateOAuth1Signature(
-      String method, Uri uri, Map<String, String> parameters) {
+      String method, Uri uri, Map<String, dynamic> parameters) {
     // Generate a nonce
     final String nonce = DateTime.now().millisecondsSinceEpoch.toString();
 
@@ -50,7 +54,37 @@ class APIService {
     return signature;
   }
 
-  Future<bool> createCostumer() async {
-    return false;
+  Future<bool> createCostumer(CustomerModel model) async {
+    bool isCreated = false;
+    final signature = generateOAuth1Signature(
+        'GET', Uri.parse(WoocommerceInfo.baseUrl), model.toJson());
+
+    try {
+      var response = await Dio().post(
+        WoocommerceInfo.baseUrl + WoocommerceInfo.costumerURL,
+        data: model.toJson(),
+        options: Options(
+          headers: {
+            HttpHeaders.authorizationHeader:
+                'OAuth oauth_consumer_key="$consumerKey", '
+                    'oauth_signature_method="HMAC-SHA1", '
+                    'oauth_timestamp="${DateTime.now().millisecondsSinceEpoch ~/ 1000}", '
+                    'oauth_nonce="${DateTime.now().millisecondsSinceEpoch}", '
+                    'oauth_version="1.0", '
+                    'oauth_signature="${Uri.encodeComponent(signature)}"',
+          },
+        ),
+      );
+      if (response.statusCode == 201) {
+        isCreated = true;
+      }
+    } on DioException catch (e) {
+      if (e.response!.statusCode == 404) {
+        isCreated = false;
+      } else {
+        isCreated = false;
+      }
+    }
+    return isCreated;
   }
 }
