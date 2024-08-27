@@ -66,7 +66,7 @@ class _SignUpPageState extends State<SignUpPage> {
       body: Stack(
         children: <Widget>[
           Positioned(
-            top: 150,
+            top: 50,
             left: 20,
             right: 20,
             child: SizedBox(
@@ -77,6 +77,13 @@ class _SignUpPageState extends State<SignUpPage> {
                   padding: const EdgeInsets.all(10.0),
                   child: Column(
                     children: <Widget>[
+                      Text(
+                        "ثبت نام",
+                        style: textTheme.headlineMedium,
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
                       Directionality(
                         textDirection: TextDirection.rtl,
                         child: TextFormField(
@@ -115,9 +122,9 @@ class _SignUpPageState extends State<SignUpPage> {
                       Directionality(
                         textDirection: TextDirection.rtl,
                         child: TextFormField(
-                          initialValue: customerModel.firstName,
+                          initialValue: customerModel.lastName,
                           onChanged: (value) {
-                            customerModel.firstName = value;
+                            customerModel.lastName = value;
                           },
                           cursorColor: Constants.primaryColor,
                           style: textTheme.bodyLarge,
@@ -150,12 +157,13 @@ class _SignUpPageState extends State<SignUpPage> {
                       Directionality(
                         textDirection: TextDirection.rtl,
                         child: TextFormField(
-                          initialValue: customerModel.firstName,
+                          initialValue: customerModel.email,
                           onChanged: (value) {
-                            customerModel.firstName = value;
+                            customerModel.email = value;
                           },
                           cursorColor: Constants.primaryColor,
                           style: textTheme.bodyLarge,
+                          textDirection: TextDirection.ltr,
                           decoration: InputDecoration(
                             label: Text(
                               "ایمیل",
@@ -185,15 +193,16 @@ class _SignUpPageState extends State<SignUpPage> {
                       Directionality(
                         textDirection: TextDirection.rtl,
                         child: TextFormField(
-                          initialValue: customerModel.firstName,
+                          initialValue: customerModel.password,
                           onChanged: (value) {
-                            customerModel.firstName = value;
+                            customerModel.password = value;
                           },
                           cursorColor: Constants.primaryColor,
                           style: textTheme.bodyLarge,
+                          textDirection: TextDirection.ltr,
                           decoration: InputDecoration(
                             label: Text(
-                              "پسورد",
+                              "رمز عبور",
                               style: textTheme.titleMedium,
                             ),
                             contentPadding: const EdgeInsets.all(20.0),
@@ -214,6 +223,44 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                         ),
                       ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      SizedBox(
+                        width: size.width,
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Constants.primaryColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          child: Text(
+                            "ٍثبت نام",
+                            style: textTheme.titleLarge!.copyWith(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      SizedBox(
+                        width: size.width,
+                        child: TextButton(
+                            onPressed: () {},
+                            style: TextButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            child: Text(
+                              ".حساب کاربری دارید؟ وارد شوید",
+                              style: textTheme.bodyMedium,
+                            )),
+                      )
                     ],
                   ),
                 ),

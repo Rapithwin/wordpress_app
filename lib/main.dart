@@ -17,6 +17,11 @@ class MainApp extends StatelessWidget {
       theme: ThemeData(
         textTheme: TextTheme(
           headlineLarge: const TextStyle(fontFamily: "Samim"),
+          headlineMedium: const TextStyle(
+            fontFamily: "Lalezar",
+            color: Constants.primaryColor,
+            fontSize: 40,
+          ),
           titleLarge: TextStyle(
               fontFamily: "Lalezar",
               fontSize: 27,
@@ -33,7 +38,8 @@ class MainApp extends StatelessWidget {
             color: Colors.grey,
           ),
           bodyLarge: const TextStyle(fontFamily: "Samim"),
-          bodyMedium: const TextStyle(fontFamily: "Samim"),
+          bodyMedium: const TextStyle(
+              fontFamily: "Samim", color: Constants.primaryColor),
           bodySmall: const TextStyle(
             fontFamily: "nanumGothic",
             fontSize: 17,
