@@ -156,6 +156,42 @@ class _SignUpPageState extends State<SignUpPage> {
                 Directionality(
                   textDirection: TextDirection.rtl,
                   child: TextFormField(
+                    initialValue: customerModel.lastName,
+                    onChanged: (value) {
+                      customerModel.lastName = value;
+                    },
+                    textInputAction: TextInputAction.next,
+                    cursorColor: Constants.primaryColor,
+                    style: textTheme.bodyLarge,
+                    decoration: InputDecoration(
+                      label: Text(
+                        "نام کاربری",
+                        style: textTheme.titleMedium,
+                      ),
+                      contentPadding: const EdgeInsets.all(20.0),
+                      hintStyle: textTheme.titleLarge!.copyWith(
+                        color: Constants.primaryColor,
+                        height: 1.5,
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Constants.primaryColor,
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: TextFormField(
                     textInputAction: TextInputAction.next,
                     initialValue: customerModel.email,
                     onChanged: (value) {

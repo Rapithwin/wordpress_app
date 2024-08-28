@@ -3,6 +3,7 @@ class CustomerModel {
   String? lastName;
   String? email;
   String? password;
+  // TODO: Add username
 
   CustomerModel({
     this.firstName,
