@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:crypto/crypto.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:wordpress_app/constants/constants.dart';
 import 'package:wordpress_app/models/woocommerce/costumer_model.dart';
@@ -60,10 +61,11 @@ class APIService {
         'GET', Uri.parse(WoocommerceInfo.baseUrl), model.toJson());
 
     try {
-      var response = await Dio().post(
+      var response = await Dio().request(
         WoocommerceInfo.baseUrl + WoocommerceInfo.costumerURL,
         data: model.toJson(),
         options: Options(
+          method: "POST",
           headers: {
             HttpHeaders.authorizationHeader:
                 'OAuth oauth_consumer_key="$consumerKey", '
@@ -79,11 +81,8 @@ class APIService {
         isCreated = true;
       }
     } on DioException catch (e) {
-      if (e.response!.statusCode == 404) {
-        isCreated = false;
-      } else {
-        isCreated = false;
-      }
+      isCreated = false;
+      debugPrint(e.toString());
     }
     return isCreated;
   }
