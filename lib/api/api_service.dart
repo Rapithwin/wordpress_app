@@ -58,7 +58,7 @@ class APIService {
   Future<bool> createCostumer(CustomerModel model) async {
     bool isCreated = false;
     final signature = generateOAuth1Signature(
-        'GET', Uri.parse(WoocommerceInfo.baseUrl), model.toJson());
+        'POST', Uri.parse(WoocommerceInfo.baseUrl), model.toJson());
 
     try {
       var response = await Dio().request(
@@ -68,10 +68,10 @@ class APIService {
           method: "POST",
           headers: {
             HttpHeaders.authorizationHeader:
-                'OAuth oauth_consumer_key="$consumerKey", '
-                    'oauth_signature_method="HMAC-SHA1", '
-                    'oauth_timestamp="${DateTime.now().millisecondsSinceEpoch ~/ 1000}", '
-                    'oauth_nonce="${DateTime.now().millisecondsSinceEpoch}", '
+                'OAuth oauth_consumer_key="$consumerKey",'
+                    'oauth_signature_method=HMAC-SHA1,'
+                    'oauth_timestamp="${DateTime.now().millisecondsSinceEpoch ~/ 1000}",'
+                    'oauth_nonce="${DateTime.now().millisecondsSinceEpoch}",'
                     'oauth_version="1.0", '
                     'oauth_signature="${Uri.encodeComponent(signature)}"',
           },
@@ -82,7 +82,7 @@ class APIService {
       }
     } on DioException catch (e) {
       isCreated = false;
-      debugPrint(e.toString());
+      debugPrint(e.response.toString());
     }
     return isCreated;
   }
