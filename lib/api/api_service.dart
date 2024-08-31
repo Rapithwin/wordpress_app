@@ -69,11 +69,11 @@ class APIService {
           headers: {
             HttpHeaders.authorizationHeader:
                 'OAuth oauth_consumer_key="$consumerKey",'
-                    'oauth_signature_method=HMAC-SHA1,'
+                    'oauth_signature_method="HMAC-SHA1",'
                     'oauth_timestamp="${DateTime.now().millisecondsSinceEpoch ~/ 1000}",'
                     'oauth_nonce="${DateTime.now().millisecondsSinceEpoch}",'
-                    'oauth_version="1.0", '
-                    'oauth_signature="${Uri.encodeComponent(signature)}"',
+                    'oauth_version="1.0",'
+                    'oauth_signature=${Uri.encodeComponent(signature)}',
           },
         ),
       );
