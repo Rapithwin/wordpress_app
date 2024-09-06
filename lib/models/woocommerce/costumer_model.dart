@@ -3,13 +3,14 @@ class CustomerModel {
   String? lastName;
   String? email;
   String? password;
-  // TODO: Add username
+  String? username;
 
   CustomerModel({
     this.firstName,
     this.lastName,
     this.email,
     this.password,
+    this.username,
   });
 
   Map<String, dynamic> toJson() {
@@ -19,6 +20,7 @@ class CustomerModel {
       "last_name": lastName,
       "email": email,
       "password": password,
+      "username": username,
     });
     return json;
   }

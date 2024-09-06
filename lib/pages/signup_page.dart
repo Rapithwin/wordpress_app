@@ -143,9 +143,9 @@ class _SignUpPageState extends State<SignUpPage> {
                 Directionality(
                   textDirection: TextDirection.rtl,
                   child: TextFormField(
-                    initialValue: customerModel.lastName,
+                    initialValue: customerModel.username,
                     onChanged: (value) {
-                      customerModel.lastName = value;
+                      customerModel.username = value;
                     },
                     textInputAction: TextInputAction.next,
                     cursorColor: Constants.primaryColor,
