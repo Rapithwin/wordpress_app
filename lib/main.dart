@@ -1,11 +1,25 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:wordpress_app/constants/constants.dart';
 import 'package:wordpress_app/pages/signup_page.dart';
 
 void main() async {
+  // Override HttpClient globaly for self signed certificate issue
+  // development only, should not be used in production code
+  HttpOverrides.global = MyHttpOverrides();
   await dotenv.load(fileName: ".env");
   runApp(const MainApp());
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
 }
 
 class MainApp extends StatelessWidget {
