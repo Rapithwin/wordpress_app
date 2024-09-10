@@ -32,26 +32,14 @@ class _SignUpPageState extends State<SignUpPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        leadingWidth: 80,
-        toolbarHeight: 80,
-        leading: Padding(
-          padding: const EdgeInsets.all(18.0),
-          child: Container(
-            decoration: BoxDecoration(
-              color: Constants.primaryColor.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(50),
-            ),
-            child: IconButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              icon: const Icon(
-                Icons.close,
-                color: Constants.primaryColor,
-              ),
-            ),
+        title: Center(
+          child: Text(
+            "ثبت نام",
+            style: textTheme.headlineMedium,
           ),
         ),
+        leadingWidth: 80,
+        toolbarHeight: 80,
       ),
       body: Center(
         child: Form(
@@ -63,14 +51,8 @@ class _SignUpPageState extends State<SignUpPage> {
               padding: const EdgeInsets.all(10.0),
               child: ListView(
                 children: <Widget>[
-                  Center(
-                    child: Text(
-                      "ثبت نام",
-                      style: textTheme.headlineMedium,
-                    ),
-                  ),
                   const SizedBox(
-                    height: 40,
+                    height: 20,
                   ),
                   CustomFormField(
                     labelName: "نام",
@@ -158,7 +140,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     initialValue: customerModel.username,
                     textTheme: textTheme,
                     textDirection: TextDirection.ltr,
-                    inputAction: TextInputAction.next,
+                    inputAction: TextInputAction.done,
                     validator: (String? value) {
                       if (value!.isEmpty) {
                         return "این فیلد نباید خالی باشد";
@@ -197,9 +179,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                     ),
                                     actions: <Widget>[
                                       TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(context),
-                                          child: const Text("OK"))
+                                        onPressed: () => Navigator.pop(context),
+                                        child: const Text("OK"),
+                                      )
                                     ],
                                   );
                                 },
@@ -214,9 +196,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                         const Text("Email already registered"),
                                     actions: <Widget>[
                                       TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(context),
-                                          child: const Text("OK"))
+                                        onPressed: () => Navigator.pop(context),
+                                        child: const Text("OK"),
+                                      )
                                     ],
                                   );
                                 },
