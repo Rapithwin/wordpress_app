@@ -15,7 +15,7 @@ class _SignUpPageState extends State<SignUpPage> {
   late CustomerModel customerModel;
   late APIService apiService;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  bool isLoading = false;
+  bool isApiCalled = false;
 
   @override
   void initState() {
@@ -89,6 +89,10 @@ class _SignUpPageState extends State<SignUpPage> {
                         return null;
                       },
                       decoration: InputDecoration(
+                        errorStyle: textTheme.bodyMedium!.copyWith(
+                          color: const Color.fromARGB(255, 159, 34, 25),
+                          fontSize: 12,
+                        ),
                         label: Text(
                           "نام",
                           style: textTheme.titleMedium,
@@ -131,6 +135,10 @@ class _SignUpPageState extends State<SignUpPage> {
                         return null;
                       },
                       decoration: InputDecoration(
+                        errorStyle: textTheme.bodyMedium!.copyWith(
+                          color: const Color.fromARGB(255, 159, 34, 25),
+                          fontSize: 12,
+                        ),
                         label: Text(
                           "نام خانوادگی",
                           style: textTheme.titleMedium,
@@ -173,6 +181,10 @@ class _SignUpPageState extends State<SignUpPage> {
                         return null;
                       },
                       decoration: InputDecoration(
+                        errorStyle: textTheme.bodyMedium!.copyWith(
+                          color: const Color.fromARGB(255, 159, 34, 25),
+                          fontSize: 12,
+                        ),
                         label: Text(
                           "نام کاربری",
                           style: textTheme.titleMedium,
@@ -217,6 +229,10 @@ class _SignUpPageState extends State<SignUpPage> {
                         return null;
                       },
                       decoration: InputDecoration(
+                        errorStyle: textTheme.bodyMedium!.copyWith(
+                          color: const Color.fromARGB(255, 159, 34, 25),
+                          fontSize: 12,
+                        ),
                         label: Text(
                           "ایمیل",
                           style: textTheme.titleMedium,
@@ -263,6 +279,10 @@ class _SignUpPageState extends State<SignUpPage> {
                         return null;
                       },
                       decoration: InputDecoration(
+                        errorStyle: textTheme.bodyMedium!.copyWith(
+                          color: const Color.fromARGB(255, 159, 34, 25),
+                          fontSize: 12,
+                        ),
                         label: Text(
                           "رمز عبور",
                           style: textTheme.titleMedium,
@@ -293,17 +313,24 @@ class _SignUpPageState extends State<SignUpPage> {
                     child: ElevatedButton(
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
+                          setState(() {
+                            isApiCalled = true;
+                          });
                           apiService
                               .createCostumer(customerModel)
                               .then((result) {
+                            setState(() {
+                              isApiCalled = false;
+                            });
                             if (result) {
                               showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
                                   return AlertDialog(
                                     title: const Text("Woocommerce App"),
-                                    content:
-                                        const Text("Registered successfully"),
+                                    content: const Text(
+                                      "ثبت‌نام با موفقیت انجام شد",
+                                    ),
                                     actions: <Widget>[
                                       TextButton(
                                           onPressed: () =>
@@ -340,11 +367,29 @@ class _SignUpPageState extends State<SignUpPage> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
-                      child: Text(
-                        "ٍثبت نام",
-                        style: textTheme.titleLarge!.copyWith(
-                          color: Colors.white,
-                        ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          isApiCalled
+                              ? const SizedBox(
+                                  height: 17,
+                                  width: 17,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 3,
+                                    color: Colors.white,
+                                  ),
+                                )
+                              : const Text(""),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            "ٍثبت نام",
+                            style: textTheme.titleLarge!.copyWith(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
