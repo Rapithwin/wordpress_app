@@ -3,6 +3,7 @@ import 'package:wordpress_app/api/api_service.dart';
 import 'package:wordpress_app/constants/constants.dart';
 import 'package:wordpress_app/models/woocommerce/costumer_model.dart';
 import 'package:wordpress_app/pages/login_page.dart';
+import 'package:wordpress_app/utils/extention.dart';
 import 'package:wordpress_app/widgets/custom_form_field.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -104,6 +105,9 @@ class _SignUpPageState extends State<SignUpPage> {
                       if (value!.isEmpty) {
                         return "این فیلد نباید خالی باشد";
                       }
+                      if (!value.isEmailValid) {
+                        return "ایمیل نامعتبر";
+                      }
                       return null;
                     },
                     onChanged: (value) {
@@ -124,7 +128,8 @@ class _SignUpPageState extends State<SignUpPage> {
                     validator: (String? value) {
                       if (value!.isEmpty) {
                         return "این فیلد نباید خالی باشد";
-                      } else if (value.length < 8) {
+                      }
+                      if (value.length < 8) {
                         return "رمز عبور باید هشت کاراکتر یا بیشتر باشد";
                       }
                       return null;
