@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:wordpress_app/api/api_service.dart';
 import 'package:wordpress_app/constants/constants.dart';
 import 'package:wordpress_app/models/woocommerce/costumer_model.dart';
+import 'package:wordpress_app/widgets/custom_form_field.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -72,241 +72,105 @@ class _SignUpPageState extends State<SignUpPage> {
                   const SizedBox(
                     height: 40,
                   ),
-                  Directionality(
+                  CustomFormField(
+                    labelName: "نام",
+                    initialValue: customerModel.firstName,
+                    textTheme: textTheme,
                     textDirection: TextDirection.rtl,
-                    child: TextFormField(
-                      initialValue: customerModel.firstName,
-                      onChanged: (value) {
-                        customerModel.firstName = value;
-                      },
-                      textInputAction: TextInputAction.next,
-                      cursorColor: Constants.primaryColor,
-                      style: textTheme.bodyLarge,
-                      validator: (String? value) {
-                        if (value!.isEmpty) {
-                          return "این فیلد نباید خالی باشد";
-                        }
-                        return null;
-                      },
-                      decoration: InputDecoration(
-                        errorStyle: textTheme.bodyMedium!.copyWith(
-                          color: const Color.fromARGB(255, 159, 34, 25),
-                          fontSize: 12,
-                        ),
-                        label: Text(
-                          "نام",
-                          style: textTheme.titleMedium,
-                        ),
-                        contentPadding: const EdgeInsets.all(20.0),
-                        hintStyle: textTheme.titleLarge!.copyWith(
-                          color: Constants.primaryColor,
-                          height: 1.5,
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: Constants.primaryColor,
-                            width: 1.0,
-                          ),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                    ),
+                    inputAction: TextInputAction.next,
+                    validator: (String? value) {
+                      if (value!.isEmpty) {
+                        return "این فیلد نباید خالی باشد";
+                      }
+                      return null;
+                    },
+                    onChanged: (value) {
+                      customerModel.firstName = value;
+                    },
                   ),
                   const SizedBox(
                     height: 30,
                   ),
-                  Directionality(
+                  CustomFormField(
+                    labelName: "نام خانوادگی",
+                    initialValue: customerModel.lastName,
+                    textTheme: textTheme,
                     textDirection: TextDirection.rtl,
-                    child: TextFormField(
-                      initialValue: customerModel.lastName,
-                      onChanged: (value) {
-                        customerModel.lastName = value;
-                      },
-                      textInputAction: TextInputAction.next,
-                      cursorColor: Constants.primaryColor,
-                      style: textTheme.bodyLarge,
-                      validator: (String? value) {
-                        if (value!.isEmpty) {
-                          return "این فیلد نباید خالی باشد";
-                        }
-                        return null;
-                      },
-                      decoration: InputDecoration(
-                        errorStyle: textTheme.bodyMedium!.copyWith(
-                          color: const Color.fromARGB(255, 159, 34, 25),
-                          fontSize: 12,
-                        ),
-                        label: Text(
-                          "نام خانوادگی",
-                          style: textTheme.titleMedium,
-                        ),
-                        contentPadding: const EdgeInsets.all(20.0),
-                        hintStyle: textTheme.titleLarge!.copyWith(
-                          color: Constants.primaryColor,
-                          height: 1.5,
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: Constants.primaryColor,
-                            width: 1.0,
-                          ),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                    ),
+                    inputAction: TextInputAction.next,
+                    validator: (String? value) {
+                      if (value!.isEmpty) {
+                        return "این فیلد نباید خالی باشد";
+                      }
+                      return null;
+                    },
+                    onChanged: (value) {
+                      customerModel.lastName = value;
+                    },
                   ),
                   const SizedBox(
                     height: 30,
                   ),
-                  Directionality(
-                    textDirection: TextDirection.rtl,
-                    child: TextFormField(
-                      initialValue: customerModel.username,
-                      onChanged: (value) {
-                        customerModel.username = value;
-                      },
-                      textInputAction: TextInputAction.next,
-                      cursorColor: Constants.primaryColor,
-                      style: textTheme.bodyLarge,
-                      validator: (String? value) {
-                        if (value!.isEmpty) {
-                          return "این فیلد نباید خالی باشد";
-                        }
-                        return null;
-                      },
-                      decoration: InputDecoration(
-                        errorStyle: textTheme.bodyMedium!.copyWith(
-                          color: const Color.fromARGB(255, 159, 34, 25),
-                          fontSize: 12,
-                        ),
-                        label: Text(
-                          "نام کاربری",
-                          style: textTheme.titleMedium,
-                        ),
-                        contentPadding: const EdgeInsets.all(20.0),
-                        hintStyle: textTheme.titleLarge!.copyWith(
-                          color: Constants.primaryColor,
-                          height: 1.5,
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: Constants.primaryColor,
-                            width: 1.0,
-                          ),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                    ),
+                  CustomFormField(
+                    labelName: "ایمیل",
+                    keyboardType: TextInputType.emailAddress,
+                    initialValue: customerModel.email,
+                    textTheme: textTheme,
+                    textDirection: TextDirection.ltr,
+                    inputAction: TextInputAction.next,
+                    validator: (String? value) {
+                      if (value!.isEmpty) {
+                        return "این فیلد نباید خالی باشد";
+                      }
+                      return null;
+                    },
+                    onChanged: (value) {
+                      customerModel.email = value;
+                    },
                   ),
                   const SizedBox(
                     height: 30,
                   ),
-                  Directionality(
-                    textDirection: TextDirection.rtl,
-                    child: TextFormField(
-                      textInputAction: TextInputAction.next,
-                      initialValue: customerModel.email,
-                      onChanged: (value) {
-                        customerModel.email = value;
-                      },
-                      cursorColor: Constants.primaryColor,
-                      style: textTheme.bodyLarge,
-                      textDirection: TextDirection.ltr,
-                      keyboardType: TextInputType.emailAddress,
-                      validator: (String? value) {
-                        if (value!.isEmpty) {
-                          return "این فیلد نباید خالی باشد";
-                        }
-                        return null;
-                      },
-                      decoration: InputDecoration(
-                        errorStyle: textTheme.bodyMedium!.copyWith(
-                          color: const Color.fromARGB(255, 159, 34, 25),
-                          fontSize: 12,
-                        ),
-                        label: Text(
-                          "ایمیل",
-                          style: textTheme.titleMedium,
-                        ),
-                        contentPadding: const EdgeInsets.all(20.0),
-                        hintStyle: textTheme.titleLarge!.copyWith(
-                          color: Constants.primaryColor,
-                          height: 1.5,
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: Constants.primaryColor,
-                            width: 1.0,
-                          ),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                    ),
+                  CustomFormField(
+                    labelName: "رمز عبور",
+                    keyboardType: TextInputType.visiblePassword,
+                    initialValue: customerModel.password,
+                    obscureText: true,
+                    textTheme: textTheme,
+                    textDirection: TextDirection.ltr,
+                    inputAction: TextInputAction.next,
+                    validator: (String? value) {
+                      if (value!.isEmpty) {
+                        return "این فیلد نباید خالی باشد";
+                      } else if (value.length < 8) {
+                        return "رمز عبور باید هشت کاراکتر یا بیشتر باشد";
+                      }
+                      return null;
+                    },
+                    onChanged: (value) {
+                      customerModel.password = value;
+                    },
                   ),
                   const SizedBox(
                     height: 30,
                   ),
-                  Directionality(
-                    textDirection: TextDirection.rtl,
-                    child: TextFormField(
-                      textInputAction: TextInputAction.done,
-                      initialValue: customerModel.password,
-                      onChanged: (value) {
-                        customerModel.password = value;
-                      },
-                      cursorColor: Constants.primaryColor,
-                      style: textTheme.bodyLarge,
-                      textDirection: TextDirection.ltr,
-                      obscureText: true,
-                      validator: (String? value) {
-                        if (value!.isEmpty) {
-                          return "این فیلد نباید خالی باشد";
-                        } else if (value.length < 8) {
-                          return "رمز عبور باید ۸ کاراکتر یا بیشتر باشد";
-                        }
-                        return null;
-                      },
-                      decoration: InputDecoration(
-                        errorStyle: textTheme.bodyMedium!.copyWith(
-                          color: const Color.fromARGB(255, 159, 34, 25),
-                          fontSize: 12,
-                        ),
-                        label: Text(
-                          "رمز عبور",
-                          style: textTheme.titleMedium,
-                        ),
-                        contentPadding: const EdgeInsets.all(20.0),
-                        hintStyle: textTheme.titleLarge!.copyWith(
-                          color: Constants.primaryColor,
-                          height: 1.5,
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: Constants.primaryColor,
-                            width: 1.0,
-                          ),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                    ),
+                  CustomFormField(
+                    labelName: "نام کاربری",
+                    initialValue: customerModel.username,
+                    textTheme: textTheme,
+                    textDirection: TextDirection.ltr,
+                    inputAction: TextInputAction.next,
+                    validator: (String? value) {
+                      if (value!.isEmpty) {
+                        return "این فیلد نباید خالی باشد";
+                      }
+                      return null;
+                    },
+                    onChanged: (value) {
+                      customerModel.username = value;
+                    },
                   ),
                   const SizedBox(
-                    height: 30,
+                    height: 15,
                   ),
                   SizedBox(
                     width: size.width,
@@ -419,3 +283,63 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 }
+
+
+
+// class CustomFormField extends StatelessWidget {
+//   const CustomFormField({
+//     super.key,
+//     required this.customerModel,
+//     required this.textTheme,
+//   });
+
+//   final CustomerModel customerModel;
+//   final TextTheme textTheme;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Directionality(
+//       textDirection: TextDirection.rtl,
+//       child: TextFormField(
+//         initialValue: customerModel.firstName,
+//         onChanged: (value) {
+//           customerModel.firstName = value;
+//         },
+//         textInputAction: TextInputAction.next,
+//         cursorColor: Constants.primaryColor,
+//         style: textTheme.bodyLarge,
+//         validator: (String? value) {
+//           if (value!.isEmpty) {
+//             return "این فیلد نباید خالی باشد";
+//           }
+//           return null;
+//         },
+//         decoration: InputDecoration(
+//           errorStyle: textTheme.bodyMedium!.copyWith(
+//             color: const Color.fromARGB(255, 159, 34, 25),
+//             fontSize: 12,
+//           ),
+//           label: Text(
+//             "نام",
+//             style: textTheme.titleMedium,
+//           ),
+//           contentPadding: const EdgeInsets.all(20.0),
+//           hintStyle: textTheme.titleLarge!.copyWith(
+//             color: Constants.primaryColor,
+//             height: 1.5,
+//           ),
+//           focusedBorder: OutlineInputBorder(
+//             borderSide: const BorderSide(
+//               color: Constants.primaryColor,
+//               width: 1.0,
+//             ),
+//             borderRadius: BorderRadius.circular(10),
+//           ),
+//           border: OutlineInputBorder(
+//             borderRadius: BorderRadius.circular(10),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
