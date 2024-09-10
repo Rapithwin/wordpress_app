@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wordpress_app/api/api_service.dart';
 import 'package:wordpress_app/constants/constants.dart';
 import 'package:wordpress_app/models/woocommerce/costumer_model.dart';
+import 'package:wordpress_app/pages/login_page.dart';
 import 'package:wordpress_app/widgets/custom_form_field.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -245,16 +246,24 @@ class _SignUpPageState extends State<SignUpPage> {
                   SizedBox(
                     width: size.width,
                     child: TextButton(
-                        onPressed: () {},
-                        style: TextButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginPage(),
                           ),
+                        );
+                      },
+                      style: TextButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                        child: Text(
-                          ".حساب کاربری دارید؟ وارد شوید",
-                          style: textTheme.bodyMedium,
-                        )),
+                      ),
+                      child: Text(
+                        ".حساب کاربری دارید؟ وارد شوید",
+                        style: textTheme.bodyMedium,
+                      ),
+                    ),
                   )
                 ],
               ),
