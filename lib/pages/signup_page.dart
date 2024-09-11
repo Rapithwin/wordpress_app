@@ -3,6 +3,7 @@ import 'package:wordpress_app/api/api_service.dart';
 import 'package:wordpress_app/constants/constants.dart';
 import 'package:wordpress_app/models/woocommerce/costumer_model.dart';
 import 'package:wordpress_app/pages/login_page.dart';
+import 'package:wordpress_app/utils/custom_appbar.dart';
 import 'package:wordpress_app/utils/custom_dialog.dart';
 import 'package:wordpress_app/utils/extention.dart';
 import 'package:wordpress_app/widgets/custom_form_field.dart';
@@ -34,16 +35,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: Center(
-          child: Text(
-            "ثبت نام",
-            style: textTheme.headlineMedium,
-          ),
-        ),
-        leadingWidth: 80,
-        toolbarHeight: 80,
-      ),
+      appBar: customAppBar(textTheme, "ثبت نام"),
       body: Center(
         child: Form(
           key: formKey,
@@ -179,7 +171,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               CustomDialogBox.customDialog(
                                 context,
                                 textTheme,
-                                "ثبت‌نام با موفقیت انجام شد.",
+                                "ثبت‌نام با موفقیت انجام شد",
                                 <Widget>[
                                   TextButton(
                                     onPressed: () => Navigator.pop(context),
