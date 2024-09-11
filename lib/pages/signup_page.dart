@@ -3,6 +3,7 @@ import 'package:wordpress_app/api/api_service.dart';
 import 'package:wordpress_app/constants/constants.dart';
 import 'package:wordpress_app/models/woocommerce/costumer_model.dart';
 import 'package:wordpress_app/pages/login_page.dart';
+import 'package:wordpress_app/utils/custom_dialog.dart';
 import 'package:wordpress_app/utils/extention.dart';
 import 'package:wordpress_app/widgets/custom_form_field.dart';
 
@@ -175,39 +176,34 @@ class _SignUpPageState extends State<SignUpPage> {
                               isApiCalled = false;
                             });
                             if (result) {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: const Text("Woocommerce App"),
-                                    content: const Text(
-                                      "ثبت‌نام با موفقیت انجام شد",
+                              CustomDialogBox.customDialog(
+                                context,
+                                textTheme,
+                                "ثبت‌نام با موفقیت انجام شد.",
+                                <Widget>[
+                                  TextButton(
+                                    onPressed: () => Navigator.pop(context),
+                                    child: Text(
+                                      "بستن",
+                                      style: textTheme.labelSmall,
                                     ),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        onPressed: () => Navigator.pop(context),
-                                        child: const Text("OK"),
-                                      )
-                                    ],
-                                  );
-                                },
+                                  )
+                                ],
                               );
                             } else {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: const Text("Woocommerce App"),
-                                    content:
-                                        const Text("Email already registered"),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        onPressed: () => Navigator.pop(context),
-                                        child: const Text("OK"),
-                                      )
-                                    ],
-                                  );
-                                },
+                              CustomDialogBox.customDialog(
+                                context,
+                                textTheme,
+                                "ثبت‌نام انجام نشد.",
+                                <Widget>[
+                                  TextButton(
+                                    onPressed: () => Navigator.pop(context),
+                                    child: Text(
+                                      "بستن",
+                                      style: textTheme.labelSmall,
+                                    ),
+                                  )
+                                ],
                               );
                             }
                           });
@@ -279,63 +275,3 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 }
-
-
-
-// class CustomFormField extends StatelessWidget {
-//   const CustomFormField({
-//     super.key,
-//     required this.customerModel,
-//     required this.textTheme,
-//   });
-
-//   final CustomerModel customerModel;
-//   final TextTheme textTheme;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Directionality(
-//       textDirection: TextDirection.rtl,
-//       child: TextFormField(
-//         initialValue: customerModel.firstName,
-//         onChanged: (value) {
-//           customerModel.firstName = value;
-//         },
-//         textInputAction: TextInputAction.next,
-//         cursorColor: Constants.primaryColor,
-//         style: textTheme.bodyLarge,
-//         validator: (String? value) {
-//           if (value!.isEmpty) {
-//             return "این فیلد نباید خالی باشد";
-//           }
-//           return null;
-//         },
-//         decoration: InputDecoration(
-//           errorStyle: textTheme.bodyMedium!.copyWith(
-//             color: const Color.fromARGB(255, 159, 34, 25),
-//             fontSize: 12,
-//           ),
-//           label: Text(
-//             "نام",
-//             style: textTheme.titleMedium,
-//           ),
-//           contentPadding: const EdgeInsets.all(20.0),
-//           hintStyle: textTheme.titleLarge!.copyWith(
-//             color: Constants.primaryColor,
-//             height: 1.5,
-//           ),
-//           focusedBorder: OutlineInputBorder(
-//             borderSide: const BorderSide(
-//               color: Constants.primaryColor,
-//               width: 1.0,
-//             ),
-//             borderRadius: BorderRadius.circular(10),
-//           ),
-//           border: OutlineInputBorder(
-//             borderRadius: BorderRadius.circular(10),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }

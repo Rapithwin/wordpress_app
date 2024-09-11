@@ -51,6 +51,11 @@ class MainApp extends StatelessWidget {
             fontSize: 17,
             color: Colors.grey,
           ),
+          labelSmall: const TextStyle(
+            fontFamily: "Samim",
+            fontSize: 16,
+            color: Constants.blackColor,
+          ),
           bodyLarge: const TextStyle(fontFamily: "Samim"),
           bodyMedium: const TextStyle(
               fontFamily: "Samim", color: Constants.primaryColor),
