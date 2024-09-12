@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wordpress_app/constants/constants.dart';
+import 'package:wordpress_app/pages/signup_page.dart';
 import 'package:wordpress_app/utils/custom_appbar.dart';
 
 class LoginPage extends StatefulWidget {
@@ -24,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      appBar: customAppBar(textTheme, "ورود"),
+      appBar: CustomAppBar.customAppBarRegister(textTheme, "ورود"),
       body: Center(
         child: SizedBox(
           height: size.height * 0.8,
@@ -159,6 +160,32 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                       ],
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                SizedBox(
+                  width: size.width,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SignUpPage(),
+                        ),
+                        (_) => false,
+                      );
+                    },
+                    style: TextButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: Text(
+                      "حساب کاربری ندارید؟ ثبت‌نام کنید.",
+                      style: textTheme.bodyMedium,
                     ),
                   ),
                 ),

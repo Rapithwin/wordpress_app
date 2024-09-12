@@ -35,7 +35,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: customAppBar(textTheme, "ثبت نام"),
+      appBar: CustomAppBar.customAppBarRegister(textTheme, "ثبت نام"),
       body: Center(
         child: Form(
           key: formKey,
@@ -240,11 +240,12 @@ class _SignUpPageState extends State<SignUpPage> {
                     width: size.width,
                     child: TextButton(
                       onPressed: () {
-                        Navigator.push(
+                        Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
                             builder: (context) => const LoginPage(),
                           ),
+                          (_) => false,
                         );
                       },
                       style: TextButton.styleFrom(
@@ -257,7 +258,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         style: textTheme.bodyMedium,
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
