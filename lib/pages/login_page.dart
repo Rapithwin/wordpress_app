@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:wordpress_app/constants/constants.dart';
 import 'package:wordpress_app/pages/signup_page.dart';
 import 'package:wordpress_app/utils/custom_appbar.dart';
@@ -170,12 +171,12 @@ class _LoginPageState extends State<LoginPage> {
                   width: size.width,
                   child: TextButton(
                     onPressed: () {
-                      Navigator.pushAndRemoveUntil(
+                      Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => const SignUpPage(),
+                        PageTransition(
+                          child: const SignUpPage(),
+                          type: PageTransitionType.fade,
                         ),
-                        (_) => false,
                       );
                     },
                     style: TextButton.styleFrom(
@@ -184,7 +185,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     child: Text(
-                      "حساب کاربری ندارید؟ ثبت‌نام کنید.",
+                      ".حساب کاربری ندارید؟ ثبت‌نام کنید",
                       style: textTheme.bodyMedium,
                     ),
                   ),

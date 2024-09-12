@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:wordpress_app/api/api_service.dart';
 import 'package:wordpress_app/constants/constants.dart';
 import 'package:wordpress_app/models/woocommerce/costumer_model.dart';
@@ -240,12 +241,12 @@ class _SignUpPageState extends State<SignUpPage> {
                     width: size.width,
                     child: TextButton(
                       onPressed: () {
-                        Navigator.pushAndRemoveUntil(
+                        Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => const LoginPage(),
+                          PageTransition(
+                            child: const LoginPage(),
+                            type: PageTransitionType.fade,
                           ),
-                          (_) => false,
                         );
                       },
                       style: TextButton.styleFrom(
