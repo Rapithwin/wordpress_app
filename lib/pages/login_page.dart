@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:wordpress_app/api/api_service.dart';
 import 'package:wordpress_app/constants/constants.dart';
+import 'package:wordpress_app/pages/root_page.dart';
 import 'package:wordpress_app/pages/signup_page.dart';
 import 'package:wordpress_app/utils/custom_appbar.dart';
+import 'package:wordpress_app/utils/custom_dialog.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -19,6 +22,7 @@ class _LoginPageState extends State<LoginPage> {
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   bool isApiCalled = false;
+  APIService apiService = APIService();
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +135,48 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(
                   width: size.width,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        isApiCalled = true;
+                      });
+                      apiService
+                          .loginCustomer(
+                        emailController.text,
+                        passwordController.text,
+                      )
+                          .then(
+                        (result) {
+                          setState(() {
+                            isApiCalled = false;
+                          });
+                          if (result.message != null) {
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              PageTransition(
+                                child: const RootPage(),
+                                type: PageTransitionType.leftToRight,
+                              ),
+                              (_) => false,
+                            );
+                          } else {
+                            CustomDialogBox.customDialog(
+                              context,
+                              textTheme,
+                              result.message ?? "Unkown Error",
+                              [
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context),
+                                  child: Text(
+                                    "بستن",
+                                    style: textTheme.labelSmall,
+                                  ),
+                                )
+                              ],
+                            );
+                          }
+                        },
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Constants.primaryColor,
                       shape: RoundedRectangleBorder(
