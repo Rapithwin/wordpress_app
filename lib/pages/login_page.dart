@@ -154,7 +154,7 @@ class _LoginPageState extends State<LoginPage> {
                           width: 10,
                         ),
                         Text(
-                          "ٍثبت نام",
+                          "ورود",
                           style: textTheme.titleLarge!.copyWith(
                             color: Colors.white,
                           ),
