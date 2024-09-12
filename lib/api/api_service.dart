@@ -58,11 +58,11 @@ class APIService {
           },
         ),
       );
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200) {
         loginModel = LoginModel.fromJson(response.data);
       }
     } on DioException catch (e) {
-      debugPrint(e.toString());
+      debugPrint(e.message);
     }
     return loginModel;
   }

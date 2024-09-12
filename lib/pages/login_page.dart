@@ -149,7 +149,7 @@ class _LoginPageState extends State<LoginPage> {
                           setState(() {
                             isApiCalled = false;
                           });
-                          if (result.message != null) {
+                          if (result.message == null) {
                             Navigator.pushAndRemoveUntil(
                               context,
                               PageTransition(
@@ -162,7 +162,7 @@ class _LoginPageState extends State<LoginPage> {
                             CustomDialogBox.customDialog(
                               context,
                               textTheme,
-                              result.message ?? "Unkown Error",
+                              "Unkown Error",
                               [
                                 TextButton(
                                   onPressed: () => Navigator.pop(context),
