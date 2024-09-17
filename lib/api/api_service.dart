@@ -11,33 +11,42 @@ class APIService {
   final String consumerKey = dotenv.env["CONSUMER_KEY"]!;
   final String consumerSecret = dotenv.env["CONSUMER_SECRET"]!;
 
+  BaseOptions options = BaseOptions(
+    baseUrl: "https://10.0.2.2/",
+    receiveDataWhenStatusError: true,
+    connectTimeout: const Duration(seconds: 45),
+    receiveTimeout: const Duration(seconds: 45),
+  );
+
   Future<bool> createCostumer(CustomerModel model) async {
     bool isCreated = false;
+    Dio dio = Dio(options);
+
     final String authToken =
         base64.encode(utf8.encode("$consumerKey:$consumerSecret"));
 
     try {
-      var response = await Dio()
-          .request(
-            WoocommerceInfo.baseUrl + WoocommerceInfo.costumerURL,
-            data: model.toJson(),
-            options: Options(
-              method: "POST",
-              headers: {
-                HttpHeaders.authorizationHeader: "Basic $authToken",
-                HttpHeaders.contentTypeHeader: "application/json",
-              },
-            ),
-          )
-          .timeout(
-            const Duration(seconds: 180),
-          );
+      var response = await dio.request(
+        WoocommerceInfo.baseUrl + WoocommerceInfo.costumerURL,
+        data: model.toJson(),
+        options: Options(
+          method: "POST",
+          headers: {
+            HttpHeaders.authorizationHeader: "Basic $authToken",
+            HttpHeaders.contentTypeHeader: "application/json",
+          },
+        ),
+      );
+
       if (response.statusCode == 201) {
         isCreated = true;
       }
     } on DioException catch (e) {
       isCreated = false;
-      debugPrint(e.toString());
+      if (e.type == DioExceptionType.connectionTimeout) {
+        throw "Connection Timeout";
+      }
+      debugPrint(e.message);
     }
     return isCreated;
   }
@@ -46,10 +55,12 @@ class APIService {
     String username,
     String password,
   ) async {
+    Dio dio = Dio(options);
+
     late LoginModel loginModel;
 
     try {
-      var response = await Dio().request(
+      var response = await dio.request(
         WoocommerceInfo.jwtUrl,
         data: {
           "username": username,
@@ -66,6 +77,9 @@ class APIService {
         loginModel = LoginModel.fromJson(response.data);
       }
     } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout) {
+        debugPrint("Timeout Error");
+      }
       debugPrint(e.message);
     }
     return loginModel;
