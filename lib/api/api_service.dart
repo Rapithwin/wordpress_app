@@ -17,17 +17,21 @@ class APIService {
         base64.encode(utf8.encode("$consumerKey:$consumerSecret"));
 
     try {
-      var response = await Dio().request(
-        WoocommerceInfo.baseUrl + WoocommerceInfo.costumerURL,
-        data: model.toJson(),
-        options: Options(
-          method: "POST",
-          headers: {
-            HttpHeaders.authorizationHeader: "Basic $authToken",
-            HttpHeaders.contentTypeHeader: "application/json",
-          },
-        ),
-      );
+      var response = await Dio()
+          .request(
+            WoocommerceInfo.baseUrl + WoocommerceInfo.costumerURL,
+            data: model.toJson(),
+            options: Options(
+              method: "POST",
+              headers: {
+                HttpHeaders.authorizationHeader: "Basic $authToken",
+                HttpHeaders.contentTypeHeader: "application/json",
+              },
+            ),
+          )
+          .timeout(
+            const Duration(seconds: 180),
+          );
       if (response.statusCode == 201) {
         isCreated = true;
       }

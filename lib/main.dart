@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:wordpress_app/constants/constants.dart';
+import 'package:wordpress_app/pages/login_page.dart';
 import 'package:wordpress_app/pages/root_page.dart';
 
 void main() async {
@@ -70,7 +71,7 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: const Scaffold(
         body: Center(
-          child: RootPage(),
+          child: LoginPage(),
         ),
       ),
     );

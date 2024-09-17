@@ -149,7 +149,8 @@ class _LoginPageState extends State<LoginPage> {
                           setState(() {
                             isApiCalled = false;
                           });
-                          if (result.message == null) {
+                          if (result.token != null) {
+                            debugPrint(result.token);
                             Navigator.pushAndRemoveUntil(
                               context,
                               PageTransition(
