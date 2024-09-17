@@ -5,6 +5,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:wordpress_app/constants/constants.dart';
 import 'package:wordpress_app/pages/login_page.dart';
 import 'package:wordpress_app/pages/root_page.dart';
+import 'package:wordpress_app/pages/signup_page.dart';
 
 void main() async {
   // Override HttpClient globaly for self signed certificate issue

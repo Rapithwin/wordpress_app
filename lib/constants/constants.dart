@@ -8,6 +8,7 @@ class WoocommerceInfo {
       "https://10.0.2.2/wordpress//wp-json/jwt-auth/v1/token";
   // End points
   static String costumerURL = "customers";
+  static String productsURL = "products";
 }
 
 class Constants {
