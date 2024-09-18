@@ -6,6 +6,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:wordpress_app/constants/constants.dart';
 import 'package:wordpress_app/models/woocommerce/costumer_model.dart';
 import 'package:wordpress_app/models/woocommerce/login_model.dart';
+import 'package:wordpress_app/models/woocommerce/products_model.dart';
 
 class APIService {
   final String consumerKey = dotenv.env["CONSUMER_KEY"]!;
@@ -83,5 +84,32 @@ class APIService {
       debugPrint(e.message);
     }
     return loginModel;
+  }
+
+  Future<List<ProductModel>> getAllProducts() async {
+    List<ProductModel> productsList = <ProductModel>[];
+
+    try {
+      var response = await Dio().request(
+        WoocommerceInfo.baseUrl + WoocommerceInfo.productsURL,
+        options: Options(
+          method: "GET",
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/json",
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        productsList = (response.data as List)
+            .map((i) => ProductModel.fromJson(i))
+            .toList();
+      }
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout) {
+        debugPrint("Timeout Error");
+      }
+      debugPrint(e.message);
+    }
+    return productsList;
   }
 }
