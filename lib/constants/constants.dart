@@ -9,6 +9,7 @@ class WoocommerceInfo {
   // End points
   static String costumerURL = "customers";
   static String productsURL = "products";
+  static String productsCategoriesURL = "products/categories";
 }
 
 class Constants {
