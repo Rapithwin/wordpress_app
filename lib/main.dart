@@ -2,10 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:provider/provider.dart';
 import 'package:wordpress_app/constants/constants.dart';
+import 'package:wordpress_app/pages/home_page.dart';
 import 'package:wordpress_app/pages/login_page.dart';
-import 'package:wordpress_app/pages/root_page.dart';
-import 'package:wordpress_app/pages/signup_page.dart';
+import 'package:wordpress_app/provider/shop_provider.dart';
 
 void main() async {
   // Override HttpClient globaly for self signed certificate issue
@@ -29,50 +30,58 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        textTheme: TextTheme(
-          headlineLarge: const TextStyle(fontFamily: "Samim"),
-          headlineMedium: const TextStyle(
-            fontFamily: "Lalezar",
-            color: Constants.primaryColor,
-            fontSize: 40,
-          ),
-          titleLarge: TextStyle(
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => ShopProvider(),
+          child: const HomePage(),
+        ),
+      ],
+      child: MaterialApp(
+        theme: ThemeData(
+          textTheme: TextTheme(
+            headlineLarge: const TextStyle(fontFamily: "Samim"),
+            headlineMedium: const TextStyle(
+              fontFamily: "Lalezar",
+              color: Constants.primaryColor,
+              fontSize: 40,
+            ),
+            titleLarge: TextStyle(
+                fontFamily: "Lalezar",
+                fontSize: 27,
+                fontWeight: FontWeight.normal,
+                color: Colors.grey[600]),
+            titleMedium: const TextStyle(
               fontFamily: "Lalezar",
               fontSize: 27,
-              fontWeight: FontWeight.normal,
-              color: Colors.grey[600]),
-          titleMedium: const TextStyle(
-            fontFamily: "Lalezar",
-            fontSize: 27,
-            color: Constants.primaryColor,
-          ),
-          labelLarge: const TextStyle(
-            fontFamily: "Lalezar",
-            fontSize: 17,
-            color: Colors.grey,
-          ),
-          labelSmall: const TextStyle(
-            fontFamily: "Samim",
-            fontSize: 16,
-            color: Constants.blackColor,
-          ),
-          bodyLarge: const TextStyle(fontFamily: "Samim"),
-          bodyMedium: const TextStyle(
-              fontFamily: "Samim", color: Constants.primaryColor),
-          bodySmall: const TextStyle(
-            fontFamily: "nanumGothic",
-            fontSize: 17,
-            fontWeight: FontWeight.bold,
-            color: Constants.primaryColor,
+              color: Constants.primaryColor,
+            ),
+            labelLarge: const TextStyle(
+              fontFamily: "Lalezar",
+              fontSize: 17,
+              color: Colors.grey,
+            ),
+            labelSmall: const TextStyle(
+              fontFamily: "Samim",
+              fontSize: 16,
+              color: Constants.blackColor,
+            ),
+            bodyLarge: const TextStyle(fontFamily: "Samim"),
+            bodyMedium: const TextStyle(
+                fontFamily: "Samim", color: Constants.primaryColor),
+            bodySmall: const TextStyle(
+              fontFamily: "nanumGothic",
+              fontSize: 17,
+              fontWeight: FontWeight.bold,
+              color: Constants.primaryColor,
+            ),
           ),
         ),
-      ),
-      debugShowCheckedModeBanner: false,
-      home: const Scaffold(
-        body: Center(
-          child: LoginPage(),
+        debugShowCheckedModeBanner: false,
+        home: const Scaffold(
+          body: Center(
+            child: LoginPage(),
+          ),
         ),
       ),
     );
