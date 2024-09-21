@@ -17,11 +17,15 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    Future.delayed(Duration.zero).then((value) {
-      ShopProvider productList =
-          Provider.of<ShopProvider>(context, listen: false);
-      productList.getAllProducts();
-    });
+    Future.delayed(Duration.zero).then(
+      (value) {
+        ShopProvider productList =
+            Provider.of<ShopProvider>(context, listen: false);
+        productList.getAllProducts();
+        productList.getAllCategories();
+      },
+    );
+
     super.initState();
   }
 

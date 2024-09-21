@@ -124,6 +124,7 @@ class APIService {
         options: Options(
           method: "GET",
           headers: {
+            HttpHeaders.authorizationHeader: "Basic $authToken",
             HttpHeaders.contentTypeHeader: "application/json",
           },
         ),
