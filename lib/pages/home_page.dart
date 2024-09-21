@@ -91,7 +91,8 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 18),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                 height: 70,
                 width: size.width,
                 // Showing categories
@@ -136,15 +137,18 @@ class _HomePageState extends State<HomePage> {
                   reverse: true,
                   itemCount: value.product!.length,
                   itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: GestureDetector(
-                        onTap: () {},
+                    return GestureDetector(
+                      onTap: () {},
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 3.0, right: 3.0),
                         child: Container(
                           width: 220.0,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Constants.primaryColor.withOpacity(0.8),
+                            border: Border.all(
+                              width: 0.8,
+                              color: Constants.primaryColor.withOpacity(0.3),
+                            ),
+                            color: Colors.white,
                           ),
                           child: Stack(
                             children: <Widget>[
@@ -163,7 +167,8 @@ class _HomePageState extends State<HomePage> {
                                           .textTheme
                                           .bodyMedium
                                           ?.copyWith(
-                                            color: Colors.white70,
+                                            color: Constants.primaryColor
+                                                .withOpacity(0.5),
                                           ),
                                       textDirection: TextDirection.rtl,
                                     ),
@@ -181,7 +186,7 @@ class _HomePageState extends State<HomePage> {
                                             .textTheme
                                             .bodyLarge
                                             ?.copyWith(
-                                              color: Colors.white,
+                                              color: Constants.primaryColor,
                                             ),
                                         textDirection: TextDirection.rtl,
                                       ),
@@ -196,7 +201,7 @@ class _HomePageState extends State<HomePage> {
                                 height: 140,
                                 width: double.maxFinite,
                                 scale: 0.5,
-                                fit: BoxFit.fill,
+                                fit: BoxFit.contain,
                               ),
 
                               Positioned(
@@ -207,7 +212,7 @@ class _HomePageState extends State<HomePage> {
                                   width: 110,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(30),
-                                    color: Colors.white,
+                                    color: Constants.primaryColor,
                                   ),
                                   child: Padding(
                                     padding: const EdgeInsets.all(2.0),
@@ -218,7 +223,8 @@ class _HomePageState extends State<HomePage> {
                                             value.product![index].price!,
                                           ),
                                         )}تومان",
-                                        style: textTheme.bodySmall,
+                                        style: textTheme.bodySmall!
+                                            .copyWith(color: Colors.white),
                                       ),
                                     ),
                                   ),
@@ -243,7 +249,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
 
-              // New Plants
+              // Blog
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 height: size.height * 0.29,
