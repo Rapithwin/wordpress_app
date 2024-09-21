@@ -241,15 +241,15 @@ class _HomePageState extends State<HomePage> {
               Padding(
                 padding: const EdgeInsets.only(top: 23, bottom: 8, right: 20),
                 child: Text(
-                  "گیاهان جدید",
+                  "مطالب وبلاگ",
                   style: textTheme.titleLarge?.copyWith(
                     color: Colors.black,
-                    fontSize: 20,
+                    fontSize: 25,
                   ),
                 ),
               ),
 
-              // Blog
+              // TODO: Blog posts
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 height: size.height * 0.29,
@@ -271,22 +271,14 @@ class _HomePageState extends State<HomePage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             // Price
-                            Row(
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Image.asset(
-                                    "assets/images/PriceUnit-green.png",
-                                    height: 25,
-                                  ),
-                                ),
-                                Text(
-                                  "price",
-                                  style: textTheme.labelLarge?.copyWith(
-                                      fontSize: 24,
-                                      color: Constants.primaryColor),
-                                ),
-                              ],
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Text(
+                                "کلیک کنید",
+                                style: textTheme.labelLarge?.copyWith(
+                                    fontSize: 24,
+                                    color: Constants.primaryColor),
+                              ),
                             ),
 
                             Stack(
