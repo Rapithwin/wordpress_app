@@ -9,9 +9,12 @@ import 'package:wordpress_app/models/woocommerce/costumer_model.dart';
 import 'package:wordpress_app/models/woocommerce/login_model.dart';
 import 'package:wordpress_app/models/woocommerce/products_model.dart';
 
+final String consumerKey = dotenv.env["CONSUMER_KEY"]!;
+final String consumerSecret = dotenv.env["CONSUMER_SECRET"]!;
+
 class APIService {
-  final String consumerKey = dotenv.env["CONSUMER_KEY"]!;
-  final String consumerSecret = dotenv.env["CONSUMER_SECRET"]!;
+  final String authToken =
+      base64.encode(utf8.encode("$consumerKey:$consumerSecret"));
 
   BaseOptions options = BaseOptions(
     baseUrl: "https://10.0.2.2/",
@@ -23,9 +26,6 @@ class APIService {
   Future<bool> createCostumer(CustomerModel model) async {
     bool isCreated = false;
     Dio dio = Dio(options);
-
-    final String authToken =
-        base64.encode(utf8.encode("$consumerKey:$consumerSecret"));
 
     try {
       var response = await dio.request(
@@ -96,6 +96,7 @@ class APIService {
         options: Options(
           method: "GET",
           headers: {
+            HttpHeaders.authorizationHeader: "Basic $authToken",
             HttpHeaders.contentTypeHeader: "application/json",
           },
         ),

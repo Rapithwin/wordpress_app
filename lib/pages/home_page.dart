@@ -37,6 +37,7 @@ class _HomePageState extends State<HomePage> {
           child: CircularProgressIndicator(),
         );
       }
+
       return Scaffold(
         body: SingleChildScrollView(
           child: Column(

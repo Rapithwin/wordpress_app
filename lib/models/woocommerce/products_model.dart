@@ -30,7 +30,7 @@ class ProductModel {
       images = <WooImg>[];
       json["images"].forEach(
         (value) {
-          images?.add(value);
+          images?.add(WooImg.fromJson(value));
         },
       );
     }
@@ -38,7 +38,7 @@ class ProductModel {
       categories = <Categories>[];
       json["categories"].forEach(
         (value) {
-          categories?.add(value);
+          categories?.add(Categories.fromJson(value));
         },
       );
     }

@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:wordpress_app/constants/constants.dart';
 import 'package:wordpress_app/pages/home_page.dart';
 import 'package:wordpress_app/pages/login_page.dart';
+import 'package:wordpress_app/pages/root_page.dart';
 import 'package:wordpress_app/provider/shop_provider.dart';
 
 void main() async {
@@ -80,7 +81,7 @@ class MainApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home: const Scaffold(
           body: Center(
-            child: LoginPage(),
+            child: RootPage(),
           ),
         ),
       ),
