@@ -97,7 +97,7 @@ class _HomePageState extends State<HomePage> {
                 child: ListView.builder(
                   reverse: true,
                   scrollDirection: Axis.horizontal,
-                  itemCount: Constants.plantTypes.length,
+                  itemCount: value.category!.length,
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.all(6.0),
@@ -108,7 +108,9 @@ class _HomePageState extends State<HomePage> {
                           });
                         },
                         child: Text(
-                          Constants.plantTypes[index],
+                          index == 0
+                              ? ""
+                              : "|${value.category![index].category}|",
                           style: textTheme.bodyLarge?.copyWith(
                             color: selectedIndex == index
                                 ? Constants.primaryColor
