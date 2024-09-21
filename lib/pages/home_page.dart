@@ -155,23 +155,12 @@ class _HomePageState extends State<HomePage> {
                               // Name and category
                               Positioned(
                                 right: 20,
-                                bottom: 50,
+                                bottom: 21,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: <Widget>[
                                     // Categories
-                                    Text(
-                                      value.product![index].categories![0].name
-                                          .toString(),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium
-                                          ?.copyWith(
-                                            color: Constants.primaryColor
-                                                .withOpacity(0.5),
-                                          ),
-                                      textDirection: TextDirection.rtl,
-                                    ),
+
                                     const SizedBox(
                                       height: 6,
                                     ),
@@ -191,21 +180,38 @@ class _HomePageState extends State<HomePage> {
                                         textDirection: TextDirection.rtl,
                                       ),
                                     ),
+                                    const SizedBox(
+                                      height: 7,
+                                    ),
+                                    Text(
+                                      value.product![index].categories![0].name
+                                          .toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium
+                                          ?.copyWith(
+                                            color: Constants.primaryColor
+                                                .withOpacity(0.5),
+                                          ),
+                                      textDirection: TextDirection.rtl,
+                                    ),
                                   ],
                                 ),
                               ),
 
-                              Image.network(
-                                value.product![index].images![0].src!
-                                    .replaceAll("localhost", "10.0.2.2"),
-                                height: 140,
-                                width: double.maxFinite,
-                                scale: 0.5,
-                                fit: BoxFit.contain,
+                              Positioned(
+                                child: Image.network(
+                                  value.product![index].images![0].src!
+                                      .replaceAll("localhost", "10.0.2.2"),
+                                  height: 140,
+                                  width: double.maxFinite,
+                                  scale: 0.5,
+                                  fit: BoxFit.contain,
+                                ),
                               ),
 
                               Positioned(
-                                left: 22,
+                                left: 12,
                                 bottom: 18,
                                 child: Container(
                                   height: 25,
