@@ -94,6 +94,7 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.symmetric(horizontal: 18),
                 height: 70,
                 width: size.width,
+                // Showing categories
                 child: ListView.builder(
                   reverse: true,
                   scrollDirection: Axis.horizontal,
@@ -127,13 +128,13 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               // Middle section
+              // Products
               SizedBox(
                 height: size.height * 0.3,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   reverse: true,
-                  itemCount: 10,
-                  // itemCount: _plants.length, previous
+                  itemCount: value.product!.length,
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -147,34 +148,17 @@ class _HomePageState extends State<HomePage> {
                           ),
                           child: Stack(
                             children: <Widget>[
-                              Positioned(
-                                right: 20,
-                                top: 10,
-                                // Favorites button
-                                child: Container(
-                                  height: 45,
-                                  width: 45,
-                                  decoration: const BoxDecoration(
-                                    color: Colors.white,
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(
-                                        Icons.favorite,
-                                        color: Constants.primaryColor,
-                                      )),
-                                ),
-                              ),
                               // Name and category
                               Positioned(
                                 right: 20,
-                                bottom: 20,
+                                bottom: 50,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: <Widget>[
+                                    // Categories
                                     Text(
-                                      "Category",
+                                      value.product![index].categories![0].name
+                                          .toString(),
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyMedium
@@ -186,36 +170,56 @@ class _HomePageState extends State<HomePage> {
                                     const SizedBox(
                                       height: 6,
                                     ),
-                                    Text(
-                                      "name",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyLarge
-                                          ?.copyWith(
-                                            color: Colors.white,
-                                          ),
-                                      textDirection: TextDirection.rtl,
+                                    // Product name
+                                    SizedBox(
+                                      width: 180,
+                                      child: Text(
+                                        value.product![index].name.toString(),
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 2,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge
+                                            ?.copyWith(
+                                              color: Colors.white,
+                                            ),
+                                        textDirection: TextDirection.rtl,
+                                      ),
                                     ),
                                   ],
                                 ),
                               ),
-                              const Center(
-                                child: Text("img"),
+
+                              Image.network(
+                                value.product![index].images![0].src!
+                                    .replaceAll("localhost", "10.0.2.2"),
+                                height: 140,
+                                width: double.maxFinite,
+                                scale: 0.5,
+                                fit: BoxFit.fill,
                               ),
+
                               Positioned(
                                 left: 22,
                                 bottom: 18,
                                 child: Container(
-                                  height: 23,
-                                  width: 47,
+                                  height: 25,
+                                  width: 110,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(30),
                                     color: Colors.white,
                                   ),
-                                  child: Center(
-                                    child: Text(
-                                      "price",
-                                      style: textTheme.bodySmall,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: Center(
+                                      child: Text(
+                                        "${numberFormat.format(
+                                          int.parse(
+                                            value.product![index].price!,
+                                          ),
+                                        )}تومان",
+                                        style: textTheme.bodySmall,
+                                      ),
                                     ),
                                   ),
                                 ),
