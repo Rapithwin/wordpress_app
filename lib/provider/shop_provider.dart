@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:wordpress_app/api/api_service.dart';
 import 'package:wordpress_app/models/categories_model.dart';
+import 'package:wordpress_app/models/posts_model.dart';
 import 'package:wordpress_app/models/woocommerce/products_model.dart';
 
 class ShopProvider extends ChangeNotifier {
@@ -14,6 +15,10 @@ class ShopProvider extends ChangeNotifier {
   // Product categories
   List<CategoriesModel>? _categories = <CategoriesModel>[];
   List<CategoriesModel>? get category => _categories;
+
+  // Posts
+  List<Posts>? _posts = <Posts>[];
+  List<Posts>? get psot => _posts;
 
   ShopProvider() {
     _apiService = APIService();
@@ -33,6 +38,15 @@ class ShopProvider extends ChangeNotifier {
     notifyListeners();
     final response = await _apiService?.getProductCategories();
     _categories = response;
+    isLoading = false;
+    notifyListeners();
+  }
+
+  Future<void> getAllPosts() async {
+    isLoading = true;
+    notifyListeners();
+    final response = await _apiService?.getAllPosts();
+    _posts = response;
     isLoading = false;
     notifyListeners();
   }

@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:wordpress_app/constants/constants.dart';
 import 'package:wordpress_app/models/categories_model.dart';
+import 'package:wordpress_app/models/posts_model.dart';
 import 'package:wordpress_app/models/woocommerce/costumer_model.dart';
 import 'package:wordpress_app/models/woocommerce/login_model.dart';
 import 'package:wordpress_app/models/woocommerce/products_model.dart';
@@ -141,5 +142,36 @@ class APIService {
       debugPrint(e.message);
     }
     return productCategoriesList;
+  }
+
+//   Future<Posts> getPostById(String? id) async {
+
+// }
+
+  Future<List<Posts>?> getAllPosts() async {
+    List<Posts> postsList = <Posts>[];
+
+    try {
+      var response = await Dio().request(
+        WoocommerceInfo.postsUrl,
+        options: Options(
+          method: "GET",
+          headers: {
+            HttpHeaders.authorizationHeader: "Basic $authToken",
+            HttpHeaders.contentTypeHeader: "application/json",
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        postsList =
+            (response.data as List).map((i) => Posts.fromJson(i)).toList();
+      }
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout) {
+        debugPrint("Timeout Error");
+      }
+      debugPrint(e.message);
+    }
+    return postsList;
   }
 }
