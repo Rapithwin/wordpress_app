@@ -6,7 +6,7 @@ import 'package:wordpress_app/provider/shop_provider.dart';
 
 class ProductDetailsPage extends StatefulWidget {
   const ProductDetailsPage({super.key, required this.productId});
-  final int productId;
+  final String productId;
 
   @override
   State<ProductDetailsPage> createState() => _ProductDetailsPageState();
