@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:wordpress_app/api/api_service.dart';
-import 'package:wordpress_app/models/categories_model.dart';
+import 'package:wordpress_app/models/woocommerce/categories_model.dart';
 import 'package:wordpress_app/models/posts_model.dart';
 import 'package:wordpress_app/models/woocommerce/products_model.dart';
 
