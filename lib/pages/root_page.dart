@@ -70,9 +70,10 @@ class _RootPageState extends State<RootPage> {
         ),
       ),
       floatingActionButton: SizedBox(
-        height: 62,
+        height: 52,
         child: FittedBox(
           child: FloatingActionButton(
+            mini: true,
             onPressed: () {},
             backgroundColor: Constants.primaryColor,
             shape: const CircleBorder(),
@@ -84,15 +85,12 @@ class _RootPageState extends State<RootPage> {
           ),
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
       body: IndexedStack(
         index: bottomNavIndex,
         children: pages(),
       ),
       bottomNavigationBar: AnimatedBottomNavigationBar(
-        gapLocation: GapLocation.center,
-        notchSmoothness: NotchSmoothness.softEdge,
-        notchMargin: 10,
         elevation: 30,
         icons: iconsList,
         activeIndex: bottomNavIndex,

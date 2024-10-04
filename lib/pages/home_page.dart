@@ -292,48 +292,32 @@ class _HomePageState extends State<HomePage> {
                               Stack(
                                 clipBehavior: Clip.none,
                                 children: <Widget>[
-                                  // Image
-                                  Container(
-                                    height: 70,
-                                    width: 70,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Constants.primaryColor
-                                          .withOpacity(0.8),
-                                    ),
-                                  ),
-
                                   // Title
-                                  Positioned(
-                                    right: 80,
-                                    top: 10,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: <Widget>[
-                                        Text(
-                                          value.psot![index].title.toString(),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyMedium
-                                              ?.copyWith(fontSize: 18),
-                                        ),
-                                        const SizedBox(
-                                          height: 15,
-                                        ),
-                                        // Content
-                                        Text(
-                                          value.psot![index].date.toString(),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyLarge
-                                              ?.copyWith(
-                                                color: Colors.grey[600],
-                                                fontSize: 14,
-                                              ),
-                                        ),
-                                      ],
-                                    ),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: <Widget>[
+                                      Text(
+                                        value.psot![index].title.toString(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium
+                                            ?.copyWith(fontSize: 18),
+                                      ),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+                                      // Content
+                                      Text(
+                                        value.psot![index].date.toString(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge
+                                            ?.copyWith(
+                                              color: Colors.grey[600],
+                                              fontSize: 14,
+                                            ),
+                                      ),
+                                    ],
                                   )
                                 ],
                               ),
