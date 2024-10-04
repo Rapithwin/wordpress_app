@@ -143,10 +143,13 @@ class _HomePageState extends State<HomePage> {
                       return GestureDetector(
                         onTap: () {
                           Navigator.push(
-                              context,
-                              PageTransition(
-                                  child: const ProductDetailsPage(),
-                                  type: PageTransitionType.leftToRight));
+                            context,
+                            PageTransition(
+                                child: ProductDetailsPage(
+                                  productId: value.product![index].id!,
+                                ),
+                                type: PageTransitionType.leftToRight),
+                          );
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(left: 3.0, right: 3.0),

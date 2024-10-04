@@ -1,5 +1,6 @@
 class ProductModel {
   int? id;
+  bool? purchasable;
   String? name;
   String? description;
   String? shortDescription;
@@ -10,6 +11,7 @@ class ProductModel {
 
   ProductModel({
     this.id,
+    this.purchasable,
     this.name,
     this.description,
     this.shortDescription,
@@ -21,6 +23,7 @@ class ProductModel {
 
   ProductModel.fromJson(Map<String, dynamic> json) {
     id = json["id"];
+    purchasable = json["purchasable"];
     name = json["name"];
     description = json["description"];
     shortDescription = json["short_description"];
