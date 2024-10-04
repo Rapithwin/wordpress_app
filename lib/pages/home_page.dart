@@ -257,10 +257,9 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
-
-                // TODO: Blog posts
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   height: size.height * 0.29,
                   child: ListView.builder(
                     itemCount: value.psot!.length,
@@ -268,60 +267,58 @@ class _HomePageState extends State<HomePage> {
                       return GestureDetector(
                         onTap: () {},
                         child: Container(
-                          margin: const EdgeInsets.only(top: 20),
+                          margin: const EdgeInsets.only(bottom: 15),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
                             color: Constants.primaryColor.withOpacity(0.1),
                           ),
                           height: 90,
                           width: size.width,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              // Price
-                              Padding(
-                                padding: const EdgeInsets.only(left: 8.0),
-                                child: Text(
-                                  "کلیک کنید",
-                                  style: textTheme.labelLarge?.copyWith(
-                                      fontSize: 24,
-                                      color: Constants.primaryColor),
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 15),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                // Price
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: Text(
+                                    "کلیک کنید",
+                                    style: textTheme.labelLarge?.copyWith(
+                                        fontSize: 24,
+                                        color: Constants.primaryColor),
+                                  ),
                                 ),
-                              ),
 
-                              Stack(
-                                clipBehavior: Clip.none,
-                                children: <Widget>[
-                                  // Title
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: <Widget>[
-                                      Text(
-                                        value.psot![index].title.toString(),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium
-                                            ?.copyWith(fontSize: 18),
-                                      ),
-                                      const SizedBox(
-                                        height: 15,
-                                      ),
-                                      // Content
-                                      Text(
-                                        value.psot![index].date.toString(),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge
-                                            ?.copyWith(
-                                              color: Colors.grey[600],
-                                              fontSize: 14,
-                                            ),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ],
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Text(
+                                      value.psot![index].title.toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium
+                                          ?.copyWith(fontSize: 18),
+                                    ),
+                                    const SizedBox(
+                                      height: 15,
+                                    ),
+                                    // Content
+                                    Text(
+                                      value.psot![index].date.toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge
+                                          ?.copyWith(
+                                            color: Colors.grey[600],
+                                            fontSize: 14,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       );
