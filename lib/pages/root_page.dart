@@ -1,6 +1,4 @@
-import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:wordpress_app/constants/constants.dart';
 import 'package:wordpress_app/pages/cart_page.dart';
 import 'package:wordpress_app/pages/favorites_page.dart';
@@ -29,6 +27,21 @@ class _RootPageState extends State<RootPage> {
     Icons.favorite,
     Icons.shopping_cart,
     Icons.person,
+  ];
+
+  List<BottomNavigationBarItem> bottomNavBarItems = [
+    const BottomNavigationBarItem(
+      icon: Icon(Icons.home),
+    ),
+    const BottomNavigationBarItem(
+      icon: Icon(Icons.favorite),
+    ),
+    const BottomNavigationBarItem(
+      icon: Icon(Icons.shopping_cart),
+    ),
+    const BottomNavigationBarItem(
+      icon: Icon(Icons.person),
+    ),
   ];
 
   List<String> appBarTitles = [
@@ -73,6 +86,7 @@ class _RootPageState extends State<RootPage> {
         height: 52,
         child: FittedBox(
           child: FloatingActionButton(
+            elevation: 6,
             mini: true,
             onPressed: () {},
             backgroundColor: Constants.primaryColor,
@@ -90,13 +104,16 @@ class _RootPageState extends State<RootPage> {
         index: bottomNavIndex,
         children: pages(),
       ),
-      bottomNavigationBar: AnimatedBottomNavigationBar(
+      bottomNavigationBar: BottomNavigationBar(
+        items: bottomNavBarItems,
         elevation: 30,
-        icons: iconsList,
-        activeIndex: bottomNavIndex,
-        activeColor: Constants.primaryColor,
-        splashColor: Constants.primaryColor,
-        inactiveColor: Colors.grey[600],
+        currentIndex: bottomNavIndex,
+        selectedItemColor: Constants.primaryColor,
+        unselectedItemColor: Colors.grey[600],
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        type: BottomNavigationBarType.fixed,
+        selectedIconTheme: const IconThemeData(size: 30),
         onTap: (index) {
           setState(
             () {
