@@ -32,15 +32,19 @@ class _RootPageState extends State<RootPage> {
   List<BottomNavigationBarItem> bottomNavBarItems = [
     const BottomNavigationBarItem(
       icon: Icon(Icons.home),
+      label: "",
     ),
     const BottomNavigationBarItem(
       icon: Icon(Icons.favorite),
+      label: "",
     ),
     const BottomNavigationBarItem(
       icon: Icon(Icons.shopping_cart),
+      label: "",
     ),
     const BottomNavigationBarItem(
       icon: Icon(Icons.person),
+      label: "",
     ),
   ];
 

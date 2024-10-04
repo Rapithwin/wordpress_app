@@ -3,6 +3,7 @@ import 'package:intl/intl.dart' show NumberFormat;
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:wordpress_app/constants/constants.dart';
+import 'package:wordpress_app/pages/product_details.dart';
 import 'package:wordpress_app/provider/shop_provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -140,7 +141,13 @@ class _HomePageState extends State<HomePage> {
                     itemCount: value.product!.length,
                     itemBuilder: (context, index) {
                       return GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              PageTransition(
+                                  child: const ProductDetailsPage(),
+                                  type: PageTransitionType.leftToRight));
+                        },
                         child: Padding(
                           padding: const EdgeInsets.only(left: 3.0, right: 3.0),
                           child: Container(
