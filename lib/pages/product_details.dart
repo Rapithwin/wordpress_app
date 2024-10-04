@@ -87,7 +87,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                   bottom: 0.0,
                   child: Container(
                     width: size.width,
-                    height: size.height / 2,
+                    height: size.height * 0.48,
                     decoration: BoxDecoration(
                       color: Constants.primaryColor.withOpacity(0.4),
                       borderRadius: const BorderRadius.vertical(
@@ -96,7 +96,112 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                     ),
                   ),
                 ),
-                Positioned(child: Text(value.productById!.name ?? "null"))
+                // Image
+                Positioned(
+                  right: 0,
+                  child: SizedBox(
+                    width: size.width,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Image.network(
+                          value.productById!.images![0].src!.replaceAll(
+                            "localhost",
+                            "10.0.2.2",
+                          ),
+                          height: 240,
+                          width: size.width,
+                          scale: 0.5,
+                          fit: BoxFit.contain,
+                        ),
+                        // title
+                        Text(
+                          value.productById!.name ?? "null",
+                          textDirection: TextDirection.rtl,
+                          style: textTheme.titleMedium,
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                //description
+                Positioned(
+                  bottom: 0,
+                  child: SizedBox(
+                    height: size.height * 0.48,
+                    width: size.width,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Text(
+                            value.productById!.description!,
+                            textDirection: TextDirection.rtl,
+                            textAlign: TextAlign.justify,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15.0),
+                          child: Text(
+                            "${numberFormat.format(
+                              int.parse(
+                                value.productById!.price!,
+                              ),
+                            )}  تومان",
+                            style: textTheme.titleMedium,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                width: 55,
+                                height: 55,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color:
+                                      Constants.primaryColor.withOpacity(0.6),
+                                ),
+                                child: IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(
+                                    Icons.shopping_cart,
+                                    size: 26,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: size.width * 0.75,
+                                height: 52,
+                                child: ElevatedButton(
+                                  onPressed: () {},
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Constants.primaryColor,
+                                    elevation: 3,
+                                    side: BorderSide.none,
+                                    shape: ContinuousRectangleBorder(
+                                      borderRadius: BorderRadius.circular(25),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    "افزودن به سبد خرید",
+                                    style: textTheme.titleMedium!
+                                        .copyWith(color: Colors.white),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                )
               ],
             ),
           );
