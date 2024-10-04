@@ -17,9 +17,9 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
   void initState() {
     Future.delayed(Duration.zero).then(
       (value) {
-        ShopProvider productList =
+        ShopProvider productById =
             Provider.of<ShopProvider>(context, listen: false);
-        productList.getAllProducts();
+        productById.getProductById(widget.productId);
       },
     );
 
@@ -71,34 +71,37 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
           ),
         ],
       ),
-      body: Consumer<ShopProvider>(builder: (context, value, child) {
-        if (value.isLoading) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-        return SizedBox(
-          width: size.width,
-          height: size.height,
-          child: Stack(
-            children: <Widget>[
-              Positioned(
-                bottom: 0.0,
-                child: Container(
-                  width: size.width,
-                  height: size.height / 2,
-                  decoration: BoxDecoration(
-                    color: Constants.primaryColor.withOpacity(0.4),
-                    borderRadius: const BorderRadius.vertical(
-                      top: Radius.circular(30),
+      body: Consumer<ShopProvider>(
+        builder: (context, value, child) {
+          if (value.isLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return SizedBox(
+            width: size.width,
+            height: size.height,
+            child: Stack(
+              children: <Widget>[
+                Positioned(
+                  bottom: 0.0,
+                  child: Container(
+                    width: size.width,
+                    height: size.height / 2,
+                    decoration: BoxDecoration(
+                      color: Constants.primaryColor.withOpacity(0.4),
+                      borderRadius: const BorderRadius.vertical(
+                        top: Radius.circular(30),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
-        );
-      }),
+                Positioned(child: Text(value.productById!.name ?? "null"))
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }

@@ -120,7 +120,7 @@ class APIService {
     late ProductModel product;
     try {
       var response = await Dio().request(
-        WoocommerceInfo.baseUrl + WoocommerceInfo.productsURL + id,
+        "${WoocommerceInfo.baseUrl}${WoocommerceInfo.productsURL}/$id",
         options: Options(
           method: "GET",
           headers: {
@@ -130,7 +130,7 @@ class APIService {
         ),
       );
       if (response.statusCode == 200) {
-        product = response.data;
+        product = ProductModel.fromJson(response.data);
       }
     } on DioException catch (e) {
       if (e.type == DioExceptionType.connectionTimeout) {
