@@ -108,13 +108,18 @@ class _HomePageState extends State<HomePage> {
                         padding: const EdgeInsets.all(6.0),
                         child: GestureDetector(
                           onTap: () {
+                            final String catId =
+                                value.category![index].id.toString();
                             setState(() {
                               selectedIndex = index;
+                              selectedIndex == 0
+                                  ? value.getAllProducts()
+                                  : value.getAllProducts(catId: catId);
                             });
                           },
                           child: Text(
                             index == 0
-                                ? ""
+                                ? "|همه|"
                                 : "|${value.category![index].category}|",
                             style: textTheme.bodyLarge?.copyWith(
                               color: selectedIndex == index
