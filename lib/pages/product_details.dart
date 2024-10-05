@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:wordpress_app/constants/constants.dart';
 import 'package:wordpress_app/provider/shop_provider.dart';
 import 'package:wordpress_app/utils/extention.dart';
+import 'package:wordpress_app/widgets/custom_bottom_appbar.dart';
 
 class ProductDetailsPage extends StatefulWidget {
   const ProductDetailsPage({super.key, required this.productId});
@@ -72,6 +73,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
           ),
         ],
       ),
+      bottomNavigationBar: const CustomBottomAppbar(),
       body: Consumer<ShopProvider>(
         builder: (context, value, child) {
           if (value.isLoading) {
@@ -79,28 +81,14 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               child: CircularProgressIndicator(),
             );
           }
-          return SizedBox(
-            width: size.width,
-            height: size.height,
-            child: Stack(
-              children: <Widget>[
-                Positioned(
-                  bottom: 0.0,
-                  child: Container(
-                    width: size.width,
-                    height: size.height * 0.48,
-                    decoration: BoxDecoration(
-                      color: Constants.primaryColor.withOpacity(0.4),
-                      borderRadius: const BorderRadius.vertical(
-                        top: Radius.circular(30),
-                      ),
-                    ),
-                  ),
-                ),
-                // Image
-                Positioned(
-                  right: 0,
-                  child: SizedBox(
+          return SingleChildScrollView(
+            child: SizedBox(
+              width: size.width,
+              height: size.height,
+              child: Column(
+                children: <Widget>[
+                  // Image
+                  SizedBox(
                     width: size.width,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -125,12 +113,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       ],
                     ),
                   ),
-                ),
-                //description
-                Positioned(
-                  bottom: 0,
-                  child: SizedBox(
-                    height: size.height * 0.48,
+                  //description
+                  SizedBox(
                     width: size.width,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -154,56 +138,11 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                             style: textTheme.titleMedium,
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Container(
-                                width: 55,
-                                height: 55,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color:
-                                      Constants.primaryColor.withOpacity(0.6),
-                                ),
-                                child: IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(
-                                    Icons.shopping_cart,
-                                    size: 26,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: size.width * 0.75,
-                                height: 52,
-                                child: ElevatedButton(
-                                  onPressed: () {},
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Constants.primaryColor,
-                                    elevation: 3,
-                                    side: BorderSide.none,
-                                    shape: ContinuousRectangleBorder(
-                                      borderRadius: BorderRadius.circular(25),
-                                    ),
-                                  ),
-                                  child: Text(
-                                    "افزودن به سبد خرید",
-                                    style: textTheme.titleMedium!
-                                        .copyWith(color: Colors.white),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        )
                       ],
                     ),
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           );
         },
