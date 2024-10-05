@@ -3,6 +3,7 @@ import 'package:intl/intl.dart' show NumberFormat;
 import 'package:provider/provider.dart';
 import 'package:wordpress_app/constants/constants.dart';
 import 'package:wordpress_app/provider/shop_provider.dart';
+import 'package:wordpress_app/utils/extention.dart';
 
 class ProductDetailsPage extends StatefulWidget {
   const ProductDetailsPage({super.key, required this.productId});
@@ -137,7 +138,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                         Padding(
                           padding: const EdgeInsets.all(12.0),
                           child: Text(
-                            value.productById!.description!,
+                            value.productById!.description!.removeHtml,
                             textDirection: TextDirection.rtl,
                             textAlign: TextAlign.justify,
                           ),

@@ -1,3 +1,5 @@
+import 'package:html/parser.dart';
+
 extension ExtString on String {
   bool get isEmailValid {
     final emailRegEx = RegExp(
@@ -16,5 +18,12 @@ extension FarsiNumber on String {
       text = text.replaceAll(eng[i], farsi[i]);
     }
     return text;
+  }
+}
+
+extension RemoveHtmlTags on String {
+  String get removeHtml {
+    final document = parse(this);
+    return document.body!.text;
   }
 }
