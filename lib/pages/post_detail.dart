@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:wordpress_app/constants/constants.dart';
+import 'package:wordpress_app/provider/shop_provider.dart';
 
 class BlogPostsPage extends StatefulWidget {
-  const BlogPostsPage({super.key});
+  const BlogPostsPage({super.key, required this.id});
+  final String id;
 
   @override
   State<BlogPostsPage> createState() => _BlogPostsPageState();
@@ -10,7 +14,24 @@ class BlogPostsPage extends StatefulWidget {
 
 class _BlogPostsPageState extends State<BlogPostsPage> {
   @override
+  void initState() {
+    Future.delayed(Duration.zero).then(
+      (value) {
+        ShopProvider postById =
+            Provider.of<ShopProvider>(context, listen: false);
+        postById.getPostById(widget.id);
+      },
+    );
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+    final NumberFormat numberFormat = NumberFormat.decimalPattern("fa");
+    final textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
       appBar: AppBar(
         leadingWidth: 80,
@@ -50,6 +71,33 @@ class _BlogPostsPageState extends State<BlogPostsPage> {
             ),
           ),
         ],
+      ),
+      body: Consumer<ShopProvider>(
+        builder: (context, value, child) {
+          if (value.isLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  value.postById!.title.toString(),
+                  style: textTheme.headlineMedium,
+                ),
+                Text(
+                  value.postById!.content.toString(),
+                  style: textTheme.bodyLarge,
+                ),
+                Text(
+                  value.postById!.date.toString().replaceAll(RegExp(r"T"), " "),
+                  style: textTheme.labelLarge,
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }

@@ -288,8 +288,8 @@ class _HomePageState extends State<HomePage> {
                             Navigator.push(
                               context,
                               PageTransition(
-                                child:
-                                    BlogPostsPage(id: value.psot![index].id!),
+                                child: BlogPostsPage(
+                                    id: value.psot![index].id.toString()),
                                 type: PageTransitionType.leftToRight,
                               ),
                             );

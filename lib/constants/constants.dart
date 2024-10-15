@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class WoocommerceInfo {
   // Woocommerce base url
   static String baseUrl = "https://10.0.2.2/wordpress/wp-json/wc/v3/";
-  static String postsUrl = "https://10.0.2.2/wordpress/wp-json/wp/v2/posts";
+  static String postsUrl = "https://10.0.2.2/wordpress/wp-json/wp/v2/posts/";
   // JWT url
   static String jwtUrl =
       "https://10.0.2.2/wordpress//wp-json/jwt-auth/v1/token";

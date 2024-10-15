@@ -171,10 +171,6 @@ class APIService {
     return productCategoriesList;
   }
 
-//   Future<Posts> getPostById(String? id) async {
-
-// }
-
   Future<List<Posts>?> getAllPosts() async {
     List<Posts> postsList = <Posts>[];
 
@@ -200,5 +196,30 @@ class APIService {
       debugPrint(e.message);
     }
     return postsList;
+  }
+
+  Future<Posts> getPostById(String? id) async {
+    late Posts post;
+    try {
+      var response = await Dio().request(
+        WoocommerceInfo.postsUrl + id!,
+        options: Options(
+          method: "GET",
+          headers: {
+            HttpHeaders.authorizationHeader: "Basic $authToken",
+            HttpHeaders.contentTypeHeader: "application/json",
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        post = Posts.fromJson(response.data);
+      }
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout) {
+        debugPrint("Timeout Error");
+      }
+      debugPrint(e.message);
+    }
+    return post;
   }
 }
