@@ -86,24 +86,23 @@ class _RootPageState extends State<RootPage> {
           ),
         ),
       ),
-      floatingActionButton: SizedBox(
-        height: 52,
-        child: FittedBox(
-          child: FloatingActionButton(
-            elevation: 6,
-            mini: true,
-            onPressed: () {},
-            backgroundColor: Constants.primaryColor,
-            shape: const CircleBorder(),
-            child: const Icon(
-              Icons.search,
-              color: Colors.white,
-              size: 25,
-            ),
-          ),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
+      // floatingActionButton: SizedBox(
+      //   height: 52,
+      //   child: FittedBox(
+      //     child: FloatingActionButton(
+      //       elevation: 6,
+      //       mini: true,
+      //       onPressed: () {},
+      //       backgroundColor: Constants.primaryColor,
+      //       shape: const CircleBorder(),
+      //       child: const Icon(
+      //         Icons.search,
+      //         color: Colors.white,
+      //         size: 25,
+      //       ),
+      //     ),
+      //   ),
+      // ),
       body: IndexedStack(
         index: bottomNavIndex,
         children: pages(),
