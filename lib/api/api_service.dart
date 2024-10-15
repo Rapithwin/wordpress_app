@@ -88,12 +88,14 @@ class APIService {
     return loginModel;
   }
 
-  Future<List<ProductModel>> getAllProducts(String catId) async {
+  Future<List<ProductModel>> getAllProducts(String? catId) async {
     List<ProductModel> productsList = <ProductModel>[];
 
     try {
       var response = await Dio().request(
-        "${WoocommerceInfo.baseUrl}${WoocommerceInfo.productsCategoriesURL}?category=$catId",
+        catId != null
+            ? "${WoocommerceInfo.baseUrl}${WoocommerceInfo.productsURL}?category=$catId"
+            : "${WoocommerceInfo.baseUrl}${WoocommerceInfo.productsURL}",
         options: Options(
           method: "GET",
           headers: {

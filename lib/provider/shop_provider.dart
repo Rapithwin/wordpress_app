@@ -28,7 +28,7 @@ class ShopProvider extends ChangeNotifier {
     _apiService = APIService();
   }
 
-  Future<void> getAllProducts({String catId = ""}) async {
+  Future<void> getAllProducts({String? catId}) async {
     isLoading = true;
     notifyListeners();
     final response = await _apiService?.getAllProducts(catId);
