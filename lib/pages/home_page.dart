@@ -3,6 +3,7 @@ import 'package:intl/intl.dart' show NumberFormat;
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:wordpress_app/constants/constants.dart';
+import 'package:wordpress_app/pages/post_detail.dart';
 import 'package:wordpress_app/pages/product_details.dart';
 import 'package:wordpress_app/provider/shop_provider.dart';
 
@@ -273,72 +274,85 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  height: size.height * 0.29,
-                  child: ListView.builder(
-                    itemCount: value.psot!.length,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {},
-                        child: Container(
-                          margin: const EdgeInsets.only(bottom: 15),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            color: Constants.primaryColor.withOpacity(0.1),
-                          ),
-                          height: 90,
-                          width: size.width,
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 15),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                // Price
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 8.0),
-                                  child: Text(
-                                    "کلیک کنید",
-                                    style: textTheme.labelLarge?.copyWith(
-                                        fontSize: 24,
-                                        color: Constants.primaryColor),
+                GestureDetector(
+                  onTap: () {},
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
+                    height: size.height * 0.29,
+                    child: ListView.builder(
+                      itemCount: value.psot!.length,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              PageTransition(
+                                child:
+                                    BlogPostsPage(id: value.psot![index].id!),
+                                type: PageTransitionType.leftToRight,
+                              ),
+                            );
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.only(bottom: 15),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              color: Constants.primaryColor.withOpacity(0.1),
+                            ),
+                            height: 90,
+                            width: size.width,
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 15),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  // Price
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 8.0),
+                                    child: Text(
+                                      "کلیک کنید",
+                                      style: textTheme.labelLarge?.copyWith(
+                                          fontSize: 24,
+                                          color: Constants.primaryColor),
+                                    ),
                                   ),
-                                ),
 
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    Text(
-                                      value.psot![index].title.toString(),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium
-                                          ?.copyWith(fontSize: 18),
-                                    ),
-                                    const SizedBox(
-                                      height: 15,
-                                    ),
-                                    // Content
-                                    Text(
-                                      value.psot![index].date.toString(),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyLarge
-                                          ?.copyWith(
-                                            color: Colors.grey[600],
-                                            fontSize: 14,
-                                          ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        value.psot![index].title.toString(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium
+                                            ?.copyWith(fontSize: 18),
+                                      ),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+                                      // Content
+                                      Text(
+                                        value.psot![index].date.toString(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge
+                                            ?.copyWith(
+                                              color: Colors.grey[600],
+                                              fontSize: 14,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
                 )
               ],
