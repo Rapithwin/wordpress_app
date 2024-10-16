@@ -6,7 +6,9 @@ import 'package:provider/provider.dart';
 import 'package:wordpress_app/constants/constants.dart';
 import 'package:wordpress_app/pages/home_page.dart';
 import 'package:wordpress_app/pages/login_page.dart';
+import 'package:wordpress_app/pages/product_details.dart';
 import 'package:wordpress_app/pages/root_page.dart';
+import 'package:wordpress_app/provider/loader_provider.dart';
 import 'package:wordpress_app/provider/shop_provider.dart';
 
 void main() async {
@@ -36,6 +38,10 @@ class MainApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => ShopProvider(),
           child: const HomePage(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => LoaderProvider(),
+          child: const ProductDetailsPage(productId: productId),
         ),
       ],
       child: MaterialApp(
