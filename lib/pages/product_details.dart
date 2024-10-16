@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' show NumberFormat;
 import 'package:provider/provider.dart';
+import 'package:readmore/readmore.dart';
 import 'package:wordpress_app/constants/constants.dart';
 import 'package:wordpress_app/provider/shop_provider.dart';
 import 'package:wordpress_app/utils/extention.dart';
@@ -86,7 +87,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
           return SingleChildScrollView(
             child: SizedBox(
               width: size.width,
-              height: size.height,
               child: Column(
                 children: <Widget>[
                   // Image
@@ -123,10 +123,21 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       children: <Widget>[
                         Padding(
                           padding: const EdgeInsets.all(12.0),
-                          child: Text(
+                          child: ReadMoreText(
                             value.productById!.description!.removeHtml,
+                            trimLines: 2,
+                            trimCollapsedText: "بیشتر",
+                            trimExpandedText: "بستن",
                             textDirection: TextDirection.rtl,
                             textAlign: TextAlign.justify,
+                            moreStyle: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey,
+                            ),
+                            lessStyle: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey,
+                            ),
                           ),
                         ),
                         Padding(
