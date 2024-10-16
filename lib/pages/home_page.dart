@@ -301,7 +301,8 @@ class _HomePageState extends State<HomePage> {
                                   context,
                                   PageTransition(
                                     child: BlogPostsPage(
-                                        id: value.psot![index].id.toString()),
+                                      post: value.psot![index],
+                                    ),
                                     type: PageTransitionType.bottomToTop,
                                   ),
                                 );

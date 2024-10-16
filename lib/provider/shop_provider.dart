@@ -21,10 +21,6 @@ class ShopProvider extends ChangeNotifier {
   List<Posts>? _posts = <Posts>[];
   List<Posts>? get psot => _posts;
 
-  // Posts by id
-  Posts? _postById;
-  Posts? get postById => _postById;
-
   ShopProvider() {
     _apiService = APIService();
   }
@@ -52,15 +48,6 @@ class ShopProvider extends ChangeNotifier {
     notifyListeners();
     final response = await _apiService?.getAllPosts();
     _posts = response;
-    isLoadingPosts = false;
-    notifyListeners();
-  }
-
-  Future<void> getPostById(String id) async {
-    isLoadingPosts = true;
-    notifyListeners();
-    final response = await _apiService?.getPostById(id);
-    _postById = response;
     isLoadingPosts = false;
     notifyListeners();
   }
