@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:wordpress_app/constants/constants.dart';
 import 'package:wordpress_app/provider/shop_provider.dart';
@@ -28,8 +27,6 @@ class _BlogPostsPageState extends State<BlogPostsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
-    final NumberFormat numberFormat = NumberFormat.decimalPattern("fa");
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(

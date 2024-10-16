@@ -40,12 +40,6 @@ class _HomePageState extends State<HomePage> {
 
     return Consumer<ShopProvider>(
       builder: (context, value, child) {
-        if (value.isLoading) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-
         return Scaffold(
           body: SingleChildScrollView(
             child: Column(
@@ -141,128 +135,145 @@ class _HomePageState extends State<HomePage> {
                 // Products
                 SizedBox(
                   height: size.height * 0.3,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    reverse: true,
-                    itemCount: value.product!.length,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            PageTransition(
-                                child: ProductDetailsPage(
-                                  productId:
-                                      value.product![index].id.toString(),
-                                ),
-                                type: PageTransitionType.leftToRight),
-                          );
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 3.0, right: 3.0),
-                          child: Container(
-                            width: 220.0,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                width: 0.8,
-                                color: Constants.primaryColor.withOpacity(0.3),
-                              ),
-                              color: Colors.white,
-                            ),
-                            child: Stack(
-                              children: <Widget>[
-                                // Name and category
-                                Positioned(
-                                  right: 20,
-                                  bottom: 21,
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: <Widget>[
-                                      // Categories
-
-                                      const SizedBox(
-                                        height: 6,
+                  child: value.isLoading
+                      ? const Center(
+                          child: CircularProgressIndicator(
+                            color: Constants.primaryColor,
+                          ),
+                        )
+                      : ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          reverse: true,
+                          itemCount: value.product!.length,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  PageTransition(
+                                      child: ProductDetailsPage(
+                                        productId:
+                                            value.product![index].id.toString(),
                                       ),
-                                      // Product name
-                                      SizedBox(
-                                        width: 180,
-                                        child: Text(
-                                          value.product![index].name.toString(),
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 2,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyLarge
-                                              ?.copyWith(
-                                                color: Constants.primaryColor,
+                                      type: PageTransitionType.leftToRight),
+                                );
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 3.0, right: 3.0),
+                                child: Container(
+                                  width: 220.0,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      width: 0.8,
+                                      color: Constants.primaryColor
+                                          .withOpacity(0.3),
+                                    ),
+                                    color: Colors.white,
+                                  ),
+                                  child: Stack(
+                                    children: <Widget>[
+                                      // Name and category
+                                      Positioned(
+                                        right: 20,
+                                        bottom: 21,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          children: <Widget>[
+                                            // Categories
+
+                                            const SizedBox(
+                                              height: 6,
+                                            ),
+                                            // Product name
+                                            SizedBox(
+                                              width: 180,
+                                              child: Text(
+                                                value.product![index].name
+                                                    .toString(),
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 2,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyLarge
+                                                    ?.copyWith(
+                                                      color: Constants
+                                                          .primaryColor,
+                                                    ),
+                                                textDirection:
+                                                    TextDirection.rtl,
                                               ),
-                                          textDirection: TextDirection.rtl,
+                                            ),
+                                            const SizedBox(
+                                              height: 7,
+                                            ),
+                                            Text(
+                                              value.product![index]
+                                                  .categories![0].name
+                                                  .toString(),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium
+                                                  ?.copyWith(
+                                                    color: Constants
+                                                        .primaryColor
+                                                        .withOpacity(0.5),
+                                                  ),
+                                              textDirection: TextDirection.rtl,
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                      const SizedBox(
-                                        height: 7,
+
+                                      Positioned(
+                                        child: Image.network(
+                                          value.product![index].images![0].src!
+                                              .replaceAll(
+                                                  "localhost", "10.0.2.2"),
+                                          height: 140,
+                                          width: double.maxFinite,
+                                          scale: 0.5,
+                                          fit: BoxFit.contain,
+                                        ),
                                       ),
-                                      Text(
-                                        value
-                                            .product![index].categories![0].name
-                                            .toString(),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium
-                                            ?.copyWith(
-                                              color: Constants.primaryColor
-                                                  .withOpacity(0.5),
+
+                                      Positioned(
+                                        left: 12,
+                                        bottom: 18,
+                                        child: Container(
+                                          height: 25,
+                                          width: 110,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                            color: Constants.primaryColor,
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(2.0),
+                                            child: Center(
+                                              child: Text(
+                                                "${numberFormat.format(
+                                                  int.parse(
+                                                    value
+                                                        .product![index].price!,
+                                                  ),
+                                                )}تومان",
+                                                style: textTheme.bodySmall!
+                                                    .copyWith(
+                                                        color: Colors.white),
+                                              ),
                                             ),
-                                        textDirection: TextDirection.rtl,
-                                      ),
+                                          ),
+                                        ),
+                                      )
                                     ],
                                   ),
                                 ),
-
-                                Positioned(
-                                  child: Image.network(
-                                    value.product![index].images![0].src!
-                                        .replaceAll("localhost", "10.0.2.2"),
-                                    height: 140,
-                                    width: double.maxFinite,
-                                    scale: 0.5,
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-
-                                Positioned(
-                                  left: 12,
-                                  bottom: 18,
-                                  child: Container(
-                                    height: 25,
-                                    width: 110,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(30),
-                                      color: Constants.primaryColor,
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(2.0),
-                                      child: Center(
-                                        child: Text(
-                                          "${numberFormat.format(
-                                            int.parse(
-                                              value.product![index].price!,
-                                            ),
-                                          )}تومان",
-                                          style: textTheme.bodySmall!
-                                              .copyWith(color: Colors.white),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
+                              ),
+                            );
+                          },
                         ),
-                      );
-                    },
-                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 23, bottom: 8, right: 20),
@@ -274,87 +285,92 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 10),
-                    height: size.height * 0.29,
-                    child: ListView.builder(
-                      itemCount: value.psot!.length,
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              PageTransition(
-                                child: BlogPostsPage(
-                                    id: value.psot![index].id.toString()),
-                                type: PageTransitionType.leftToRight,
-                              ),
-                            );
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.only(bottom: 15),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              color: Constants.primaryColor.withOpacity(0.1),
-                            ),
-                            height: 90,
-                            width: size.width,
-                            child: Padding(
-                              padding: const EdgeInsets.only(right: 15),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  // Price
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 8.0),
-                                    child: Text(
-                                      "کلیک کنید",
-                                      style: textTheme.labelLarge?.copyWith(
-                                          fontSize: 24,
-                                          color: Constants.primaryColor),
-                                    ),
+                value.isLoadingPosts
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 10),
+                        height: size.height * 0.29,
+                        child: ListView.builder(
+                          itemCount: value.psot!.length,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  PageTransition(
+                                    child: BlogPostsPage(
+                                        id: value.psot![index].id.toString()),
+                                    type: PageTransitionType.leftToRight,
                                   ),
-
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                );
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.only(bottom: 15),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  color:
+                                      Constants.primaryColor.withOpacity(0.1),
+                                ),
+                                height: 90,
+                                width: size.width,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 15),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
-                                      Text(
-                                        value.psot![index].title.toString(),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium
-                                            ?.copyWith(fontSize: 18),
+                                      // Price
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 8.0),
+                                        child: Text(
+                                          "کلیک کنید",
+                                          style: textTheme.labelLarge?.copyWith(
+                                              fontSize: 24,
+                                              color: Constants.primaryColor),
+                                        ),
                                       ),
-                                      const SizedBox(
-                                        height: 15,
-                                      ),
-                                      // Content
-                                      Text(
-                                        value.psot![index].date.toString(),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge
-                                            ?.copyWith(
-                                              color: Colors.grey[600],
-                                              fontSize: 14,
-                                            ),
+
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Text(
+                                            value.psot![index].title.toString(),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium
+                                                ?.copyWith(fontSize: 18),
+                                          ),
+                                          const SizedBox(
+                                            height: 15,
+                                          ),
+                                          // Content
+                                          Text(
+                                            value.psot![index].date.toString(),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyLarge
+                                                ?.copyWith(
+                                                  color: Colors.grey[600],
+                                                  fontSize: 14,
+                                                ),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
-                                ],
+                                ),
                               ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                )
+                            );
+                          },
+                        ),
+                      )
               ],
             ),
           ),

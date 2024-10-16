@@ -8,6 +8,7 @@ class ShopProvider extends ChangeNotifier {
   APIService? _apiService;
 
   bool isLoading = false;
+  bool isLoadingPosts = false;
   // Products
   List<ProductModel>? _products = <ProductModel>[];
   List<ProductModel>? get product => _products;
@@ -60,20 +61,20 @@ class ShopProvider extends ChangeNotifier {
   }
 
   Future<void> getAllPosts() async {
-    isLoading = true;
+    isLoadingPosts = true;
     notifyListeners();
     final response = await _apiService?.getAllPosts();
     _posts = response;
-    isLoading = false;
+    isLoadingPosts = false;
     notifyListeners();
   }
 
   Future<void> getPostById(String id) async {
-    isLoading = true;
+    isLoadingPosts = true;
     notifyListeners();
     final response = await _apiService?.getPostById(id);
     _postById = response;
-    isLoading = false;
+    isLoadingPosts = false;
     notifyListeners();
   }
 
