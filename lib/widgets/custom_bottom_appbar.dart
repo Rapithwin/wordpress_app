@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wordpress_app/constants/constants.dart';
+import 'package:wordpress_app/widgets/add_quantity.dart';
 
 class CustomBottomAppbar extends StatefulWidget {
   const CustomBottomAppbar({super.key});
@@ -34,22 +35,31 @@ class _CustomBottomAppbarState extends State<CustomBottomAppbar> {
               ),
             ),
           ),
-          SizedBox(
-            width: size.width * 0.75,
-            height: 52,
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Constants.primaryColor,
-                elevation: 3,
-                side: BorderSide.none,
-                shape: ContinuousRectangleBorder(
-                  borderRadius: BorderRadius.circular(25),
+          AddQuantity(
+              minNumber: 0,
+              maxNumber: 20,
+              iconSize: 20,
+              value: 0,
+              valueChanged: (value) {}),
+          Expanded(
+            child: SizedBox(
+              width: size.width * 0.75,
+              height: 52,
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Constants.primaryColor,
+                  elevation: 3,
+                  side: BorderSide.none,
+                  shape: ContinuousRectangleBorder(
+                    borderRadius: BorderRadius.circular(25),
+                  ),
                 ),
-              ),
-              child: Text(
-                "افزودن به سبد خرید",
-                style: textTheme.titleMedium!.copyWith(color: Colors.white),
+                child: Text(
+                  "افزودن به سبد خرید",
+                  style: textTheme.titleMedium!
+                      .copyWith(color: Colors.white, fontSize: 23),
+                ),
               ),
             ),
           )
