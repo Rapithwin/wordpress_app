@@ -41,7 +41,7 @@ class MainApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => LoaderProvider(),
-          child: const ProductDetailsPage(productId: productId),
+          child: const ProductDetailsPage(),
         ),
       ],
       child: MaterialApp(

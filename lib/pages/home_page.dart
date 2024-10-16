@@ -152,8 +152,7 @@ class _HomePageState extends State<HomePage> {
                                   context,
                                   PageTransition(
                                       child: ProductDetailsPage(
-                                        productId:
-                                            value.product![index].id.toString(),
+                                        product: value.product![index],
                                       ),
                                       type: PageTransitionType.leftToRight),
                                 );

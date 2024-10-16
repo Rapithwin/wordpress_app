@@ -13,10 +13,6 @@ class ShopProvider extends ChangeNotifier {
   List<ProductModel>? _products = <ProductModel>[];
   List<ProductModel>? get product => _products;
 
-  // Product by id
-  ProductModel? _productById;
-  ProductModel? get productById => _productById;
-
   // Product categories
   List<CategoriesModel>? _categories = <CategoriesModel>[];
   List<CategoriesModel>? get category => _categories;
@@ -47,15 +43,6 @@ class ShopProvider extends ChangeNotifier {
     notifyListeners();
     final response = await _apiService?.getProductCategories();
     _categories = response;
-    isLoading = false;
-    notifyListeners();
-  }
-
-  Future<void> getProductById(String id) async {
-    isLoading = true;
-    notifyListeners();
-    final response = await _apiService?.getProductById(id);
-    _productById = response;
     isLoading = false;
     notifyListeners();
   }
