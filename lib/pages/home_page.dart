@@ -303,7 +303,7 @@ class _HomePageState extends State<HomePage> {
                                   PageTransition(
                                     child: BlogPostsPage(
                                         id: value.psot![index].id.toString()),
-                                    type: PageTransitionType.leftToRight,
+                                    type: PageTransitionType.bottomToTop,
                                   ),
                                 );
                               },
