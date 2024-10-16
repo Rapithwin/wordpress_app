@@ -78,7 +78,9 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
         builder: (context, value, child) {
           if (value.isLoading) {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                color: Constants.primaryColor,
+              ),
             );
           }
           return SingleChildScrollView(

@@ -71,8 +71,12 @@ class _BlogPostsPageState extends State<BlogPostsPage> {
       ),
       body: Consumer<ShopProvider>(
         builder: (context, value, child) {
-          if (value.isLoading) {
-            return const Center(child: CircularProgressIndicator());
+          if (value.isLoadingPosts) {
+            return const Center(
+              child: CircularProgressIndicator(
+                color: Constants.primaryColor,
+              ),
+            );
           }
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
