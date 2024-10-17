@@ -7,10 +7,14 @@ class WoocommerceInfo {
   // JWT url
   static String jwtUrl =
       "https://10.0.2.2/wordpress//wp-json/jwt-auth/v1/token";
+  // CoCart url
+  static String coCartUrl = " /wp-json/cocart/v2/cart/";
   // Endpoints
   static String costumerURL = "customers";
   static String productsURL = "products";
   static String productsCategoriesURL = "products/categories";
+  // CoCart add item endpoint
+  static String addItemToCart = "add-item";
 }
 
 class Constants {
