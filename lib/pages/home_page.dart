@@ -107,13 +107,15 @@ class _HomePageState extends State<HomePage> {
                                 value.category![index].id.toString();
                             setState(() {
                               selectedIndex = index;
-                              selectedIndex == 0
+                              value.category![index].category!.toLowerCase() ==
+                                      "uncategorized"
                                   ? value.getAllProducts()
                                   : value.getAllProducts(catId: catId);
                             });
                           },
                           child: Text(
-                            index == 0
+                            value.category![index].category!.toLowerCase() ==
+                                    "uncategorized"
                                 ? "|همه|"
                                 : "|${value.category![index].category}|",
                             style: textTheme.bodyLarge?.copyWith(
