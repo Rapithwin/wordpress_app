@@ -11,9 +11,10 @@ class AddCartRequestModel {
     );
   }
 
-  AddCartRequestModel.toJson() {
+  Map<String, dynamic> toJson() {
     Map<String, dynamic> data = <String, dynamic>{};
     data["id"] = id;
     data["quantity"] = quantity;
+    return data;
   }
 }

@@ -225,28 +225,32 @@ class APIService {
     return post;
   }
 
-  // Future<AddCartResponseModel> addToCart(AddCartRequestModel model) async {
-  //   late AddCartResponseModel cartResponse;
+  Future<AddCartResponseModel> addToCart(AddCartRequestModel model) async {
+    late AddCartResponseModel cartResponse;
 
-  //   try {
-  //     var response = await Dio().request(
-  //       WoocommerceInfo.postsUrl,
-  //       options: Options(
-  //         method: "GET",
-  //         headers: {
-  //           HttpHeaders.authorizationHeader: "Basic $authToken",
-  //           HttpHeaders.contentTypeHeader: "application/json",
-  //         },
-  //       ),
-  //     );
-  //     if (response.statusCode == 200) {
-  //       post = Posts.fromJson(response.data);
-  //     }
-  //   } on DioException catch (e) {
-  //     if (e.type == DioExceptionType.connectionTimeout) {
-  //       debugPrint("Timeout Error");
-  //     }
-  //     debugPrint(e.message);
-  //   }
-  // }
+    try {
+      var response = await Dio().request(
+        WoocommerceInfo.wordpressUrl +
+            WoocommerceInfo.coCartUrl +
+            WoocommerceInfo.addItemToCart,
+        data: model.toJson(),
+        options: Options(
+          method: "GET",
+          headers: {
+            HttpHeaders.authorizationHeader: "Basic $authToken",
+            HttpHeaders.contentTypeHeader: "application/json",
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        cartResponse = AddCartResponseModel.fromJson(response.data);
+      }
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout) {
+        debugPrint("Timeout Error");
+      }
+      debugPrint(e.message);
+    }
+    return cartResponse;
+  }
 }

@@ -14,6 +14,12 @@ class AddCartResponseModel {
       ),
     );
   }
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> data = <String, dynamic>{};
+    data["cart_key"] = cartKey;
+    data["items"] = items;
+    return data;
+  }
 }
 
 class Items {
@@ -23,5 +29,10 @@ class Items {
 
   Items.fromJson(Map<String, dynamic> json) {
     Items(itemKey: json["item_key"]);
+  }
+
+  Items.toJson() {
+    Map<String, dynamic> data = <String, dynamic>{};
+    data["item_key"] = itemKey;
   }
 }
