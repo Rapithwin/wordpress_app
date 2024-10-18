@@ -225,8 +225,8 @@ class APIService {
     return post;
   }
 
-  Future<AddCartResponseModel> addToCart(AddCartRequestModel model) async {
-    late AddCartResponseModel cartResponse;
+  Future<String> addToCart(AddCartRequestModel model) async {
+    late String cartResponse;
     // TODO
     String cartAuthToken = base64.encode(utf8.encode("foobar:12345678"));
 
@@ -245,7 +245,7 @@ class APIService {
         ),
       );
       if (response.statusCode == 200) {
-        cartResponse = AddCartResponseModel.fromJson(response.data);
+        cartResponse = "به سبد خرید اضافه شد";
       }
     } on DioException catch (e) {
       if (e.type == DioExceptionType.connectionTimeout) {
