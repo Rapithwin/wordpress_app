@@ -1,15 +1,15 @@
 class AddCartResponseModel {
   String? cartKey;
-  List<Items>? items;
+  List<CartItems>? items;
 
   AddCartResponseModel({this.cartKey, this.items});
 
   AddCartResponseModel.fromJson(Map<String, dynamic> json) {
     AddCartResponseModel(
       cartKey: json["cart_key"],
-      items: List<Items>.from(
+      items: List<CartItems>.from(
         json["items"].map(
-          (item) => Items.fromJson(item),
+          (item) => CartItems.fromJson(item),
         ),
       ),
     );
@@ -22,16 +22,16 @@ class AddCartResponseModel {
   }
 }
 
-class Items {
+class CartItems {
   String? itemKey;
 
-  Items({this.itemKey});
+  CartItems({this.itemKey});
 
-  Items.fromJson(Map<String, dynamic> json) {
-    Items(itemKey: json["item_key"]);
+  CartItems.fromJson(Map<String, dynamic> json) {
+    CartItems(itemKey: json["item_key"]);
   }
 
-  Items.toJson() {
+  CartItems.toJson() {
     Map<String, dynamic> data = <String, dynamic>{};
     data["item_key"] = itemKey;
   }

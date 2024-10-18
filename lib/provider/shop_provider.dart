@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:wordpress_app/api/api_service.dart';
+import 'package:wordpress_app/models/woocommerce/cart/addtocart_response_model.dart';
 import 'package:wordpress_app/models/woocommerce/categories_model.dart';
 import 'package:wordpress_app/models/posts_model.dart';
 import 'package:wordpress_app/models/woocommerce/products_model.dart';
@@ -20,6 +21,10 @@ class ShopProvider extends ChangeNotifier {
   // Posts
   List<Posts>? _posts = <Posts>[];
   List<Posts>? get psot => _posts;
+
+  // Products in cart
+  List<CartItems>? _cartItems;
+  List<CartItems>? get cartItems => _cartItems;
 
   ShopProvider() {
     _apiService = APIService();
@@ -54,5 +59,6 @@ class ShopProvider extends ChangeNotifier {
 
   void initializeData() {
     _apiService = APIService();
+    _cartItems = <CartItems>[];
   }
 }
