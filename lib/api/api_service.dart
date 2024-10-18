@@ -227,6 +227,8 @@ class APIService {
 
   Future<AddCartResponseModel> addToCart(AddCartRequestModel model) async {
     late AddCartResponseModel cartResponse;
+    // TODO
+    String cartAuthToken = base64.encode(utf8.encode("foobar:12345678"));
 
     try {
       var response = await Dio().request(
@@ -237,7 +239,7 @@ class APIService {
         options: Options(
           method: "GET",
           headers: {
-            HttpHeaders.authorizationHeader: "Basic $authToken",
+            HttpHeaders.authorizationHeader: "Basic $cartAuthToken",
             HttpHeaders.contentTypeHeader: "application/json",
           },
         ),
