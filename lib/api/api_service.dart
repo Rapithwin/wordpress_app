@@ -4,6 +4,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:wordpress_app/constants/constants.dart';
+import 'package:wordpress_app/models/woocommerce/cart/addtocart_request_model.dart';
+import 'package:wordpress_app/models/woocommerce/cart/addtocart_response_model.dart';
 import 'package:wordpress_app/models/woocommerce/categories_model.dart';
 import 'package:wordpress_app/models/posts_model.dart';
 import 'package:wordpress_app/models/woocommerce/costumer_model.dart';
@@ -176,7 +178,7 @@ class APIService {
 
     try {
       var response = await Dio().request(
-        WoocommerceInfo.postsUrl,
+        WoocommerceInfo.wordpressUrl + WoocommerceInfo.postsUrl,
         options: Options(
           method: "GET",
           headers: {
@@ -202,7 +204,7 @@ class APIService {
     late Posts post;
     try {
       var response = await Dio().request(
-        WoocommerceInfo.postsUrl + id!,
+        WoocommerceInfo.postsUrl + WoocommerceInfo.wordpressUrl + id!,
         options: Options(
           method: "GET",
           headers: {
@@ -222,4 +224,29 @@ class APIService {
     }
     return post;
   }
+
+  // Future<AddCartResponseModel> addToCart(AddCartRequestModel model) async {
+  //   late AddCartResponseModel cartResponse;
+
+  //   try {
+  //     var response = await Dio().request(
+  //       WoocommerceInfo.postsUrl,
+  //       options: Options(
+  //         method: "GET",
+  //         headers: {
+  //           HttpHeaders.authorizationHeader: "Basic $authToken",
+  //           HttpHeaders.contentTypeHeader: "application/json",
+  //         },
+  //       ),
+  //     );
+  //     if (response.statusCode == 200) {
+  //       post = Posts.fromJson(response.data);
+  //     }
+  //   } on DioException catch (e) {
+  //     if (e.type == DioExceptionType.connectionTimeout) {
+  //       debugPrint("Timeout Error");
+  //     }
+  //     debugPrint(e.message);
+  //   }
+  // }
 }
