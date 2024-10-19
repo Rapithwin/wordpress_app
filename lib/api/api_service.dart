@@ -228,7 +228,7 @@ class APIService {
   Future<String> addToCart(AddCartRequestModel model) async {
     late String cartResponse;
     // TODO
-    String cartAuthToken = base64.encode(utf8.encode("foobar:12345678"));
+    String cartAuthToken = base64.encode(utf8.encode("api_test:12345678"));
 
     try {
       var response = await Dio().request(
@@ -237,7 +237,7 @@ class APIService {
             WoocommerceInfo.addItemToCart,
         data: model.toJson(),
         options: Options(
-          method: "GET",
+          method: "POST",
           headers: {
             HttpHeaders.authorizationHeader: "Basic $cartAuthToken",
             HttpHeaders.contentTypeHeader: "application/json",
@@ -252,6 +252,7 @@ class APIService {
         debugPrint("Timeout Error");
       }
       debugPrint(e.message);
+      throw e.toString();
     }
     return cartResponse;
   }

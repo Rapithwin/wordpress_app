@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:wordpress_app/constants/constants.dart';
+import 'package:wordpress_app/models/woocommerce/cart/addtocart_request_model.dart';
+import 'package:wordpress_app/models/woocommerce/products_model.dart';
+import 'package:wordpress_app/provider/loader_provider.dart';
+import 'package:wordpress_app/provider/shop_provider.dart';
 import 'package:wordpress_app/widgets/add_quantity.dart';
 
 class CustomBottomAppbar extends StatefulWidget {
-  const CustomBottomAppbar({super.key});
+  const CustomBottomAppbar({super.key, required this.product});
+  final ProductModel product;
 
   @override
   State<CustomBottomAppbar> createState() => _CustomBottomAppbarState();
 }
 
 class _CustomBottomAppbarState extends State<CustomBottomAppbar> {
+  int quantity = 0;
+  AddCartRequestModel cartReqModel = AddCartRequestModel();
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -39,14 +48,29 @@ class _CustomBottomAppbarState extends State<CustomBottomAppbar> {
               minNumber: 0,
               maxNumber: 20,
               iconSize: 20,
-              value: 0,
-              valueChanged: (value) {}),
+              value: quantity,
+              valueChanged: (value) {
+                cartReqModel.quantity = value;
+              }),
           Expanded(
             child: SizedBox(
               width: size.width * 0.75,
               height: 52,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Provider.of<LoaderProvider>(context, listen: false)
+                      .setLoadingStatus(true);
+                  ShopProvider shopProvider =
+                      Provider.of<ShopProvider>(context, listen: false);
+                  cartReqModel.id = widget.product.id;
+                  shopProvider.addToCart(
+                    cartReqModel,
+                    (val) {
+                      Provider.of<LoaderProvider>(context, listen: false)
+                          .setLoadingStatus(false);
+                    },
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Constants.primaryColor,
                   elevation: 3,
