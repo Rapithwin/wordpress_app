@@ -1,6 +1,6 @@
 class AddCartRequestModel {
-  int? id;
-  int? quantity;
+  String? id;
+  String? quantity;
 
   AddCartRequestModel({this.id, this.quantity});
 

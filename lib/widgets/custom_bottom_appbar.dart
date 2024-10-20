@@ -50,7 +50,7 @@ class _CustomBottomAppbarState extends State<CustomBottomAppbar> {
               iconSize: 20,
               value: quantity,
               valueChanged: (value) {
-                cartReqModel.quantity = value;
+                cartReqModel.quantity = value.toString();
               }),
           Expanded(
             child: SizedBox(
@@ -62,7 +62,7 @@ class _CustomBottomAppbarState extends State<CustomBottomAppbar> {
                       .setLoadingStatus(true);
                   ShopProvider shopProvider =
                       Provider.of<ShopProvider>(context, listen: false);
-                  cartReqModel.id = widget.product.id;
+                  cartReqModel.id = widget.product.id.toString();
                   shopProvider.addToCart(
                     cartReqModel,
                     (val) {

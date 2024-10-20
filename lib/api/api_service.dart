@@ -5,7 +5,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:wordpress_app/constants/constants.dart';
 import 'package:wordpress_app/models/woocommerce/cart/addtocart_request_model.dart';
-import 'package:wordpress_app/models/woocommerce/cart/addtocart_response_model.dart';
 import 'package:wordpress_app/models/woocommerce/categories_model.dart';
 import 'package:wordpress_app/models/posts_model.dart';
 import 'package:wordpress_app/models/woocommerce/costumer_model.dart';

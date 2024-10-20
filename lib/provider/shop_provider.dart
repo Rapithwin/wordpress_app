@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
 import 'package:wordpress_app/api/api_service.dart';
 import 'package:wordpress_app/models/woocommerce/cart/addtocart_request_model.dart';
