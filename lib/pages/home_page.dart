@@ -303,7 +303,9 @@ class _HomePageState extends State<HomePage> {
                 ),
                 value.isLoadingPosts
                     ? const Center(
-                        child: CircularProgressIndicator(),
+                        child: CircularProgressIndicator(
+                          color: Constants.primaryColor,
+                        ),
                       )
                     : Container(
                         padding: const EdgeInsets.symmetric(
