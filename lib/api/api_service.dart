@@ -251,7 +251,7 @@ class APIService {
         debugPrint("Timeout Error");
       }
       debugPrint(e.message);
-      throw e.toString();
+      cartResponse = "مشکلی رخ داده است";
     }
     return cartResponse;
   }

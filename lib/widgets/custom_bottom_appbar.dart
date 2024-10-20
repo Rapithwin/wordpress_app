@@ -18,6 +18,7 @@ class CustomBottomAppbar extends StatefulWidget {
 class _CustomBottomAppbarState extends State<CustomBottomAppbar> {
   int quantity = 0;
   AddCartRequestModel cartReqModel = AddCartRequestModel();
+  late String response;
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +70,19 @@ class _CustomBottomAppbarState extends State<CustomBottomAppbar> {
                       Provider.of<LoaderProvider>(context, listen: false)
                           .setLoadingStatus(false);
                     },
+                  );
+                  showDialog<String>(
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                      title: const Text("سبد خرید"),
+                      content: const Text(""),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () => Navigator.pop(context, 'OK'),
+                          child: const Text('OK'),
+                        ),
+                      ],
+                    ),
                   );
                 },
                 style: ElevatedButton.styleFrom(
