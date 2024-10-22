@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AddQuantity extends StatefulWidget {
-  AddQuantity(
+  const AddQuantity(
       {super.key,
       required this.minNumber,
       required this.maxNumber,
@@ -37,6 +37,7 @@ class _AddQuantityState extends State<AddQuantity> {
               () {
                 value =
                     value == widget.minNumber ? widget.minNumber : value -= 1;
+                widget.valueChanged(value);
               },
             );
           },
@@ -56,6 +57,7 @@ class _AddQuantityState extends State<AddQuantity> {
               () {
                 value =
                     value == widget.maxNumber ? widget.maxNumber : value += 1;
+                widget.valueChanged(value);
               },
             );
           },
