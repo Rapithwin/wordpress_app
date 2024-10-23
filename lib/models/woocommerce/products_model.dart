@@ -57,10 +57,10 @@ class Categories {
     this.name,
   });
 
-  Categories.fromJson(Map<String, dynamic> json) {
-    id = json["id"];
-    name = json["name"];
-  }
+  factory Categories.fromJson(Map<String, dynamic> json) => Categories(
+        id: json["id"],
+        name: json["name"],
+      );
 }
 
 class WooImg {
@@ -68,7 +68,7 @@ class WooImg {
 
   WooImg({this.src});
 
-  WooImg.fromJson(Map<String, dynamic> json) {
-    src = json["src"];
-  }
+  factory WooImg.fromJson(Map<String, dynamic> json) => WooImg(
+        src: json["src"],
+      );
 }

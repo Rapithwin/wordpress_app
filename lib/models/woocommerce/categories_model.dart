@@ -7,8 +7,9 @@ class CategoriesModel {
     this.category,
   });
 
-  CategoriesModel.fromJson(Map<String, dynamic> json) {
-    id = json["id"];
-    category = json["name"];
-  }
+  factory CategoriesModel.fromJson(Map<String, dynamic> json) =>
+      CategoriesModel(
+        id: json["id"],
+        category: json["name"],
+      );
 }
