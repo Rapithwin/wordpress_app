@@ -17,6 +17,8 @@ class WoocommerceInfo {
   static String postsUrl = "wp/v2/posts/";
   // CoCart add item endpoint
   static String addItemToCart = "add-item";
+  // CoCart items endpoint
+  static String items = "items";
 }
 
 class Constants {
