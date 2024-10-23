@@ -257,8 +257,9 @@ class APIService {
     return cartResponse;
   }
 
-  Future<CartItemsModel> getItemsInCart() async {
-    late Map<String, CartItemsModel> itemsInCart;
+  Future<List<CartItemsModel>> getItemsInCart() async {
+    late String itemsInCart;
+    late List<CartItemsModel> itemsInCartList;
     // TODO
     String cartAuthToken = base64.encode(utf8.encode("api_test:12345678"));
 
@@ -276,7 +277,10 @@ class APIService {
         ),
       );
       if (response.statusCode == 200) {
-        itemsInCart = cartItemsModelFromJson(response.data);
+        itemsInCart = cartItemsModelFromJson(response.data).toString();
+        itemsInCartList = json
+            .decode(itemsInCart)
+            .map((data) => CartItemsModel.fromJson(data));
       }
     } on DioException catch (e) {
       if (e.type == DioExceptionType.connectionTimeout) {
@@ -284,6 +288,6 @@ class APIService {
       }
       debugPrint(e.message);
     }
-    return CartItemsModel.fromJson(itemsInCart);
+    return itemsInCartList;
   }
 }
