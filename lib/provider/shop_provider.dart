@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:wordpress_app/api/api_service.dart';
 import 'package:wordpress_app/models/woocommerce/cart/addtocart_request_model.dart';
-import 'package:wordpress_app/models/woocommerce/cart/addtocart_response_model.dart';
 import 'package:wordpress_app/models/woocommerce/cart/get_items_cart_model.dart';
 import 'package:wordpress_app/models/woocommerce/categories_model.dart';
 import 'package:wordpress_app/models/posts_model.dart';
@@ -81,6 +80,5 @@ class ShopProvider extends ChangeNotifier {
 
   void initializeData() {
     _apiService = APIService();
-    // _cartItems = <CartItemsModel>[];
   }
 }

@@ -38,7 +38,7 @@ class _CartPageState extends State<CartPage> {
           return ListView.builder(
             itemCount: value.cartItems!.length,
             itemBuilder: (context, index) {
-              return Text(value.cartItems![index].title!);
+              return Text(value.cartItems![index].title ?? "");
             },
           );
         },
