@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:wordpress_app/constants/constants.dart';
 import 'package:wordpress_app/models/woocommerce/cart/addtocart_request_model.dart';
+import 'package:wordpress_app/models/woocommerce/cart/get_items_cart_model.dart';
 import 'package:wordpress_app/models/woocommerce/categories_model.dart';
 import 'package:wordpress_app/models/posts_model.dart';
 import 'package:wordpress_app/models/woocommerce/costumer_model.dart';
@@ -254,5 +255,35 @@ class APIService {
       cartResponse = "مشکلی رخ داده است";
     }
     return cartResponse;
+  }
+
+  Future<CartItemsModel> getItemsInCart() async {
+    late Map<String, CartItemsModel> itemsInCart;
+    // TODO
+    String cartAuthToken = base64.encode(utf8.encode("api_test:12345678"));
+
+    try {
+      var response = await Dio().request(
+        WoocommerceInfo.wordpressUrl +
+            WoocommerceInfo.coCartUrl +
+            WoocommerceInfo.items,
+        options: Options(
+          method: "POST",
+          headers: {
+            HttpHeaders.authorizationHeader: "Basic $cartAuthToken",
+            HttpHeaders.contentTypeHeader: "application/json",
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        itemsInCart = cartItemsModelFromJson(response.data);
+      }
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout) {
+        debugPrint("Timeout Error");
+      }
+      debugPrint(e.message);
+    }
+    return CartItemsModel.fromJson(itemsInCart);
   }
 }
