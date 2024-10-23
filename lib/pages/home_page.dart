@@ -21,11 +21,11 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     Future.delayed(Duration.zero).then(
       (value) {
-        ShopProvider productList =
+        ShopProvider shopProvider =
             Provider.of<ShopProvider>(context, listen: false);
-        productList.getAllProducts();
-        productList.getAllCategories();
-        productList.getAllPosts();
+        shopProvider.getAllProducts();
+        shopProvider.getAllCategories();
+        shopProvider.getAllPosts();
       },
     );
 
