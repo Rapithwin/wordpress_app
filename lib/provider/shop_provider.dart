@@ -69,6 +69,12 @@ class ShopProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> getItemsInCartProvider(Function onCallBalck) async {
+    final response = await _apiService?.getItemsInCart();
+    onCallBalck(response);
+    notifyListeners();
+  }
+
   void initializeData() {
     _apiService = APIService();
     _cartItems = <CartItems>[];
