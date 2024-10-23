@@ -269,7 +269,7 @@ class APIService {
             WoocommerceInfo.coCartUrl +
             WoocommerceInfo.items,
         options: Options(
-          method: "POST",
+          method: "",
           headers: {
             HttpHeaders.authorizationHeader: "Basic $cartAuthToken",
             HttpHeaders.contentTypeHeader: "application/json",
