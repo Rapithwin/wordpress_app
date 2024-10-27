@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' show NumberFormat;
 import 'package:provider/provider.dart';
 import 'package:wordpress_app/constants/constants.dart';
+import 'package:wordpress_app/models/woocommerce/cart/addtocart_request_model.dart';
+import 'package:wordpress_app/provider/loader_provider.dart';
 import 'package:wordpress_app/provider/shop_provider.dart';
 import 'package:wordpress_app/widgets/add_quantity.dart';
 
@@ -15,10 +17,10 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
   @override
   void initState() {
+    ShopProvider shopProvider =
+        Provider.of<ShopProvider>(context, listen: false);
     Future.delayed(Duration.zero).then(
       (value) {
-        ShopProvider shopProvider =
-            Provider.of<ShopProvider>(context, listen: false);
         shopProvider.getItemsInCartProvider();
       },
     );
@@ -30,7 +32,9 @@ class _CartPageState extends State<CartPage> {
     final Size size = MediaQuery.of(context).size;
     final textTheme = Theme.of(context).textTheme;
     final NumberFormat numberFormat = NumberFormat.decimalPattern("fa");
-
+    final ShopProvider shopProvider =
+        Provider.of<ShopProvider>(context, listen: false);
+    AddCartRequestModel cartReqModel = AddCartRequestModel();
     return Scaffold(
       body: Consumer<ShopProvider>(
         builder: (context, value, child) {
@@ -81,8 +85,25 @@ class _CartPageState extends State<CartPage> {
                                       iconSize: 17,
                                       value: value
                                           .cartItems![index].quantity!.value!,
-                                      valueChanged: (d) {
+                                      valueChanged: (quantity) {
                                         // TODO: if value < quantity remove item. else add item.
+                                        cartReqModel.id = value
+                                            .cartItems![index].id
+                                            .toString();
+                                        cartReqModel.quantity = "1";
+                                        if (quantity >
+                                            value.cartItems![index].quantity!
+                                                .value) {
+                                          Provider.of<LoaderProvider>(context,
+                                                  listen: false)
+                                              .setLoadingStatus(true);
+                                          shopProvider.addToCart(cartReqModel,
+                                              (val) {
+                                            Provider.of<LoaderProvider>(context,
+                                                    listen: false)
+                                                .setLoadingStatus(false);
+                                          });
+                                        }
                                       },
                                     ),
                                     TextButton(
