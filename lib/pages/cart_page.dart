@@ -101,7 +101,7 @@ class _CartPageState extends State<CartPage> {
                                       ),
                                     ),
                                     Text(
-                                      "${value.cartItems![index].totals?.total} تومان",
+                                      "${numberFormat.format(value.cartItems![index].totals?.total)} تومان",
                                       textDirection: TextDirection.rtl,
                                     ),
                                   ],
@@ -151,9 +151,7 @@ class _CartPageState extends State<CartPage> {
                                 }
                                 return Text(
                                   "${numberFormat.format(
-                                    int.parse(
-                                      totalPrice.toString(),
-                                    ),
+                                    totalPrice,
                                   )} تومان",
                                   style: textTheme.labelLarge?.copyWith(
                                     fontSize: 25,
