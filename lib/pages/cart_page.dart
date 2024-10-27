@@ -99,7 +99,11 @@ class _CartPageState extends State<CartPage> {
                                           color: Colors.red,
                                         ),
                                       ),
-                                    )
+                                    ),
+                                    Text(
+                                      "${value.cartItems![index].totals?.total} تومان",
+                                      textDirection: TextDirection.rtl,
+                                    ),
                                   ],
                                 ),
                                 SizedBox(
@@ -150,7 +154,7 @@ class _CartPageState extends State<CartPage> {
                                     int.parse(
                                       totalPrice.toString(),
                                     ),
-                                  )}تومان",
+                                  )} تومان",
                                   style: textTheme.labelLarge?.copyWith(
                                     fontSize: 25,
                                     color: Constants.blackColor,
@@ -163,23 +167,26 @@ class _CartPageState extends State<CartPage> {
                               width: 10,
                             ),
                             Expanded(
-                              child: SizedBox(
-                                width: size.width * 0.75,
-                                height: 52,
-                                child: ElevatedButton(
-                                  onPressed: () {},
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Constants.primaryColor,
-                                    elevation: 3,
-                                    side: BorderSide.none,
-                                    shape: ContinuousRectangleBorder(
-                                      borderRadius: BorderRadius.circular(25),
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 10.0),
+                                child: SizedBox(
+                                  width: size.width * 0.75,
+                                  height: 52,
+                                  child: ElevatedButton(
+                                    onPressed: () {},
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Constants.primaryColor,
+                                      elevation: 3,
+                                      side: BorderSide.none,
+                                      shape: ContinuousRectangleBorder(
+                                        borderRadius: BorderRadius.circular(25),
+                                      ),
                                     ),
-                                  ),
-                                  child: Text(
-                                    "ادامه خرید",
-                                    style: textTheme.titleMedium!.copyWith(
-                                        color: Colors.white, fontSize: 23),
+                                    child: Text(
+                                      "ادامه خرید",
+                                      style: textTheme.titleMedium!.copyWith(
+                                          color: Colors.white, fontSize: 23),
+                                    ),
                                   ),
                                 ),
                               ),
