@@ -251,8 +251,9 @@ class APIService {
     if (sortOrder == "asc") {
       parameter += "&order=asc";
     }
+    parameter.replaceFirst("&", "");
     final String productUrl =
-        "${WoocommerceInfo.baseUrl}${WoocommerceInfo.productsURL}$parameter";
+        "${WoocommerceInfo.baseUrl}${WoocommerceInfo.productsURL}?$parameter";
     try {
       var response = await Dio().request(
         productUrl,
