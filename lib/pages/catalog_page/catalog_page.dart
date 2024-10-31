@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' show NumberFormat;
 import 'package:provider/provider.dart';
 import 'package:wordpress_app/constants/constants.dart';
+import 'package:wordpress_app/pages/catalog_page/sort_class.dart';
 import 'package:wordpress_app/provider/catalog_provider.dart';
 
 class CatalogPage extends StatefulWidget {
@@ -27,55 +28,100 @@ class _CatalogPageState extends State<CatalogPage> {
     super.initState();
   }
 
+  final List<SortBy> _sortByOptions = [
+    SortBy('popularity', 'محبوبیت', 'asc'),
+    SortBy('modified', 'قدیمی ترین', 'asc'),
+    SortBy('price', 'قیمت : از زیاد به کم', 'desc'),
+    SortBy('price', 'قیمت : از کم به زیاد', 'asc'),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
+    final TextTheme textTheme = Theme.of(context).textTheme;
+    final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
       body: Column(
         children: <Widget>[
-          Directionality(
-            textDirection: TextDirection.rtl,
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-              child: SearchBar(
-                leading: IconButton(
-                  icon: Icon(
-                    Icons.search,
-                    size: 28,
-                    color: Colors.grey[700],
-                  ),
-                  onPressed: () {},
-                ),
-                trailing: [
-                  IconButton(
-                    icon: const Icon(
-                      Icons.mic,
-                      size: 28,
+          Row(
+            children: <Widget>[
+              Flexible(
+                child: Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10.0, vertical: 5.0),
+                    child: SearchBar(
+                      leading: IconButton(
+                        icon: Icon(
+                          Icons.search,
+                          size: 28,
+                          color: Colors.grey[700],
+                        ),
+                        onPressed: () {},
+                      ),
+                      trailing: [
+                        IconButton(
+                          icon: const Icon(
+                            Icons.mic,
+                            size: 28,
+                          ),
+                          color: Colors.grey[700],
+                          onPressed: () {},
+                        )
+                      ],
+                      shape: WidgetStatePropertyAll<OutlinedBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      hintText: "جستجو...",
+                      textStyle: WidgetStatePropertyAll<TextStyle?>(
+                        Theme.of(context)
+                            .textTheme
+                            .bodyLarge
+                            ?.copyWith(color: Colors.grey[700]),
+                      ),
+                      elevation: const WidgetStatePropertyAll<double>(0),
+                      backgroundColor: WidgetStatePropertyAll<Color>(
+                        Constants.primaryColor.withOpacity(0.1),
+                      ),
                     ),
-                    color: Colors.grey[700],
-                    onPressed: () {},
-                  )
-                ],
-                shape: WidgetStatePropertyAll<OutlinedBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
                   ),
-                ),
-                hintText: "جستجو...",
-                textStyle: WidgetStatePropertyAll<TextStyle?>(
-                  Theme.of(context)
-                      .textTheme
-                      .bodyLarge
-                      ?.copyWith(color: Colors.grey[700]),
-                ),
-                elevation: const WidgetStatePropertyAll<double>(0),
-                backgroundColor: WidgetStatePropertyAll<Color>(
-                  Constants.primaryColor.withOpacity(0.1),
                 ),
               ),
-            ),
+              Padding(
+                padding: const EdgeInsets.only(right: 10.0),
+                child: Container(
+                  height: 52,
+                  width: 52,
+                  decoration: BoxDecoration(
+                    color: Constants.primaryColor.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: PopupMenuButton(
+                    popUpAnimationStyle: AnimationStyle(
+                      curve: Curves.easeIn,
+                    ),
+                    itemBuilder: (context) {
+                      return _sortByOptions.map((item) {
+                        return PopupMenuItem(
+                          value: item,
+                          child: Container(
+                            alignment: Alignment.centerRight,
+                            child: Text(
+                              item.text!,
+                              style: textTheme.bodyLarge,
+                              textDirection: TextDirection.rtl,
+                            ),
+                          ),
+                        );
+                      }).toList();
+                    },
+                  ),
+                ),
+              ),
+            ],
           ),
           Consumer<CatalogProvider>(
             builder: (context, productModel, child) {
