@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart' show NumberFormat;
 import 'package:provider/provider.dart';
 import 'package:wordpress_app/constants/constants.dart';
@@ -30,6 +29,8 @@ class _CatalogPageState extends State<CatalogPage> {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -39,6 +40,7 @@ class _CatalogPageState extends State<CatalogPage> {
                   productModel.getDataStatus() != DataStatus.initial) {
                 return Flexible(
                   child: GridView.count(
+                    childAspectRatio: 0.85,
                     crossAxisCount: 2,
                     shrinkWrap: true,
                     physics: const ClampingScrollPhysics(),
@@ -47,7 +49,63 @@ class _CatalogPageState extends State<CatalogPage> {
                         return Container(
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.circular(10.0),
+                            borderRadius: BorderRadius.circular(20.0),
+                            border: Border.all(color: Constants.primaryColor),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Colors.black12,
+                                blurRadius: 15.0,
+                                spreadRadius: 5.0,
+                              ),
+                            ],
+                          ),
+                          margin: const EdgeInsetsDirectional.all(10.0),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 20,
+                              vertical: 10,
+                            ),
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  height: 110,
+                                  width: 110,
+                                  decoration: BoxDecoration(
+                                    color:
+                                        Constants.primaryColor.withOpacity(0.4),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Image.network(
+                                      product.images![0].src!
+                                          .replaceAll("localhost", "10.0.2.2"),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  product.name!,
+                                  maxLines: 2,
+                                  textDirection: TextDirection.rtl,
+                                  textAlign: TextAlign.center,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: textTheme.bodyLarge,
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  "${numberFormat.format(
+                                    int.parse(product.price!),
+                                  )} تومان",
+                                  textAlign: TextAlign.center,
+                                  textDirection: TextDirection.rtl,
+                                )
+                              ],
+                            ),
                           ),
                         );
                       },
