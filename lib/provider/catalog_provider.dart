@@ -15,7 +15,7 @@ class CatalogProvider with ChangeNotifier {
   late List<ProductModel> _productList;
   late SortBy _sortBy;
 
-  int pageSize = 0;
+  int pageSize = 5;
   DataStatus _dataStatus = DataStatus.stable;
 
   List<ProductModel> get allProducts => _productList;
