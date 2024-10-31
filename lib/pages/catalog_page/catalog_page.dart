@@ -34,6 +34,49 @@ class _CatalogPageState extends State<CatalogPage> {
     return Scaffold(
       body: Column(
         children: <Widget>[
+          Directionality(
+            textDirection: TextDirection.rtl,
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+              child: SearchBar(
+                leading: IconButton(
+                  icon: Icon(
+                    Icons.search,
+                    size: 28,
+                    color: Colors.grey[700],
+                  ),
+                  onPressed: () {},
+                ),
+                trailing: [
+                  IconButton(
+                    icon: const Icon(
+                      Icons.mic,
+                      size: 28,
+                    ),
+                    color: Colors.grey[700],
+                    onPressed: () {},
+                  )
+                ],
+                shape: WidgetStatePropertyAll<OutlinedBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+                hintText: "جستجو...",
+                textStyle: WidgetStatePropertyAll<TextStyle?>(
+                  Theme.of(context)
+                      .textTheme
+                      .bodyLarge
+                      ?.copyWith(color: Colors.grey[700]),
+                ),
+                elevation: const WidgetStatePropertyAll<double>(0),
+                backgroundColor: WidgetStatePropertyAll<Color>(
+                  Constants.primaryColor.withOpacity(0.1),
+                ),
+              ),
+            ),
+          ),
           Consumer<CatalogProvider>(
             builder: (context, productModel, child) {
               if (productModel.allProducts.isNotEmpty &&
