@@ -225,38 +225,6 @@ class APIService {
     return post;
   }
 
-  Future<String> addToCart(AddCartRequestModel model) async {
-    late String cartResponse;
-    // TODO
-    String cartAuthToken = base64.encode(utf8.encode("api_test:12345678"));
-
-    try {
-      var response = await Dio().request(
-        WoocommerceInfo.wordpressUrl +
-            WoocommerceInfo.coCartUrl +
-            WoocommerceInfo.addItemToCart,
-        data: model.toJson(),
-        options: Options(
-          method: "POST",
-          headers: {
-            HttpHeaders.authorizationHeader: "Basic $cartAuthToken",
-            HttpHeaders.contentTypeHeader: "application/json",
-          },
-        ),
-      );
-      if (response.statusCode == 200) {
-        cartResponse = "به سبد خرید اضافه شد";
-      }
-    } on DioException catch (e) {
-      if (e.type == DioExceptionType.connectionTimeout) {
-        debugPrint("Timeout Error");
-      }
-      debugPrint(e.message);
-      cartResponse = "مشکلی رخ داده است";
-    }
-    return cartResponse;
-  }
-
   Future<List<ProductModel>> getCatalog({
     int? pageNumber,
     int? pageSize,
@@ -310,6 +278,38 @@ class APIService {
     }
     return productList;
   }
+}
+
+Future<String> addToCart(AddCartRequestModel model) async {
+  late String cartResponse;
+  // TODO
+  String cartAuthToken = base64.encode(utf8.encode("api_test:12345678"));
+
+  try {
+    var response = await Dio().request(
+      WoocommerceInfo.wordpressUrl +
+          WoocommerceInfo.coCartUrl +
+          WoocommerceInfo.addItemToCart,
+      data: model.toJson(),
+      options: Options(
+        method: "POST",
+        headers: {
+          HttpHeaders.authorizationHeader: "Basic $cartAuthToken",
+          HttpHeaders.contentTypeHeader: "application/json",
+        },
+      ),
+    );
+    if (response.statusCode == 200) {
+      cartResponse = "به سبد خرید اضافه شد";
+    }
+  } on DioException catch (e) {
+    if (e.type == DioExceptionType.connectionTimeout) {
+      debugPrint("Timeout Error");
+    }
+    debugPrint(e.message);
+    cartResponse = "مشکلی رخ داده است";
+  }
+  return cartResponse;
 }
 
 Future<List<CartItemsModel>> getItemsInCart() async {
