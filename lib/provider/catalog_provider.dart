@@ -28,7 +28,7 @@ class CatalogProvider with ChangeNotifier {
 
   CatalogProvider() {
     initializeData();
-    _sortBy = SortBy("modified", "latest", "desc");
+    _sortBy = SortBy("date", "latest", "desc");
   }
 
   getDataStatus() => _dataStatus;

@@ -32,7 +32,8 @@ class _CatalogPageState extends State<CatalogPage> {
 
   final List<SortBy> _sortByOptions = [
     SortBy('popularity', 'محبوبیت', 'asc'),
-    SortBy('modified', 'قدیمی ترین', 'asc'),
+    SortBy('date', 'قدیمی‌ترین', 'asc'),
+    SortBy('date', 'جدیدترین', 'desc'),
     SortBy('price', 'قیمت : از زیاد به کم', 'desc'),
     SortBy('price', 'قیمت : از کم به زیاد', 'asc'),
   ];
