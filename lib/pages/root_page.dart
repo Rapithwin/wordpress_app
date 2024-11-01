@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:wordpress_app/constants/constants.dart';
 import 'package:wordpress_app/pages/cart_page.dart';
 import 'package:wordpress_app/pages/catalog_page/catalog_page.dart';
-import 'package:wordpress_app/pages/favorites_page.dart';
 import 'package:wordpress_app/pages/home_page.dart';
 import 'package:wordpress_app/pages/profile_page.dart';
 

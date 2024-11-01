@@ -1,4 +1,7 @@
+import 'dart:async' show Timer;
+
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart' show NumberFormat;
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
@@ -16,19 +19,9 @@ class CatalogPage extends StatefulWidget {
 
 class _CatalogPageState extends State<CatalogPage> {
   final NumberFormat numberFormat = NumberFormat.decimalPattern("fa");
+  TextEditingController _searchController = TextEditingController();
+  Timer? _debounce;
   int _page = 1;
-
-  @override
-  void initState() {
-    Future.delayed(Duration.zero, () async {
-      CatalogProvider productList =
-          Provider.of<CatalogProvider>(context, listen: false);
-      productList.initializeData();
-      productList.setLoadingState(DataStatus.initial);
-      productList.fetchProducts(_page);
-    });
-    super.initState();
-  }
 
   final List<SortBy> _sortByOptions = [
     SortBy('popularity', 'محبوبیت', 'asc'),
@@ -39,9 +32,41 @@ class _CatalogPageState extends State<CatalogPage> {
   ];
 
   @override
+  void initState() {
+    Future.delayed(Duration.zero, () async {
+      CatalogProvider productList =
+          Provider.of<CatalogProvider>(context, listen: false);
+      productList.initializeData();
+      productList.setLoadingState(DataStatus.initial);
+      productList.fetchProducts(_page);
+    });
+    _searchController.addListener(_onSearchChanged);
+    super.initState();
+  }
+
+  void _onSearchChanged() {
+    CatalogProvider productList =
+        Provider.of<CatalogProvider>(context, listen: false);
+    if (_debounce?.isActive ?? false) _debounce!.cancel();
+    // When user types a character, it waits for 900ms. If the user types another
+    // character before the timer ends, it will reset. If the user doesn't type another
+    // character within 900ms, it will search the typed keyword.
+    _debounce = Timer(const Duration(milliseconds: 900), () {
+      productList.initializeData();
+      productList.setLoadingState(DataStatus.initial);
+      productList.fetchProducts(_page, searchKeyword: _searchController.text);
+    });
+  }
+
+  @override
+  void dispose() {
+    _debounce?.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
-    final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
       body: Column(
@@ -53,8 +78,12 @@ class _CatalogPageState extends State<CatalogPage> {
                   textDirection: TextDirection.rtl,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 10.0, vertical: 5.0),
+                      horizontal: 10.0,
+                      vertical: 5.0,
+                    ),
+                    // Search
                     child: SearchBar(
+                      controller: _searchController,
                       leading: IconButton(
                         icon: Icon(
                           Icons.search,
