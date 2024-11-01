@@ -287,4 +287,58 @@ class APIService {
     }
     return itemsInCart;
   }
+
+  Future<List<ProductModel>> getCatalog({
+    int? pageNumber,
+    int? pageSize,
+    String? searchKeyword,
+    String? tagName,
+    String? sortBy,
+    String sortOrder = "desc",
+  }) async {
+    List<ProductModel> productList = <ProductModel>[];
+    String parameter = "";
+    if (pageNumber != null) {
+      parameter += "&page=$pageNumber";
+    }
+    if (pageSize != null) {
+      parameter += "&per_page=$pageSize";
+    }
+    if (searchKeyword != null) {
+      parameter += "&search=$searchKeyword";
+    }
+    if (tagName != null) {
+      parameter += "&tag=$tagName";
+    }
+    if (sortBy != null) {
+      parameter += "&orderby=$sortBy";
+    }
+    if (sortOrder == "asc") {
+      parameter += "&order=asc";
+    }
+    parameter.replaceFirst("&", "");
+    final String productUrl =
+        "${WoocommerceInfo.baseUrl}${WoocommerceInfo.productsURL}?$parameter";
+    try {
+      var response = await Dio().request(
+        productUrl,
+        options: Options(
+          method: "GET",
+          headers: {
+            HttpHeaders.authorizationHeader: "Basic $authToken",
+            HttpHeaders.contentTypeHeader: "application/json",
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        productList = (response.data as List)
+            .map((i) => ProductModel.fromJson(i))
+            .toList();
+      }
+    } on DioException catch (e) {
+      debugPrint(e.message);
+    }
+    return productList;
+  }
 }
