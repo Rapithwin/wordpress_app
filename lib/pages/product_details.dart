@@ -83,8 +83,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                         lessStyle: const TextStyle(
                           fontSize: 14,
                           color: Colors.grey,
-                        ),
                       ),
+                    
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 15.0),

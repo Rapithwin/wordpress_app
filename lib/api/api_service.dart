@@ -278,7 +278,7 @@ class APIService {
     }
     return productList;
   }
-}
+
 
 Future<String> addToCart(AddCartRequestModel model) async {
   late String cartResponse;
