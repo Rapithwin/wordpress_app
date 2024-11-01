@@ -35,6 +35,7 @@ class CatalogProvider with ChangeNotifier {
 
   setLoadingState(DataStatus dataStatus) {
     _dataStatus = dataStatus;
+    notifyListeners();
   }
 
   setSortOrder(SortBy sortBy) {
@@ -51,6 +52,7 @@ class CatalogProvider with ChangeNotifier {
   }) async {
     List<ProductModel> itemModel = await _apiService.getCatalog(
       pageNumber: pageNumber,
+      pageSize: pageSize,
       searchKeyword: searchKeyword,
       tagName: tagName,
       sortBy: _sortBy.value,

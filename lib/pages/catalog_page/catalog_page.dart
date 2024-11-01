@@ -1,7 +1,6 @@
 import 'dart:async' show Timer;
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart' show NumberFormat;
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +18,8 @@ class CatalogPage extends StatefulWidget {
 
 class _CatalogPageState extends State<CatalogPage> {
   final NumberFormat numberFormat = NumberFormat.decimalPattern("fa");
-  TextEditingController _searchController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
   Timer? _debounce;
   int _page = 1;
 
@@ -39,6 +39,14 @@ class _CatalogPageState extends State<CatalogPage> {
       productList.initializeData();
       productList.setLoadingState(DataStatus.initial);
       productList.fetchProducts(_page);
+
+      _scrollController.addListener(() {
+        if (_scrollController.position.pixels ==
+            _scrollController.position.maxScrollExtent) {
+          productList.setLoadingState(DataStatus.loading);
+          productList.fetchProducts(++_page);
+        }
+      });
     });
     _searchController.addListener(_onSearchChanged);
     super.initState();
@@ -67,6 +75,8 @@ class _CatalogPageState extends State<CatalogPage> {
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
+    bool isLoadingMore =
+        context.watch<CatalogProvider>().getDataStatus() == DataStatus.loading;
 
     return Scaffold(
       body: Column(
@@ -140,6 +150,7 @@ class _CatalogPageState extends State<CatalogPage> {
                           Provider.of<CatalogProvider>(context, listen: false);
                       productList.initializeData();
                       productList.setSortOrder(sortBy);
+                      _page = 1;
                       productList.fetchProducts(_page);
                     },
                     itemBuilder: (context) {
@@ -170,10 +181,10 @@ class _CatalogPageState extends State<CatalogPage> {
                   textDirection: TextDirection.rtl,
                   child: Flexible(
                     child: GridView.count(
+                      controller: _scrollController,
                       childAspectRatio: 0.85,
                       crossAxisCount: 2,
                       shrinkWrap: true,
-                      physics: const ClampingScrollPhysics(),
                       children: productModel.allProducts.map(
                         (product) {
                           return GestureDetector(
@@ -260,6 +271,17 @@ class _CatalogPageState extends State<CatalogPage> {
                 child: CircularProgressIndicator(color: Constants.primaryColor),
               );
             },
+          ),
+          Visibility(
+            visible: isLoadingMore,
+            child: Container(
+              padding: const EdgeInsets.all(5.0),
+              height: 30.0,
+              width: 30.0,
+              child: const CircularProgressIndicator(
+                color: Constants.primaryColor,
+              ),
+            ),
           )
         ],
       ),
