@@ -272,17 +272,25 @@ class _CatalogPageState extends State<CatalogPage> {
               );
             },
           ),
-          Visibility(
-            visible: isLoadingMore,
-            child: Container(
-              padding: const EdgeInsets.all(5.0),
-              height: 30.0,
-              width: 30.0,
-              child: const CircularProgressIndicator(
-                color: Constants.primaryColor,
+          Padding(
+            padding: const EdgeInsets.only(bottom: 5.0),
+            child: Visibility(
+              visible: isLoadingMore,
+              child: Container(
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                    boxShadow: [BoxShadow(color: Colors.black, blurRadius: 4)]),
+                padding: const EdgeInsets.all(8.0),
+                height: 30.0,
+                width: 30.0,
+                child: const CircularProgressIndicator(
+                  color: Constants.primaryColor,
+                  strokeWidth: 3.0,
+                ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );
