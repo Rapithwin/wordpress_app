@@ -279,66 +279,66 @@ class APIService {
     return productList;
   }
 
+  Future<String> addToCart(AddCartRequestModel model) async {
+    late String cartResponse;
+    // TODO
+    String cartAuthToken = base64.encode(utf8.encode("api_test:12345678"));
 
-Future<String> addToCart(AddCartRequestModel model) async {
-  late String cartResponse;
-  // TODO
-  String cartAuthToken = base64.encode(utf8.encode("api_test:12345678"));
-
-  try {
-    var response = await Dio().request(
-      WoocommerceInfo.wordpressUrl +
-          WoocommerceInfo.coCartUrl +
-          WoocommerceInfo.addItemToCart,
-      data: model.toJson(),
-      options: Options(
-        method: "POST",
-        headers: {
-          HttpHeaders.authorizationHeader: "Basic $cartAuthToken",
-          HttpHeaders.contentTypeHeader: "application/json",
-        },
-      ),
-    );
-    if (response.statusCode == 200) {
-      cartResponse = "به سبد خرید اضافه شد";
+    try {
+      var response = await Dio().request(
+        WoocommerceInfo.wordpressUrl +
+            WoocommerceInfo.coCartUrl +
+            WoocommerceInfo.addItemToCart,
+        data: model.toJson(),
+        options: Options(
+          method: "POST",
+          headers: {
+            HttpHeaders.authorizationHeader: "Basic $cartAuthToken",
+            HttpHeaders.contentTypeHeader: "application/json",
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        cartResponse = "به سبد خرید اضافه شد";
+      }
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout) {
+        debugPrint("Timeout Error");
+      }
+      debugPrint(e.message);
+      cartResponse = "مشکلی رخ داده است";
     }
-  } on DioException catch (e) {
-    if (e.type == DioExceptionType.connectionTimeout) {
-      debugPrint("Timeout Error");
-    }
-    debugPrint(e.message);
-    cartResponse = "مشکلی رخ داده است";
+    return cartResponse;
   }
-  return cartResponse;
-}
 
-Future<List<CartItemsModel>> getItemsInCart() async {
-  late List<CartItemsModel> itemsInCart;
-  // TODO
-  String cartAuthToken = base64.encode(utf8.encode("api_test:12345678"));
+  Future<List<CartItemsModel>> getItemsInCart() async {
+    late List<CartItemsModel> itemsInCart;
+    // TODO
+    String cartAuthToken = base64.encode(utf8.encode("api_test:12345678"));
 
-  try {
-    var response = await Dio().request(
-      WoocommerceInfo.wordpressUrl +
-          WoocommerceInfo.coCartUrl +
-          WoocommerceInfo.items,
-      options: Options(
-        method: "GET",
-        headers: {
-          HttpHeaders.authorizationHeader: "Basic $cartAuthToken",
-          HttpHeaders.contentTypeHeader: "application/json",
-        },
-      ),
-    );
-    if (response.statusCode == 200) {
-      var decodedJson = cartItemsModelFromJson(json.encode(response.data));
-      itemsInCart = decodedJson.values.toList();
+    try {
+      var response = await Dio().request(
+        WoocommerceInfo.wordpressUrl +
+            WoocommerceInfo.coCartUrl +
+            WoocommerceInfo.items,
+        options: Options(
+          method: "GET",
+          headers: {
+            HttpHeaders.authorizationHeader: "Basic $cartAuthToken",
+            HttpHeaders.contentTypeHeader: "application/json",
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        var decodedJson = cartItemsModelFromJson(json.encode(response.data));
+        itemsInCart = decodedJson.values.toList();
+      }
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout) {
+        debugPrint("Timeout Error");
+      }
+      debugPrint(e.message);
     }
-  } on DioException catch (e) {
-    if (e.type == DioExceptionType.connectionTimeout) {
-      debugPrint("Timeout Error");
-    }
-    debugPrint(e.message);
+    return itemsInCart;
   }
-  return itemsInCart;
 }
