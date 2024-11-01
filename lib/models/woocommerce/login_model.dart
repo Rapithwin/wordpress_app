@@ -6,28 +6,26 @@ class LoginModel {
   String? message;
 
   LoginModel({
+    this.token,
     this.message,
     this.email,
     this.username,
     this.displayName,
   });
 
-  LoginModel.fromJson(Map<String, dynamic> json) {
-    token = json["token"];
-    email = json["user_email"];
-    username = json["user_nicename"];
-    displayName = json["user_display_name"];
-    message = json["message"];
-  }
+  factory LoginModel.fromJson(Map<String, dynamic> json) => LoginModel(
+        token: json["token"],
+        email: json["user_email"],
+        username: json["user_nicename"],
+        displayName: json["user_display_name"],
+        message: json["message"],
+      );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data["token"] = token;
-    data["user_email"] = email;
-    data["user_nicename"] = username;
-    data["user_display_name"] = displayName;
-    data["message"] = message;
-
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+        "token": token,
+        "user_email": email,
+        "user_nicename": username,
+        "user_display_name": displayName,
+        "message": message,
+      };
 }

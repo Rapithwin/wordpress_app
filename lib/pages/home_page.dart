@@ -15,17 +15,17 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int selectedIndex = 0;
+  int? selectedIndex;
 
   @override
   void initState() {
     Future.delayed(Duration.zero).then(
       (value) {
-        ShopProvider productList =
+        ShopProvider shopProvider =
             Provider.of<ShopProvider>(context, listen: false);
-        productList.getAllProducts();
-        productList.getAllCategories();
-        productList.getAllPosts();
+        shopProvider.getAllProducts();
+        shopProvider.getAllCategories();
+        shopProvider.getAllPosts();
       },
     );
 

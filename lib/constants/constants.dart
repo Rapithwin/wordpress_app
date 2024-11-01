@@ -3,14 +3,22 @@ import 'package:flutter/material.dart';
 class WoocommerceInfo {
   // Woocommerce base url
   static String baseUrl = "https://10.0.2.2/wordpress/wp-json/wc/v3/";
-  static String postsUrl = "https://10.0.2.2/wordpress/wp-json/wp/v2/posts/";
+  // Wordpress base url
+  static String wordpressUrl = "https://10.0.2.2/wordpress/wp-json/";
   // JWT url
   static String jwtUrl =
       "https://10.0.2.2/wordpress//wp-json/jwt-auth/v1/token";
+  // CoCart url
+  static String coCartUrl = "cocart/v2/cart/";
   // Endpoints
   static String costumerURL = "customers";
   static String productsURL = "products";
   static String productsCategoriesURL = "products/categories";
+  static String postsUrl = "wp/v2/posts/";
+  // CoCart add item endpoint
+  static String addItemToCart = "add-item";
+  // CoCart items endpoint
+  static String items = "items";
 }
 
 class Constants {
