@@ -257,37 +257,6 @@ class APIService {
     return cartResponse;
   }
 
-  Future<List<CartItemsModel>> getItemsInCart() async {
-    late List<CartItemsModel> itemsInCart;
-    // TODO
-    String cartAuthToken = base64.encode(utf8.encode("api_test:12345678"));
-
-    try {
-      var response = await Dio().request(
-        WoocommerceInfo.wordpressUrl +
-            WoocommerceInfo.coCartUrl +
-            WoocommerceInfo.items,
-        options: Options(
-          method: "GET",
-          headers: {
-            HttpHeaders.authorizationHeader: "Basic $cartAuthToken",
-            HttpHeaders.contentTypeHeader: "application/json",
-          },
-        ),
-      );
-      if (response.statusCode == 200) {
-        var decodedJson = cartItemsModelFromJson(json.encode(response.data));
-        itemsInCart = decodedJson.values.toList();
-      }
-    } on DioException catch (e) {
-      if (e.type == DioExceptionType.connectionTimeout) {
-        debugPrint("Timeout Error");
-      }
-      debugPrint(e.message);
-    }
-    return itemsInCart;
-  }
-
   Future<List<ProductModel>> getCatalog({
     int? pageNumber,
     int? pageSize,
@@ -341,4 +310,35 @@ class APIService {
     }
     return productList;
   }
+}
+
+Future<List<CartItemsModel>> getItemsInCart() async {
+  late List<CartItemsModel> itemsInCart;
+  // TODO
+  String cartAuthToken = base64.encode(utf8.encode("api_test:12345678"));
+
+  try {
+    var response = await Dio().request(
+      WoocommerceInfo.wordpressUrl +
+          WoocommerceInfo.coCartUrl +
+          WoocommerceInfo.items,
+      options: Options(
+        method: "GET",
+        headers: {
+          HttpHeaders.authorizationHeader: "Basic $cartAuthToken",
+          HttpHeaders.contentTypeHeader: "application/json",
+        },
+      ),
+    );
+    if (response.statusCode == 200) {
+      var decodedJson = cartItemsModelFromJson(json.encode(response.data));
+      itemsInCart = decodedJson.values.toList();
+    }
+  } on DioException catch (e) {
+    if (e.type == DioExceptionType.connectionTimeout) {
+      debugPrint("Timeout Error");
+    }
+    debugPrint(e.message);
+  }
+  return itemsInCart;
 }
