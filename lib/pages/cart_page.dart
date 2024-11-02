@@ -3,8 +3,8 @@ import 'package:intl/intl.dart' show NumberFormat;
 import 'package:provider/provider.dart';
 import 'package:wordpress_app/constants/constants.dart';
 import 'package:wordpress_app/models/woocommerce/cart/addtocart_request_model.dart';
+import 'package:wordpress_app/provider/cart_provider.dart';
 import 'package:wordpress_app/provider/loader_provider.dart';
-import 'package:wordpress_app/provider/shop_provider.dart';
 import 'package:wordpress_app/widgets/add_quantity.dart';
 
 class CartPage extends StatefulWidget {
@@ -17,11 +17,12 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
   @override
   void initState() {
-    ShopProvider shopProvider =
-        Provider.of<ShopProvider>(context, listen: false);
+    CartProvider cartProvider =
+        Provider.of<CartProvider>(context, listen: false);
     Future.delayed(Duration.zero).then(
       (value) {
-        shopProvider.getItemsInCartProvider();
+        cartProvider.initializeData();
+        cartProvider.getItemsInCartProvider();
       },
     );
     super.initState();
@@ -32,11 +33,11 @@ class _CartPageState extends State<CartPage> {
     final Size size = MediaQuery.of(context).size;
     final textTheme = Theme.of(context).textTheme;
     final NumberFormat numberFormat = NumberFormat.decimalPattern("fa");
-    final ShopProvider shopProvider =
-        Provider.of<ShopProvider>(context, listen: false);
+    final CartProvider cartProvider =
+        Provider.of<CartProvider>(context, listen: false);
     AddCartRequestModel cartReqModel = AddCartRequestModel();
     return Scaffold(
-      body: Consumer<ShopProvider>(
+      body: Consumer<CartProvider>(
         builder: (context, value, child) {
           if (value.isLoading) {
             return const Center(
@@ -97,7 +98,7 @@ class _CartPageState extends State<CartPage> {
                                           Provider.of<LoaderProvider>(context,
                                                   listen: false)
                                               .setLoadingStatus(true);
-                                          shopProvider.addToCart(cartReqModel,
+                                          cartProvider.addToCart(cartReqModel,
                                               (val) {
                                             Provider.of<LoaderProvider>(context,
                                                     listen: false)
