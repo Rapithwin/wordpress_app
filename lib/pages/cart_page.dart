@@ -98,12 +98,18 @@ class _CartPageState extends State<CartPage> {
                                           Provider.of<LoaderProvider>(context,
                                                   listen: false)
                                               .setLoadingStatus(true);
-                                          cartProvider.addToCart(cartReqModel,
-                                              (val) {
-                                            Provider.of<LoaderProvider>(context,
-                                                    listen: false)
-                                                .setLoadingStatus(false);
-                                          });
+                                          cartProvider.initializeData();
+
+                                          cartProvider.addToCart(
+                                            cartReqModel,
+                                            (val) {
+                                              Provider.of<LoaderProvider>(
+                                                      context,
+                                                      listen: false)
+                                                  .setLoadingStatus(false);
+                                            },
+                                          );
+                                          cartProvider.getItemsInCartProvider();
                                         }
                                       },
                                     ),

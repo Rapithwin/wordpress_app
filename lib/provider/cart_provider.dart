@@ -33,5 +33,6 @@ class CartProvider with ChangeNotifier {
 
   void initializeData() {
     _apiService = APIService();
+    _cartItems = <CartItemsModel>[];
   }
 }

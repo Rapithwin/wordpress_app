@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:wordpress_app/constants/constants.dart';
 import 'package:wordpress_app/models/woocommerce/cart/addtocart_request_model.dart';
 import 'package:wordpress_app/models/woocommerce/products_model.dart';
+import 'package:wordpress_app/provider/cart_provider.dart';
 import 'package:wordpress_app/provider/loader_provider.dart';
-import 'package:wordpress_app/provider/shop_provider.dart';
 import 'package:wordpress_app/widgets/add_quantity.dart';
 
 class CustomBottomAppbar extends StatefulWidget {
@@ -61,10 +61,10 @@ class _CustomBottomAppbarState extends State<CustomBottomAppbar> {
                 onPressed: () {
                   Provider.of<LoaderProvider>(context, listen: false)
                       .setLoadingStatus(true);
-                  ShopProvider shopProvider =
-                      Provider.of<ShopProvider>(context, listen: false);
+                  CartProvider cartProvider =
+                      Provider.of<CartProvider>(context, listen: false);
                   cartReqModel.id = widget.product.id.toString();
-                  shopProvider.addToCart(
+                  cartProvider.addToCart(
                     cartReqModel,
                     (val) {
                       Provider.of<LoaderProvider>(context, listen: false)
