@@ -348,10 +348,8 @@ class APIService {
 
     try {
       var response = await Dio().request(
-        WoocommerceInfo.wordpressUrl +
-            WoocommerceInfo.coCartUrl +
-            WoocommerceInfo.item,
-        data: {"item_key": itemKey, "quantity": quantity},
+        "${WoocommerceInfo.wordpressUrl}${WoocommerceInfo.coCartUrl}${WoocommerceInfo.item}/$itemKey",
+        data: {"quantity": quantity},
         options: Options(
           method: "POST",
           headers: {
@@ -380,10 +378,7 @@ class APIService {
 
     try {
       var response = await Dio().request(
-        WoocommerceInfo.wordpressUrl +
-            WoocommerceInfo.coCartUrl +
-            WoocommerceInfo.item,
-        data: {"item_key": itemKey},
+        "${WoocommerceInfo.wordpressUrl}${WoocommerceInfo.coCartUrl}${WoocommerceInfo.item}/$itemKey",
         options: Options(
           method: "DELETE",
           headers: {
