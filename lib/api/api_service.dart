@@ -341,4 +341,35 @@ class APIService {
     }
     return itemsInCart;
   }
+
+  Future<bool> updateCart(String itemKey, String quantity) async {
+    late bool cartUpdated;
+    String cartAuthToken = base64.encode(utf8.encode("api_test:12345678"));
+
+    try {
+      var response = await Dio().request(
+        WoocommerceInfo.wordpressUrl +
+            WoocommerceInfo.coCartUrl +
+            WoocommerceInfo.item,
+        data: {"item_key": itemKey, "quantity": quantity},
+        options: Options(
+          method: "POST",
+          headers: {
+            HttpHeaders.authorizationHeader: "Basic $cartAuthToken",
+            HttpHeaders.contentTypeHeader: "application/json",
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        cartUpdated = true;
+      }
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout) {
+        debugPrint("Timeout Error");
+      }
+      debugPrint(e.message);
+      cartUpdated = false;
+    }
+    return cartUpdated;
+  }
 }
