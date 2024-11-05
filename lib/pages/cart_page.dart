@@ -88,29 +88,21 @@ class _CartPageState extends State<CartPage> {
                                           .cartItems![index].quantity!.value!,
                                       valueChanged: (quantity) {
                                         // TODO: if value < quantity remove item. else add item.
-                                        cartReqModel.id = value
-                                            .cartItems![index].id
-                                            .toString();
-                                        cartReqModel.quantity = "1";
-                                        if (quantity >
-                                            value.cartItems![index].quantity!
-                                                .value) {
-                                          Provider.of<LoaderProvider>(context,
-                                                  listen: false)
-                                              .setLoadingStatus(true);
-                                          cartProvider.initializeData();
+                                        Provider.of<LoaderProvider>(context,
+                                                listen: false)
+                                            .setLoadingStatus(true);
+                                        cartProvider.updateCartProvider(
+                                          value.cartItems![index].itemKey!,
+                                          quantity.toString(),
+                                          (val) {
+                                            Provider.of<LoaderProvider>(context,
+                                                    listen: false)
+                                                .setLoadingStatus(false);
+                                          },
+                                        );
 
-                                          cartProvider.addToCart(
-                                            cartReqModel,
-                                            (val) {
-                                              Provider.of<LoaderProvider>(
-                                                      context,
-                                                      listen: false)
-                                                  .setLoadingStatus(false);
-                                            },
-                                          );
-                                          cartProvider.getItemsInCartProvider();
-                                        }
+                                        cartProvider.initializeData();
+                                        cartProvider.getItemsInCartProvider();
                                       },
                                     ),
                                     TextButton(

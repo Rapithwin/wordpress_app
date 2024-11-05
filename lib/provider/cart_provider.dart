@@ -39,12 +39,11 @@ class CartProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> updateCartProvider(String itemKey, String quantity) async {
-    isLoading = true;
-    notifyListeners();
+  Future<void> updateCartProvider(
+      String itemKey, String quantity, Function onCallBalck) async {
     final response = await _apiService.updateCart(itemKey, quantity);
     _cartUpdated = response;
-    isLoading = false;
+    onCallBalck(response);
     notifyListeners();
   }
 
