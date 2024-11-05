@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' show NumberFormat;
 import 'package:provider/provider.dart';
 import 'package:wordpress_app/constants/constants.dart';
-import 'package:wordpress_app/models/woocommerce/cart/addtocart_request_model.dart';
 import 'package:wordpress_app/provider/cart_provider.dart';
 import 'package:wordpress_app/provider/loader_provider.dart';
 import 'package:wordpress_app/widgets/add_quantity.dart';
@@ -35,7 +34,6 @@ class _CartPageState extends State<CartPage> {
     final NumberFormat numberFormat = NumberFormat.decimalPattern("fa");
     final CartProvider cartProvider =
         Provider.of<CartProvider>(context, listen: false);
-    AddCartRequestModel cartReqModel = AddCartRequestModel();
     return Scaffold(
       body: Consumer<CartProvider>(
         builder: (context, value, child) {
@@ -106,7 +104,22 @@ class _CartPageState extends State<CartPage> {
                                       },
                                     ),
                                     TextButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Provider.of<LoaderProvider>(context,
+                                                listen: false)
+                                            .setLoadingStatus(true);
+
+                                        cartProvider.deleteItemProvider(
+                                          value.cartItems![index].itemKey!,
+                                          (val) {
+                                            Provider.of<LoaderProvider>(context,
+                                                    listen: false)
+                                                .setLoadingStatus(false);
+                                          },
+                                        );
+                                        cartProvider.initializeData();
+                                        cartProvider.getItemsInCartProvider();
+                                      },
                                       style: ButtonStyle(
                                         overlayColor: WidgetStateProperty.all(
                                           Constants.primaryColor

@@ -47,12 +47,10 @@ class CartProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> deleteItemProvider(String itemKey) async {
-    isLoading = true;
-    notifyListeners();
+  Future<void> deleteItemProvider(String itemKey, Function onCallBalck) async {
     final response = await _apiService.deleteItemCart(itemKey);
     _itemDeleted = response;
-    isLoading = false;
+    onCallBalck(response);
     notifyListeners();
   }
 
