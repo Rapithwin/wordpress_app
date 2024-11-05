@@ -366,10 +366,43 @@ class APIService {
     } on DioException catch (e) {
       if (e.type == DioExceptionType.connectionTimeout) {
         debugPrint("Timeout Error");
+        cartUpdated = false;
       }
       debugPrint(e.message);
       cartUpdated = false;
     }
     return cartUpdated;
+  }
+
+  Future<bool> removeItemCart(String itemKey) async {
+    late bool itemDeleted;
+    String cartAuthToken = base64.encode(utf8.encode("api_test:12345678"));
+
+    try {
+      var response = await Dio().request(
+        WoocommerceInfo.wordpressUrl +
+            WoocommerceInfo.coCartUrl +
+            WoocommerceInfo.item,
+        data: {"item_key": itemKey},
+        options: Options(
+          method: "DELETE",
+          headers: {
+            HttpHeaders.authorizationHeader: "Basic $cartAuthToken",
+            HttpHeaders.contentTypeHeader: "application/json",
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        itemDeleted = true;
+      }
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout) {
+        debugPrint("Timeout Error");
+        itemDeleted = false;
+      }
+      debugPrint(e.message);
+      itemDeleted = false;
+    }
+    return itemDeleted;
   }
 }
