@@ -15,6 +15,14 @@ class CartProvider with ChangeNotifier {
   String? _addCartRes;
   String? get addCartRes => _addCartRes;
 
+  // Update cart response
+  bool? _cartUpdated;
+  bool? get cartUpdated => _cartUpdated;
+
+  // Delete item response
+  bool? _itemDeleted;
+  bool? get itemDeleted => _itemDeleted;
+
   Future<void> addToCart(
       AddCartRequestModel model, Function onCallBalck) async {
     final response = await _apiService.addToCart(model);
@@ -27,6 +35,24 @@ class CartProvider with ChangeNotifier {
     notifyListeners();
     final response = await _apiService.getItemsInCart();
     _cartItems = response;
+    isLoading = false;
+    notifyListeners();
+  }
+
+  Future<void> updateCartProvider(String itemKey, String quantity) async {
+    isLoading = true;
+    notifyListeners();
+    final response = await _apiService.updateCart(itemKey, quantity);
+    _cartUpdated = response;
+    isLoading = false;
+    notifyListeners();
+  }
+
+  Future<void> deleteItemProvider(String itemKey) async {
+    isLoading = true;
+    notifyListeners();
+    final response = await _apiService.deleteItemCart(itemKey);
+    _itemDeleted = response;
     isLoading = false;
     notifyListeners();
   }

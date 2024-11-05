@@ -372,7 +372,7 @@ class APIService {
     return cartUpdated;
   }
 
-  Future<bool> removeItemCart(String itemKey) async {
+  Future<bool> deleteItemCart(String itemKey) async {
     late bool itemDeleted;
     String cartAuthToken = base64.encode(utf8.encode("api_test:12345678"));
 
