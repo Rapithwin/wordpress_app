@@ -4,6 +4,10 @@ import 'package:wordpress_app/models/woocommerce/cart/addtocart_request_model.da
 import 'package:wordpress_app/models/woocommerce/cart/get_items_cart_model.dart';
 
 class CartProvider with ChangeNotifier {
+  CartProvider() {
+    _apiService = APIService();
+    _cartItems = <CartItemsModel>[];
+  }
   late APIService _apiService;
   bool isLoading = false;
 
@@ -33,8 +37,17 @@ class CartProvider with ChangeNotifier {
   Future<void> getItemsInCartProvider({String? id}) async {
     isLoading = true;
     notifyListeners();
-    final response = await _apiService.getItemsInCart(id);
-    _cartItems = response;
+    if (_cartItems == null) initializeData();
+
+    await _apiService.getItemsInCart(id).then(
+      (cartResModel) {
+        if (cartResModel.isNotEmpty) {
+          _cartItems?.clear();
+          List<CartItemsModel> newCartResModel = cartResModel;
+          _cartItems?.addAll(newCartResModel);
+        }
+      },
+    );
     isLoading = false;
     notifyListeners();
   }
