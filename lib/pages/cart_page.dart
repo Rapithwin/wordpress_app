@@ -16,10 +16,10 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
   @override
   void initState() {
-    CartProvider cartProvider =
-        Provider.of<CartProvider>(context, listen: false);
     Future.delayed(Duration.zero).then(
       (value) {
+        CartProvider cartProvider =
+            Provider.of<CartProvider>(context, listen: false);
         cartProvider.initializeData();
         cartProvider.getItemsInCartProvider();
       },
@@ -94,12 +94,36 @@ class _CartPageState extends State<CartPage> {
                                               value.cartItems![index].itemKey!,
                                               quantity.toString(),
                                             );
-                                            Future.delayed(const Duration(
-                                                    milliseconds: 500))
-                                                .then((_) {
-                                              value.initializeData();
-                                              value.getItemsInCartProvider();
-                                            });
+                                            Future.delayed(
+                                              const Duration(
+                                                milliseconds: 500,
+                                              ),
+                                            ).then(
+                                              (_) {
+                                                value.initializeData();
+                                                value.getItemsInCartProvider();
+                                              },
+                                            );
+                                            if (quantity == 0) {
+                                              Provider.of<LoaderProvider>(
+                                                      context,
+                                                      listen: false)
+                                                  .setLoadingStatus(true);
+
+                                              cartProvider.deleteItemProvider(
+                                                value
+                                                    .cartItems![index].itemKey!,
+                                              );
+                                              Future.delayed(const Duration(
+                                                      seconds: 1))
+                                                  .then(
+                                                (_) {
+                                                  cartProvider.initializeData();
+                                                  cartProvider
+                                                      .getItemsInCartProvider();
+                                                },
+                                              );
+                                            }
                                           },
                                         ),
                                         TextButton(
@@ -116,11 +140,13 @@ class _CartPageState extends State<CartPage> {
                                             );
                                             Future.delayed(
                                                     const Duration(seconds: 1))
-                                                .then((_) {
-                                              cartProvider.initializeData();
-                                              cartProvider
-                                                  .getItemsInCartProvider();
-                                            });
+                                                .then(
+                                              (_) {
+                                                cartProvider.initializeData();
+                                                cartProvider
+                                                    .getItemsInCartProvider();
+                                              },
+                                            );
                                           },
                                           style: ButtonStyle(
                                             overlayColor:
