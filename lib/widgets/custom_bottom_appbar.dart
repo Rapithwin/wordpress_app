@@ -18,10 +18,14 @@ class CustomBottomAppbar extends StatefulWidget {
 class _CustomBottomAppbarState extends State<CustomBottomAppbar> {
   int quantity = 0;
   AddCartRequestModel cartReqModel = AddCartRequestModel();
+
   late String response;
 
   @override
   Widget build(BuildContext context) {
+    CartProvider cartProvider =
+        Provider.of<CartProvider>(context, listen: false);
+
     Size size = MediaQuery.of(context).size;
     TextTheme textTheme = Theme.of(context).textTheme;
     return BottomAppBar(
@@ -29,19 +33,24 @@ class _CustomBottomAppbarState extends State<CustomBottomAppbar> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Container(
-            width: 55,
-            height: 55,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Constants.primaryColor.withOpacity(0.6),
-            ),
-            child: IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.shopping_cart,
-                size: 26,
-                color: Colors.white,
+          Badge.count(
+            alignment: Alignment.topRight,
+            largeSize: 21,
+            count: 2,
+            child: Container(
+              width: 55,
+              height: 55,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Constants.primaryColor.withOpacity(0.6),
+              ),
+              child: IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.shopping_cart,
+                  size: 26,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
@@ -61,8 +70,7 @@ class _CustomBottomAppbarState extends State<CustomBottomAppbar> {
                 onPressed: () {
                   Provider.of<LoaderProvider>(context, listen: false)
                       .setLoadingStatus(true);
-                  CartProvider cartProvider =
-                      Provider.of<CartProvider>(context, listen: false);
+
                   cartReqModel.id = widget.product.id.toString();
                   cartProvider.addToCart(
                     cartReqModel,
