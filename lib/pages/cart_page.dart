@@ -100,7 +100,7 @@ class _CartPageState extends State<CartPage> {
                                     TextButton(
                                       onPressed: () {
                                         // TODO: Set loading status like catalog page and get rid of progress indicator for this part
-                                        // TODO: The products dooesn't show when I add from homepage and then switch to cart
+                                        // TODO: The products dooesn't show when I add from homepage and then switch to
 
                                         Provider.of<LoaderProvider>(context,
                                                 listen: false)
