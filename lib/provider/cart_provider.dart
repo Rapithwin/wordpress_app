@@ -40,18 +40,17 @@ class CartProvider with ChangeNotifier {
   }
 
   Future<void> updateCartProvider(
-      String itemKey, String quantity, Function onCallBalck) async {
+    String itemKey,
+    String quantity,
+  ) async {
     final response = await _apiService.updateCart(itemKey, quantity);
     _cartUpdated = response;
-    onCallBalck(response);
     notifyListeners();
   }
 
-  Future<void> deleteItemProvider(String itemKey, Function onCallBalck) async {
+  Future<void> deleteItemProvider(String itemKey) async {
     final response = await _apiService.deleteItemCart(itemKey);
     _itemDeleted = response;
-    onCallBalck(response);
-    notifyListeners();
   }
 
   void initializeData() {

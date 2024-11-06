@@ -359,6 +359,7 @@ class APIService {
         ),
       );
       if (response.statusCode == 200) {
+        debugPrint("here");
         cartUpdated = true;
       }
     } on DioException catch (e) {

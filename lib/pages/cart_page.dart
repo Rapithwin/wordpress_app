@@ -47,6 +47,7 @@ class _CartPageState extends State<CartPage> {
           return value.cartItems!.isEmpty
               ? Center(
                   child: Text(
+                    // TODO: this doesn't show up
                     "سبد خرید خالی است",
                     style: textTheme.titleLarge,
                   ),
@@ -74,7 +75,6 @@ class _CartPageState extends State<CartPage> {
                               mainAxisAlignment: MainAxisAlignment.end,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
-                                // TODO: Show quantity
                                 Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
@@ -85,40 +85,36 @@ class _CartPageState extends State<CartPage> {
                                       value: value
                                           .cartItems![index].quantity!.value!,
                                       valueChanged: (quantity) {
-                                        // TODO: if value < quantity remove item. else add item.
-                                        Provider.of<LoaderProvider>(context,
-                                                listen: false)
-                                            .setLoadingStatus(true);
-                                        cartProvider.updateCartProvider(
+                                        value.updateCartProvider(
                                           value.cartItems![index].itemKey!,
                                           quantity.toString(),
-                                          (val) {
-                                            Provider.of<LoaderProvider>(context,
-                                                    listen: false)
-                                                .setLoadingStatus(false);
-                                          },
                                         );
-
-                                        cartProvider.initializeData();
-                                        cartProvider.getItemsInCartProvider();
+                                        Future.delayed(const Duration(
+                                                milliseconds: 500))
+                                            .then((_) {
+                                          value.initializeData();
+                                          value.getItemsInCartProvider();
+                                        });
                                       },
                                     ),
                                     TextButton(
                                       onPressed: () {
+                                        // TODO: Set loading status like catalog page and get rid of progress indicator for this part
+                                        // TODO: The products dooesn't show when I add from homepage and then switch to cart
+
                                         Provider.of<LoaderProvider>(context,
                                                 listen: false)
                                             .setLoadingStatus(true);
 
                                         cartProvider.deleteItemProvider(
                                           value.cartItems![index].itemKey!,
-                                          (val) {
-                                            Provider.of<LoaderProvider>(context,
-                                                    listen: false)
-                                                .setLoadingStatus(false);
-                                          },
                                         );
-                                        cartProvider.initializeData();
-                                        cartProvider.getItemsInCartProvider();
+                                        Future.delayed(
+                                                const Duration(seconds: 1))
+                                            .then((_) {
+                                          cartProvider.initializeData();
+                                          cartProvider.getItemsInCartProvider();
+                                        });
                                       },
                                       style: ButtonStyle(
                                         overlayColor: WidgetStateProperty.all(
