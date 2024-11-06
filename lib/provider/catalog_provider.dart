@@ -3,12 +3,7 @@ import 'package:flutter/material.dart' show ChangeNotifier;
 import 'package:wordpress_app/api/api_service.dart';
 import 'package:wordpress_app/models/woocommerce/products_model.dart';
 import 'package:wordpress_app/pages/catalog_page/sort_class.dart';
-
-enum DataStatus {
-  initial,
-  loading,
-  stable,
-}
+import 'package:wordpress_app/utils/data_status.dart';
 
 class CatalogProvider with ChangeNotifier {
   late APIService _apiService;
