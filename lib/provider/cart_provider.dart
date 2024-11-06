@@ -30,10 +30,10 @@ class CartProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getItemsInCartProvider() async {
+  Future<void> getItemsInCartProvider({String? id}) async {
     isLoading = true;
     notifyListeners();
-    final response = await _apiService.getItemsInCart();
+    final response = await _apiService.getItemsInCart(id);
     _cartItems = response;
     isLoading = false;
     notifyListeners();

@@ -25,6 +25,7 @@ class _CustomBottomAppbarState extends State<CustomBottomAppbar> {
   Widget build(BuildContext context) {
     CartProvider cartProvider =
         Provider.of<CartProvider>(context, listen: false);
+    cartProvider.getItemsInCartProvider(id: widget.product.id.toString());
 
     Size size = MediaQuery.of(context).size;
     TextTheme textTheme = Theme.of(context).textTheme;
@@ -36,7 +37,7 @@ class _CustomBottomAppbarState extends State<CustomBottomAppbar> {
           Badge.count(
             alignment: Alignment.topRight,
             largeSize: 21,
-            count: 2,
+            count: cartProvider.cartItems![0].quantity!.value!,
             child: Container(
               width: 55,
               height: 55,
