@@ -75,10 +75,13 @@ class _CustomBottomAppbarState extends State<CustomBottomAppbar> {
                   cartProvider.addToCart(
                     cartReqModel,
                     (val) {
+                      cartProvider.initializeData();
+                      cartProvider.getItemsInCartProvider();
                       Provider.of<LoaderProvider>(context, listen: false)
                           .setLoadingStatus(false);
                     },
                   );
+
                   showDialog<String>(
                     context: context,
                     builder: (BuildContext context) => AlertDialog(
