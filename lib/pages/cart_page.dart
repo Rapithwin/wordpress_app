@@ -47,7 +47,6 @@ class _CartPageState extends State<CartPage> {
           return value.cartItems!.isEmpty
               ? Center(
                   child: Text(
-                    // TODO: this doesn't show up
                     "سبد خرید خالی است",
                     style: textTheme.titleLarge,
                   ),
@@ -128,9 +127,6 @@ class _CartPageState extends State<CartPage> {
                                         ),
                                         TextButton(
                                           onPressed: () {
-                                            // TODO: Set loading status like catalog page and get rid of progress indicator for this part
-                                            // TODO: The products dooesn't show when I add from homepage and then switch to
-
                                             Provider.of<LoaderProvider>(context,
                                                     listen: false)
                                                 .setLoadingStatus(true);

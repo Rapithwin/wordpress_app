@@ -311,16 +311,14 @@ class APIService {
     return cartResponse;
   }
 
-  Future<List<CartItemsModel>> getItemsInCart(String? id) async {
+  Future<List<CartItemsModel>> getItemsInCart() async {
     late List<CartItemsModel> itemsInCart;
     // TODO
     String cartAuthToken = base64.encode(utf8.encode("api_test:12345678"));
 
     try {
       var response = await Dio().request(
-        id != null
-            ? "${WoocommerceInfo.wordpressUrl}${WoocommerceInfo.coCartUrl}${WoocommerceInfo.items}?id=$id"
-            : "${WoocommerceInfo.wordpressUrl}${WoocommerceInfo.coCartUrl}${WoocommerceInfo.items}",
+        "${WoocommerceInfo.wordpressUrl}${WoocommerceInfo.coCartUrl}${WoocommerceInfo.items}",
         options: Options(
           method: "GET",
           headers: {
@@ -337,7 +335,8 @@ class APIService {
       if (e.type == DioExceptionType.connectionTimeout) {
         debugPrint("Timeout Error");
       }
-      debugPrint(e.message);
+
+      if (e.response?.statusCode == 404) itemsInCart = <CartItemsModel>[];
     }
     return itemsInCart;
   }

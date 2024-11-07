@@ -39,7 +39,7 @@ class CartProvider with ChangeNotifier {
     notifyListeners();
     if (_cartItems == null) initializeData();
 
-    await _apiService.getItemsInCart(id).then(
+    await _apiService.getItemsInCart().then(
       (cartResModel) {
         if (cartResModel.isNotEmpty) {
           _cartItems?.clear();
@@ -64,6 +64,7 @@ class CartProvider with ChangeNotifier {
   Future<void> deleteItemProvider(String itemKey) async {
     final response = await _apiService.deleteItemCart(itemKey);
     _itemDeleted = response;
+    notifyListeners();
   }
 
   void initializeData() {
