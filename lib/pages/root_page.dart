@@ -37,7 +37,7 @@ class _RootPageState extends State<RootPage> {
       label: "",
     ),
     const BottomNavigationBarItem(
-      icon: Icon(Icons.favorite),
+      icon: Icon(Icons.book),
       label: "",
     ),
     const BottomNavigationBarItem(
@@ -52,7 +52,7 @@ class _RootPageState extends State<RootPage> {
 
   List<String> appBarTitles = [
     "خانه",
-    "علاقه‌مندی‌ها",
+    "محصولات",
     "سبد خرید",
     "پروفایل",
   ];
