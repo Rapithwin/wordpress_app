@@ -34,7 +34,35 @@ class _CartPageState extends State<CartPage> {
     final NumberFormat numberFormat = NumberFormat.decimalPattern("fa");
     final CartProvider cartProvider =
         Provider.of<CartProvider>(context, listen: false);
+    final bool hasPagePushed = Navigator.of(context).canPop();
+
     return Scaffold(
+      appBar: hasPagePushed
+          ? AppBar(
+              toolbarHeight: 80,
+              backgroundColor: Colors.transparent,
+              scrolledUnderElevation: 0,
+              title: Padding(
+                padding: const EdgeInsets.only(top: 10, bottom: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Icon(
+                      Icons.notifications,
+                      size: 35,
+                      color: Colors.grey[600],
+                    ),
+                    Text(
+                      "سبد خرید",
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                  ],
+                ),
+              ),
+            )
+          : AppBar(
+              toolbarHeight: 0,
+            ),
       body: Consumer<CartProvider>(
         builder: (context, value, child) {
           if (value.isLoading) {

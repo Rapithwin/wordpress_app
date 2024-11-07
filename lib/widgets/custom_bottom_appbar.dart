@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:wordpress_app/constants/constants.dart';
 import 'package:wordpress_app/models/woocommerce/cart/addtocart_request_model.dart';
 import 'package:wordpress_app/models/woocommerce/products_model.dart';
+import 'package:wordpress_app/pages/cart_page.dart';
 import 'package:wordpress_app/provider/cart_provider.dart';
 import 'package:wordpress_app/provider/loader_provider.dart';
 import 'package:wordpress_app/widgets/add_quantity.dart';
@@ -33,6 +35,7 @@ class _CustomBottomAppbarState extends State<CustomBottomAppbar> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
+          // Cart icon
           Badge.count(
             alignment: Alignment.topRight,
             largeSize: 21,
@@ -47,7 +50,15 @@ class _CustomBottomAppbarState extends State<CustomBottomAppbar> {
                 color: Constants.primaryColor.withOpacity(0.6),
               ),
               child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    PageTransition(
+                      child: const CartPage(),
+                      type: PageTransitionType.fade,
+                    ),
+                  );
+                },
                 icon: const Icon(
                   Icons.shopping_cart,
                   size: 26,
