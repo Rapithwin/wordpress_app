@@ -69,6 +69,7 @@ class _CartPageState extends State<CartPage> {
           color: Constants.primaryColor.withOpacity(0.2),
         ),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Builder(
               builder: (context) {
@@ -93,11 +94,12 @@ class _CartPageState extends State<CartPage> {
             const SizedBox(
               width: 10,
             ),
-            Expanded(
+            Flexible(
               child: Padding(
                 padding: const EdgeInsets.only(right: 10.0),
-                child: SizedBox(
+                child: Container(
                   width: size.width * 0.75,
+                  constraints: BoxConstraints(maxWidth: 200),
                   height: 52,
                   child: ElevatedButton(
                     onPressed: () {},
