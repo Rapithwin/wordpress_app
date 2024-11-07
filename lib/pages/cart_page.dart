@@ -99,7 +99,7 @@ class _CartPageState extends State<CartPage> {
                 padding: const EdgeInsets.only(right: 10.0),
                 child: Container(
                   width: size.width * 0.75,
-                  constraints: BoxConstraints(maxWidth: 200),
+                  constraints: const BoxConstraints(maxWidth: 200),
                   height: 52,
                   child: ElevatedButton(
                     onPressed: () {},
@@ -252,7 +252,8 @@ class _CartPageState extends State<CartPage> {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 10.0),
+                                      horizontal: 7.5,
+                                    ),
                                     child: Image.network(
                                       value.cartItems![index].featuredImage!
                                           .replaceAll("localhost", "10.0.2.2"),
