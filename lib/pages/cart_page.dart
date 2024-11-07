@@ -178,7 +178,7 @@ class _CartPageState extends State<CartPage> {
                                           );
                                           Future.delayed(
                                             const Duration(
-                                              milliseconds: 500,
+                                              seconds: 1,
                                             ),
                                           ).then(
                                             (_) {
@@ -193,6 +193,7 @@ class _CartPageState extends State<CartPage> {
                                                     const Duration(seconds: 1))
                                                 .then(
                                               (_) {
+                                                cartProvider.initializeData();
                                                 cartProvider
                                                     .getItemsInCartProvider();
                                               },
@@ -206,9 +207,14 @@ class _CartPageState extends State<CartPage> {
                                             value.cartItems![index].itemKey!,
                                           );
                                           Future.delayed(
-                                            const Duration(milliseconds: 500),
+                                            const Duration(seconds: 1),
                                           ).then(
                                             (_) {
+                                              if (cartProvider
+                                                      .cartItems!.length ==
+                                                  1) {
+                                                cartProvider.initializeData();
+                                              }
                                               cartProvider
                                                   .getItemsInCartProvider();
                                             },
