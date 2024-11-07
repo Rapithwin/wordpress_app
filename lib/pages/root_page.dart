@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:wordpress_app/constants/constants.dart';
 import 'package:wordpress_app/pages/cart_page.dart';
 import 'package:wordpress_app/pages/catalog_page/catalog_page.dart';
 import 'package:wordpress_app/pages/home_page.dart';
 import 'package:wordpress_app/pages/profile_page.dart';
+import 'package:wordpress_app/provider/cart_provider.dart';
 
 class RootPage extends StatefulWidget {
   const RootPage({super.key});
@@ -86,23 +88,6 @@ class _RootPageState extends State<RootPage> {
           ),
         ),
       ),
-      // floatingActionButton: SizedBox(
-      //   height: 52,
-      //   child: FittedBox(
-      //     child: FloatingActionButton(
-      //       elevation: 6,
-      //       mini: true,
-      //       onPressed: () {},
-      //       backgroundColor: Constants.primaryColor,
-      //       shape: const CircleBorder(),
-      //       child: const Icon(
-      //         Icons.search,
-      //         color: Colors.white,
-      //         size: 25,
-      //       ),
-      //     ),
-      //   ),
-      // ),
       body: IndexedStack(
         index: bottomNavIndex,
         children: pages(),
@@ -121,6 +106,12 @@ class _RootPageState extends State<RootPage> {
           setState(
             () {
               bottomNavIndex = index;
+              if (index == 2) {
+                Provider.of<CartProvider>(context, listen: false)
+                    .initializeData();
+                Provider.of<CartProvider>(context, listen: false)
+                    .getItemsInCartProvider();
+              }
             },
           );
         },

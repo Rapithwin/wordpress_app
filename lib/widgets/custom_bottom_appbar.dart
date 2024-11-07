@@ -36,7 +36,9 @@ class _CustomBottomAppbarState extends State<CustomBottomAppbar> {
           Badge.count(
             alignment: Alignment.topRight,
             largeSize: 21,
-            count: cartProvider.cartItems!.length,
+            count: Provider.of<CartProvider>(context, listen: true)
+                .cartItems!
+                .length,
             child: Container(
               width: 55,
               height: 55,
@@ -75,7 +77,6 @@ class _CustomBottomAppbarState extends State<CustomBottomAppbar> {
                   cartProvider.addToCart(
                     cartReqModel,
                     (val) {
-                      cartProvider.initializeData();
                       cartProvider.getItemsInCartProvider();
                       Provider.of<LoaderProvider>(context, listen: false)
                           .setLoadingStatus(false);
