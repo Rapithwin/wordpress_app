@@ -30,6 +30,7 @@ class CartProvider with ChangeNotifier {
   Future<void> addToCart(
       AddCartRequestModel model, Function onCallBalck) async {
     final response = await _apiService.addToCart(model);
+    _addCartRes = response;
     onCallBalck(response);
     notifyListeners();
   }
@@ -38,7 +39,6 @@ class CartProvider with ChangeNotifier {
     isLoading = true;
     notifyListeners();
     if (_cartItems == null) initializeData();
-
     await _apiService.getItemsInCart().then(
       (cartResModel) {
         if (cartResModel.isNotEmpty) {
