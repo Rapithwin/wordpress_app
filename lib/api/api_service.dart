@@ -29,10 +29,11 @@ class APIService {
   Future<bool> createCostumer(CustomerModel model) async {
     bool isCreated = false;
     Dio dio = Dio(options);
+    String url = "${WoocommerceInfo.baseUrl}${WoocommerceInfo.costumerURL}";
 
     try {
       var response = await dio.request(
-        WoocommerceInfo.baseUrl + WoocommerceInfo.costumerURL,
+        url,
         data: model.toJson(),
         options: Options(
           method: "POST",
@@ -61,12 +62,13 @@ class APIService {
     String password,
   ) async {
     Dio dio = Dio(options);
+    String url = WoocommerceInfo.jwtUrl;
 
     late LoginModel loginModel;
 
     try {
       var response = await dio.request(
-        WoocommerceInfo.jwtUrl,
+        url,
         data: {
           "username": username,
           "password": password,
@@ -92,12 +94,13 @@ class APIService {
 
   Future<List<ProductModel>> getAllProducts(String? catId) async {
     List<ProductModel> productsList = <ProductModel>[];
+    String url = catId != null
+        ? "${WoocommerceInfo.baseUrl}${WoocommerceInfo.productsURL}?category=$catId"
+        : "${WoocommerceInfo.baseUrl}${WoocommerceInfo.productsURL}";
 
     try {
       var response = await Dio().request(
-        catId != null
-            ? "${WoocommerceInfo.baseUrl}${WoocommerceInfo.productsURL}?category=$catId"
-            : "${WoocommerceInfo.baseUrl}${WoocommerceInfo.productsURL}",
+        url,
         options: Options(
           method: "GET",
           headers: {
@@ -122,9 +125,11 @@ class APIService {
 
   Future<ProductModel> getProductById(String id) async {
     late ProductModel product;
+    String url = "${WoocommerceInfo.baseUrl}${WoocommerceInfo.productsURL}/$id";
+
     try {
       var response = await Dio().request(
-        "${WoocommerceInfo.baseUrl}${WoocommerceInfo.productsURL}/$id",
+        url,
         options: Options(
           method: "GET",
           headers: {
@@ -147,10 +152,12 @@ class APIService {
 
   Future<List<CategoriesModel>> getProductCategories() async {
     List<CategoriesModel> productCategoriesList = <CategoriesModel>[];
+    String url =
+        "${WoocommerceInfo.baseUrl}${WoocommerceInfo.productsCategoriesURL}";
 
     try {
       var response = await Dio().request(
-        WoocommerceInfo.baseUrl + WoocommerceInfo.productsCategoriesURL,
+        url,
         options: Options(
           method: "GET",
           headers: {
@@ -175,10 +182,11 @@ class APIService {
 
   Future<List<Posts>?> getAllPosts() async {
     List<Posts> postsList = <Posts>[];
+    String url = "${WoocommerceInfo.wordpressUrl}${WoocommerceInfo.postsUrl}";
 
     try {
       var response = await Dio().request(
-        WoocommerceInfo.wordpressUrl + WoocommerceInfo.postsUrl,
+        url,
         options: Options(
           method: "GET",
           headers: {
@@ -202,9 +210,12 @@ class APIService {
 
   Future<Posts> getPostById(String? id) async {
     late Posts post;
+    String url =
+        "${WoocommerceInfo.postsUrl}${WoocommerceInfo.wordpressUrl}$id!";
+
     try {
       var response = await Dio().request(
-        WoocommerceInfo.postsUrl + WoocommerceInfo.wordpressUrl + id!,
+        url,
         options: Options(
           method: "GET",
           headers: {
@@ -256,6 +267,7 @@ class APIService {
     parameter.replaceFirst("&", "");
     final String productUrl =
         "${WoocommerceInfo.baseUrl}${WoocommerceInfo.productsURL}?$parameter";
+
     try {
       var response = await Dio().request(
         productUrl,
@@ -283,12 +295,12 @@ class APIService {
     late String cartResponse;
     // TODO
     String cartAuthToken = base64.encode(utf8.encode("api_test:12345678"));
+    String url =
+        "${WoocommerceInfo.wordpressUrl}${WoocommerceInfo.coCartUrl}${WoocommerceInfo.addItemToCart}";
 
     try {
       var response = await Dio().request(
-        WoocommerceInfo.wordpressUrl +
-            WoocommerceInfo.coCartUrl +
-            WoocommerceInfo.addItemToCart,
+        url,
         data: model.toJson(),
         options: Options(
           method: "POST",
@@ -315,10 +327,12 @@ class APIService {
     late List<CartItemsModel> itemsInCart;
     // TODO
     String cartAuthToken = base64.encode(utf8.encode("api_test:12345678"));
+    String url =
+        "${WoocommerceInfo.wordpressUrl}${WoocommerceInfo.coCartUrl}${WoocommerceInfo.items}";
 
     try {
       var response = await Dio().request(
-        "${WoocommerceInfo.wordpressUrl}${WoocommerceInfo.coCartUrl}${WoocommerceInfo.items}",
+        url,
         options: Options(
           method: "GET",
           headers: {
@@ -344,10 +358,12 @@ class APIService {
   Future<bool> updateCart(String itemKey, String quantity) async {
     late bool cartUpdated;
     String cartAuthToken = base64.encode(utf8.encode("api_test:12345678"));
+    String url =
+        "${WoocommerceInfo.wordpressUrl}${WoocommerceInfo.coCartUrl}${WoocommerceInfo.item}/$itemKey";
 
     try {
       var response = await Dio().request(
-        "${WoocommerceInfo.wordpressUrl}${WoocommerceInfo.coCartUrl}${WoocommerceInfo.item}/$itemKey",
+        url,
         data: {"quantity": quantity},
         options: Options(
           method: "POST",
@@ -375,10 +391,12 @@ class APIService {
   Future<bool> deleteItemCart(String itemKey) async {
     late bool itemDeleted;
     String cartAuthToken = base64.encode(utf8.encode("api_test:12345678"));
+    String url =
+        "${WoocommerceInfo.wordpressUrl}${WoocommerceInfo.coCartUrl}${WoocommerceInfo.item}/$itemKey";
 
     try {
       var response = await Dio().request(
-        "${WoocommerceInfo.wordpressUrl}${WoocommerceInfo.coCartUrl}${WoocommerceInfo.item}/$itemKey",
+        url,
         options: Options(
           method: "DELETE",
           headers: {
