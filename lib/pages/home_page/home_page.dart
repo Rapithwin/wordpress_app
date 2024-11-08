@@ -3,8 +3,8 @@ import 'package:intl/intl.dart' show NumberFormat;
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:wordpress_app/constants/constants.dart';
-import 'package:wordpress_app/pages/post_detail.dart';
-import 'package:wordpress_app/pages/product_details.dart';
+import 'package:wordpress_app/pages/post_detail/post_detail.dart';
+import 'package:wordpress_app/pages/product_details/product_details.dart';
 import 'package:wordpress_app/provider/shop_provider.dart';
 
 class HomePage extends StatefulWidget {
