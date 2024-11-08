@@ -3,7 +3,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:wordpress_app/api/api_service.dart';
 import 'package:wordpress_app/constants/constants.dart';
 import 'package:wordpress_app/models/woocommerce/costumer_model.dart';
-import 'package:wordpress_app/pages/login_page.dart';
+import 'package:wordpress_app/pages/login_page/login_page.dart';
 import 'package:wordpress_app/utils/custom_appbar.dart';
 import 'package:wordpress_app/utils/custom_dialog.dart';
 import 'package:wordpress_app/utils/extention.dart';
