@@ -19,6 +19,8 @@ class WoocommerceInfo {
   static String addItemToCart = "add-item";
   // CoCart items endpoint
   static String items = "items";
+  // CoCart item endpoint
+  static String item = "item";
 }
 
 class Constants {

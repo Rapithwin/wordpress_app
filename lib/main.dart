@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 import 'package:wordpress_app/constants/constants.dart';
+import 'package:wordpress_app/pages/cart_page.dart';
 import 'package:wordpress_app/pages/catalog_page/catalog_page.dart';
 import 'package:wordpress_app/pages/home_page.dart';
 import 'package:wordpress_app/pages/login_page.dart';
 import 'package:wordpress_app/pages/product_details.dart';
 import 'package:wordpress_app/pages/root_page.dart';
+import 'package:wordpress_app/provider/cart_provider.dart';
 import 'package:wordpress_app/provider/catalog_provider.dart';
 import 'package:wordpress_app/provider/loader_provider.dart';
 import 'package:wordpress_app/provider/shop_provider.dart';
@@ -48,6 +50,10 @@ class MainApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => CatalogProvider(),
           child: const CatalogPage(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => CartProvider(),
+          child: const CartPage(),
         ),
       ],
       child: MaterialApp(

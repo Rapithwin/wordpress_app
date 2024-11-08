@@ -318,9 +318,7 @@ class APIService {
 
     try {
       var response = await Dio().request(
-        WoocommerceInfo.wordpressUrl +
-            WoocommerceInfo.coCartUrl +
-            WoocommerceInfo.items,
+        "${WoocommerceInfo.wordpressUrl}${WoocommerceInfo.coCartUrl}${WoocommerceInfo.items}",
         options: Options(
           method: "GET",
           headers: {
@@ -337,8 +335,69 @@ class APIService {
       if (e.type == DioExceptionType.connectionTimeout) {
         debugPrint("Timeout Error");
       }
-      debugPrint(e.message);
+
+      if (e.response?.statusCode == 404) itemsInCart = <CartItemsModel>[];
     }
     return itemsInCart;
+  }
+
+  Future<bool> updateCart(String itemKey, String quantity) async {
+    late bool cartUpdated;
+    String cartAuthToken = base64.encode(utf8.encode("api_test:12345678"));
+
+    try {
+      var response = await Dio().request(
+        "${WoocommerceInfo.wordpressUrl}${WoocommerceInfo.coCartUrl}${WoocommerceInfo.item}/$itemKey",
+        data: {"quantity": quantity},
+        options: Options(
+          method: "POST",
+          headers: {
+            HttpHeaders.authorizationHeader: "Basic $cartAuthToken",
+            HttpHeaders.contentTypeHeader: "application/json",
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        debugPrint("here");
+        cartUpdated = true;
+      }
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout) {
+        debugPrint("Timeout Error");
+        cartUpdated = false;
+      }
+      debugPrint(e.message);
+      cartUpdated = false;
+    }
+    return cartUpdated;
+  }
+
+  Future<bool> deleteItemCart(String itemKey) async {
+    late bool itemDeleted;
+    String cartAuthToken = base64.encode(utf8.encode("api_test:12345678"));
+
+    try {
+      var response = await Dio().request(
+        "${WoocommerceInfo.wordpressUrl}${WoocommerceInfo.coCartUrl}${WoocommerceInfo.item}/$itemKey",
+        options: Options(
+          method: "DELETE",
+          headers: {
+            HttpHeaders.authorizationHeader: "Basic $cartAuthToken",
+            HttpHeaders.contentTypeHeader: "application/json",
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        itemDeleted = true;
+      }
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout) {
+        debugPrint("Timeout Error");
+        itemDeleted = false;
+      }
+      debugPrint(e.message);
+      itemDeleted = false;
+    }
+    return itemDeleted;
   }
 }

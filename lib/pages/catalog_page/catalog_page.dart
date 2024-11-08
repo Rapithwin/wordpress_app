@@ -8,6 +8,7 @@ import 'package:wordpress_app/constants/constants.dart';
 import 'package:wordpress_app/pages/catalog_page/sort_class.dart';
 import 'package:wordpress_app/pages/product_details.dart';
 import 'package:wordpress_app/provider/catalog_provider.dart';
+import 'package:wordpress_app/utils/data_status.dart';
 
 class CatalogPage extends StatefulWidget {
   const CatalogPage({super.key});
