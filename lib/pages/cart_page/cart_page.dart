@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' show NumberFormat;
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:wordpress_app/constants/constants.dart';
+import 'package:wordpress_app/pages/verify_address/verify_address_page.dart';
 import 'package:wordpress_app/provider/cart_provider.dart';
 import 'package:wordpress_app/widgets/add_quantity.dart';
 
@@ -102,7 +104,15 @@ class _CartPageState extends State<CartPage> {
                   constraints: const BoxConstraints(maxWidth: 200),
                   height: 52,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        PageTransition(
+                          child: const VerifyAddressPage(),
+                          type: PageTransitionType.fade,
+                        ),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Constants.primaryColor,
                       elevation: 3,
