@@ -448,4 +448,34 @@ class APIService {
     }
     return responseModel;
   }
+
+  Future<CustomerDetailsModel?> updateCustomerDetails(
+      CustomerDetailsModel model) async {
+    CustomerDetailsModel? responseModel;
+    int? userID = 1;
+    String url =
+        "${WoocommerceInfo.baseUrl}${WoocommerceInfo.costumerURL}/$userID";
+    try {
+      var response = await Dio().request(
+        url,
+        data: model.toJson(),
+        options: Options(
+          method: "POST",
+          headers: {
+            HttpHeaders.authorizationHeader: "Basic $authToken",
+            HttpHeaders.contentTypeHeader: "application/json",
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        responseModel = CustomerDetailsModel.fromJson(response.data);
+      }
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout) {
+        debugPrint("Timeout Error");
+      }
+      debugPrint(e.message);
+    }
+    return responseModel;
+  }
 }
