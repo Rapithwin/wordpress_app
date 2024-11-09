@@ -9,6 +9,7 @@ import 'package:wordpress_app/models/woocommerce/cart/get_items_cart_model.dart'
 import 'package:wordpress_app/models/woocommerce/categories_model.dart';
 import 'package:wordpress_app/models/posts_model.dart';
 import 'package:wordpress_app/models/woocommerce/costumer_model.dart';
+import 'package:wordpress_app/models/woocommerce/customer_details_model.dart';
 import 'package:wordpress_app/models/woocommerce/login_model.dart';
 import 'package:wordpress_app/models/woocommerce/products_model.dart';
 
@@ -417,5 +418,34 @@ class APIService {
       itemDeleted = false;
     }
     return itemDeleted;
+  }
+
+  Future<CustomerDetailsModel?> getCustomerDetails() async {
+    CustomerDetailsModel? responseModel;
+    // TODO
+    int? userID = 1;
+    String url =
+        "${WoocommerceInfo.baseUrl}${WoocommerceInfo.costumerURL}/$userID";
+    try {
+      var response = await Dio().request(
+        url,
+        options: Options(
+          method: "GET",
+          headers: {
+            HttpHeaders.authorizationHeader: "Basic $authToken",
+            HttpHeaders.contentTypeHeader: "application/json",
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        responseModel = CustomerDetailsModel.fromJson(response.data);
+      }
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout) {
+        debugPrint("Timeout Error");
+      }
+      debugPrint(e.message);
+    }
+    return responseModel;
   }
 }

@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-RetrieveCustomerModel retrieveCustomerModelFromJson(String str) =>
-    RetrieveCustomerModel.fromJson(json.decode(str));
+CustomerDetailsModel retrieveCustomerModelFromJson(String str) =>
+    CustomerDetailsModel.fromJson(json.decode(str));
 
-String retrieveCustomerModelToJson(RetrieveCustomerModel data) =>
+String retrieveCustomerModelToJson(CustomerDetailsModel data) =>
     json.encode(data.toJson());
 
-class RetrieveCustomerModel {
+class CustomerDetailsModel {
   int? id;
   String? email;
   String? firstName;
@@ -16,7 +16,7 @@ class RetrieveCustomerModel {
   Ing? shipping;
   String? avatarUrl;
 
-  RetrieveCustomerModel({
+  CustomerDetailsModel({
     this.id,
     this.email,
     this.firstName,
@@ -27,8 +27,8 @@ class RetrieveCustomerModel {
     this.avatarUrl,
   });
 
-  factory RetrieveCustomerModel.fromJson(Map<String, dynamic> json) =>
-      RetrieveCustomerModel(
+  factory CustomerDetailsModel.fromJson(Map<String, dynamic> json) =>
+      CustomerDetailsModel(
         id: json["id"],
         email: json["email"],
         firstName: json["first_name"],
