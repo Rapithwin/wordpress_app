@@ -22,6 +22,17 @@ class _SignUpPageState extends State<SignUpPage> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   bool isApiCalled = false;
 
+  late TextEditingController firstName =
+      TextEditingController(text: customerModel.firstName);
+  late TextEditingController lastName =
+      TextEditingController(text: customerModel.lastName);
+  late TextEditingController email =
+      TextEditingController(text: customerModel.email);
+  late TextEditingController password =
+      TextEditingController(text: customerModel.password);
+  late TextEditingController username =
+      TextEditingController(text: customerModel.username);
+
   @override
   void initState() {
     apiService = APIService();
@@ -51,9 +62,9 @@ class _SignUpPageState extends State<SignUpPage> {
                     height: 20,
                   ),
                   CustomFormField(
+                    controller: firstName,
                     labelName: "نام",
                     initialValue: customerModel.firstName,
-                    textTheme: textTheme,
                     textDirection: TextDirection.rtl,
                     inputAction: TextInputAction.next,
                     validator: (String? value) {
@@ -70,9 +81,9 @@ class _SignUpPageState extends State<SignUpPage> {
                     height: 30,
                   ),
                   CustomFormField(
+                    controller: lastName,
                     labelName: "نام خانوادگی",
                     initialValue: customerModel.lastName,
-                    textTheme: textTheme,
                     textDirection: TextDirection.rtl,
                     inputAction: TextInputAction.next,
                     validator: (String? value) {
@@ -89,10 +100,10 @@ class _SignUpPageState extends State<SignUpPage> {
                     height: 30,
                   ),
                   CustomFormField(
+                    controller: email,
                     labelName: "ایمیل",
                     keyboardType: TextInputType.emailAddress,
                     initialValue: customerModel.email,
-                    textTheme: textTheme,
                     textDirection: TextDirection.ltr,
                     inputAction: TextInputAction.next,
                     validator: (String? value) {
@@ -112,11 +123,11 @@ class _SignUpPageState extends State<SignUpPage> {
                     height: 30,
                   ),
                   CustomFormField(
+                    controller: password,
                     labelName: "رمز عبور",
                     keyboardType: TextInputType.visiblePassword,
                     initialValue: customerModel.password,
                     obscureText: true,
-                    textTheme: textTheme,
                     textDirection: TextDirection.ltr,
                     inputAction: TextInputAction.next,
                     validator: (String? value) {
@@ -136,9 +147,9 @@ class _SignUpPageState extends State<SignUpPage> {
                     height: 30,
                   ),
                   CustomFormField(
+                    controller: username,
                     labelName: "نام کاربری",
                     initialValue: customerModel.username,
-                    textTheme: textTheme,
                     textDirection: TextDirection.ltr,
                     inputAction: TextInputAction.done,
                     validator: (String? value) {
