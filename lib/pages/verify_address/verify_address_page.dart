@@ -212,7 +212,7 @@ class _VerifyAddressPageState extends State<VerifyAddressPage> {
       appBar: CustomAppBar.customAppBarAddress(context),
       body: Consumer<CustomerDetailsProvider>(
         builder: (context, detailsModel, child) {
-          if (detailsModel.customerDetailsModel!.id != null) {
+          if (detailsModel.customerDetailsModel?.id != null) {
             return _formUI(detailsModel.customerDetailsModel);
           }
           return const Center(
