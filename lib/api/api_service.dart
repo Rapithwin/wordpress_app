@@ -8,7 +8,7 @@ import 'package:wordpress_app/models/woocommerce/cart/addtocart_request_model.da
 import 'package:wordpress_app/models/woocommerce/cart/get_items_cart_model.dart';
 import 'package:wordpress_app/models/woocommerce/categories_model.dart';
 import 'package:wordpress_app/models/posts_model.dart';
-import 'package:wordpress_app/models/woocommerce/costumer_model.dart';
+import 'package:wordpress_app/models/woocommerce/customer_model.dart';
 import 'package:wordpress_app/models/woocommerce/customer_details_model.dart';
 import 'package:wordpress_app/models/woocommerce/login_model.dart';
 import 'package:wordpress_app/models/woocommerce/products_model.dart';
@@ -27,10 +27,10 @@ class APIService {
     receiveTimeout: const Duration(seconds: 45),
   );
 
-  Future<bool> createCostumer(CustomerModel model) async {
+  Future<bool> createCustomer(CustomerModel model) async {
     bool isCreated = false;
     Dio dio = Dio(options);
-    String url = "${WoocommerceInfo.baseUrl}${WoocommerceInfo.costumerURL}";
+    String url = "${WoocommerceInfo.baseUrl}${WoocommerceInfo.customerURL}";
 
     try {
       var response = await dio.request(
@@ -425,7 +425,7 @@ class APIService {
     // TODO
     int? userID = 1;
     String url =
-        "${WoocommerceInfo.baseUrl}${WoocommerceInfo.costumerURL}/$userID";
+        "${WoocommerceInfo.baseUrl}${WoocommerceInfo.customerURL}/$userID";
     try {
       var response = await Dio().request(
         url,
@@ -454,7 +454,7 @@ class APIService {
     CustomerDetailsModel? responseModel;
     int? userID = 1;
     String url =
-        "${WoocommerceInfo.baseUrl}${WoocommerceInfo.costumerURL}/$userID";
+        "${WoocommerceInfo.baseUrl}${WoocommerceInfo.customerURL}/$userID";
     try {
       var response = await Dio().request(
         url,

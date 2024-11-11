@@ -11,7 +11,7 @@ class WoocommerceInfo {
   // CoCart url
   static String coCartUrl = "cocart/v2/cart/";
   // Endpoints
-  static String costumerURL = "customers";
+  static String customerURL = "customers";
   static String productsURL = "products";
   static String productsCategoriesURL = "products/categories";
   static String postsUrl = "wp/v2/posts/";

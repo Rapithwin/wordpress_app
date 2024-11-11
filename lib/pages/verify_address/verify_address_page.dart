@@ -32,14 +32,14 @@ class _VerifyAddressPageState extends State<VerifyAddressPage> {
         city,
         phone,
         postcode;
-    firstName = TextEditingController(text: model!.firstName ?? "");
-    lastName = TextEditingController(text: model.lastName ?? "");
-    address1 = TextEditingController(text: model.shipping!.address1 ?? "");
-    country = TextEditingController(text: model.shipping!.country ?? "");
-    city = TextEditingController(text: model.shipping!.city ?? "");
-    state = TextEditingController(text: model.shipping!.state ?? "");
-    phone = TextEditingController(text: model.shipping!.phone ?? "");
-    postcode = TextEditingController(text: model.shipping!.postcode ?? "");
+    firstName = TextEditingController(text: model!.firstName);
+    lastName = TextEditingController(text: model.lastName);
+    address1 = TextEditingController(text: model.shipping!.address1);
+    country = TextEditingController(text: model.shipping!.country);
+    city = TextEditingController(text: model.shipping!.city);
+    state = TextEditingController(text: model.shipping!.state);
+    phone = TextEditingController(text: model.shipping!.phone);
+    postcode = TextEditingController(text: model.shipping!.postcode);
 
     return Form(
       key: globalKey2,
