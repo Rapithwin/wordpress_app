@@ -4,6 +4,7 @@ import 'package:wordpress_app/constants/constants.dart';
 import 'package:wordpress_app/models/woocommerce/customer_details_model.dart';
 import 'package:wordpress_app/provider/customer_details_provider.dart';
 import 'package:wordpress_app/utils/custom_appbar.dart';
+import 'package:wordpress_app/utils/extention.dart';
 import 'package:wordpress_app/widgets/custom_form_field.dart';
 
 class VerifyAddressPage extends StatefulWidget {
@@ -44,7 +45,6 @@ class _VerifyAddressPageState extends State<VerifyAddressPage> {
     email = TextEditingController(text: model.shipping!.email);
 
     return Form(
-      // TODO: validate form
       key: globalKey2,
       child: SingleChildScrollView(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
@@ -64,6 +64,12 @@ class _VerifyAddressPageState extends State<VerifyAddressPage> {
                         controller: firstName,
                         textDirection: TextDirection.rtl,
                         inputAction: TextInputAction.done,
+                        validator: (String? value) {
+                          if (value!.isEmpty) {
+                            return "این فیلد نباید خالی باشد";
+                          }
+                          return null;
+                        },
                       ),
                     ),
                     const SizedBox(
@@ -75,6 +81,12 @@ class _VerifyAddressPageState extends State<VerifyAddressPage> {
                         controller: lastName,
                         textDirection: TextDirection.rtl,
                         inputAction: TextInputAction.done,
+                        validator: (String? value) {
+                          if (value!.isEmpty) {
+                            return "این فیلد نباید خالی باشد";
+                          }
+                          return null;
+                        },
                       ),
                     ),
                   ],
@@ -90,6 +102,12 @@ class _VerifyAddressPageState extends State<VerifyAddressPage> {
                         controller: state,
                         textDirection: TextDirection.rtl,
                         inputAction: TextInputAction.done,
+                        validator: (String? value) {
+                          if (value!.isEmpty) {
+                            return "این فیلد نباید خالی باشد";
+                          }
+                          return null;
+                        },
                       ),
                     ),
                     const SizedBox(
@@ -99,8 +117,15 @@ class _VerifyAddressPageState extends State<VerifyAddressPage> {
                       child: CustomFormField(
                         labelName: "کد پستی",
                         controller: postcode,
+                        keyboardType: TextInputType.number,
                         textDirection: TextDirection.rtl,
                         inputAction: TextInputAction.done,
+                        validator: (String? value) {
+                          if (value!.isEmpty) {
+                            return "این فیلد نباید خالی باشد";
+                          }
+                          return null;
+                        },
                       ),
                     ),
                   ],
@@ -116,6 +141,12 @@ class _VerifyAddressPageState extends State<VerifyAddressPage> {
                         controller: country,
                         textDirection: TextDirection.rtl,
                         inputAction: TextInputAction.done,
+                        validator: (String? value) {
+                          if (value!.isEmpty) {
+                            return "این فیلد نباید خالی باشد";
+                          }
+                          return null;
+                        },
                       ),
                     ),
                     const SizedBox(
@@ -127,6 +158,12 @@ class _VerifyAddressPageState extends State<VerifyAddressPage> {
                         controller: city,
                         textDirection: TextDirection.rtl,
                         inputAction: TextInputAction.done,
+                        validator: (String? value) {
+                          if (value!.isEmpty) {
+                            return "این فیلد نباید خالی باشد";
+                          }
+                          return null;
+                        },
                       ),
                     ),
                   ],
@@ -140,6 +177,12 @@ class _VerifyAddressPageState extends State<VerifyAddressPage> {
                     controller: address1,
                     textDirection: TextDirection.rtl,
                     inputAction: TextInputAction.done,
+                    validator: (String? value) {
+                      if (value!.isEmpty) {
+                        return "این فیلد نباید خالی باشد";
+                      }
+                      return null;
+                    },
                   ),
                 ),
                 const SizedBox(
@@ -151,6 +194,13 @@ class _VerifyAddressPageState extends State<VerifyAddressPage> {
                     controller: phone,
                     textDirection: TextDirection.rtl,
                     inputAction: TextInputAction.done,
+                    keyboardType: TextInputType.phone,
+                    validator: (String? value) {
+                      if (value!.isEmpty) {
+                        return "این فیلد نباید خالی باشد";
+                      }
+                      return null;
+                    },
                   ),
                 ),
                 const SizedBox(
@@ -162,6 +212,15 @@ class _VerifyAddressPageState extends State<VerifyAddressPage> {
                     controller: email,
                     textDirection: TextDirection.rtl,
                     inputAction: TextInputAction.done,
+                    validator: (String? value) {
+                      if (value!.isEmpty) {
+                        return "این فیلد نباید خالی باشد";
+                      }
+                      if (!value.isEmailValid) {
+                        return "ایمیل نامعتبر";
+                      }
+                      return null;
+                    },
                   ),
                 ),
                 const SizedBox(
@@ -182,9 +241,10 @@ class _VerifyAddressPageState extends State<VerifyAddressPage> {
                       child: const Text(
                         "مرحله بعد",
                         style: TextStyle(
-                            fontFamily: "Lalezar",
-                            fontSize: 25,
-                            color: Colors.white),
+                          fontFamily: "Lalezar",
+                          fontSize: 25,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                     const SizedBox(
@@ -192,24 +252,26 @@ class _VerifyAddressPageState extends State<VerifyAddressPage> {
                     ),
                     IconButton(
                       onPressed: () {
-                        Provider.of<CustomerDetailsProvider>(context,
-                                listen: false)
-                            .updateCustomerDetails(
-                          CustomerDetailsModel(
-                            firstName: firstName.text,
-                            lastName: lastName.text,
-                            email: email.text,
-                            shipping: Ing(
-                              address1: address1.text,
-                              city: city.text,
-                              country: country.text,
-                              state: state.text,
-                              phone: phone.text,
-                              postcode: postcode.text,
+                        if (globalKey2.currentState!.validate()) {
+                          Provider.of<CustomerDetailsProvider>(context,
+                                  listen: false)
+                              .updateCustomerDetails(
+                            CustomerDetailsModel(
+                              firstName: firstName.text,
+                              lastName: lastName.text,
                               email: email.text,
+                              shipping: Ing(
+                                address1: address1.text,
+                                city: city.text,
+                                country: country.text,
+                                state: state.text,
+                                phone: phone.text,
+                                postcode: postcode.text,
+                                email: email.text,
+                              ),
                             ),
-                          ),
-                        );
+                          );
+                        }
                       },
                       icon: const Icon(Icons.sync),
                     )
