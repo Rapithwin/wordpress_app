@@ -423,7 +423,7 @@ class APIService {
   Future<CustomerDetailsModel?> getCustomerDetails() async {
     CustomerDetailsModel? responseModel;
     // TODO
-    int? userID = 1;
+    int userID = 1;
     String url =
         "${WoocommerceInfo.baseUrl}${WoocommerceInfo.customerURL}/$userID";
     try {
@@ -452,7 +452,7 @@ class APIService {
   Future<CustomerDetailsModel?> updateCustomerDetails(
       CustomerDetailsModel model) async {
     CustomerDetailsModel? responseModel;
-    int? userID = 1;
+    int userID = 1;
     String url =
         "${WoocommerceInfo.baseUrl}${WoocommerceInfo.customerURL}/$userID";
     try {
@@ -474,7 +474,7 @@ class APIService {
       if (e.type == DioExceptionType.connectionTimeout) {
         debugPrint("Timeout Error");
       }
-      debugPrint(e.message);
+      debugPrint(e.response.toString());
     }
     return responseModel;
   }

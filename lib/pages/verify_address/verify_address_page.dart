@@ -31,6 +31,7 @@ class _VerifyAddressPageState extends State<VerifyAddressPage> {
         state,
         city,
         phone,
+        email,
         postcode;
     firstName = TextEditingController(text: model!.firstName);
     lastName = TextEditingController(text: model.lastName);
@@ -40,8 +41,10 @@ class _VerifyAddressPageState extends State<VerifyAddressPage> {
     state = TextEditingController(text: model.shipping!.state);
     phone = TextEditingController(text: model.shipping!.phone);
     postcode = TextEditingController(text: model.shipping!.postcode);
+    email = TextEditingController(text: model.shipping!.email);
 
     return Form(
+      // TODO: validate form
       key: globalKey2,
       child: SingleChildScrollView(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
@@ -151,6 +154,17 @@ class _VerifyAddressPageState extends State<VerifyAddressPage> {
                   ),
                 ),
                 const SizedBox(
+                  height: 30,
+                ),
+                Flexible(
+                  child: CustomFormField(
+                    labelName: "ایمیل",
+                    controller: email,
+                    textDirection: TextDirection.rtl,
+                    inputAction: TextInputAction.done,
+                  ),
+                ),
+                const SizedBox(
                   height: 50.0,
                 ),
                 Row(
@@ -184,6 +198,7 @@ class _VerifyAddressPageState extends State<VerifyAddressPage> {
                           CustomerDetailsModel(
                             firstName: firstName.text,
                             lastName: lastName.text,
+                            email: email.text,
                             shipping: Ing(
                               address1: address1.text,
                               city: city.text,
@@ -191,6 +206,7 @@ class _VerifyAddressPageState extends State<VerifyAddressPage> {
                               state: state.text,
                               phone: phone.text,
                               postcode: postcode.text,
+                              email: email.text,
                             ),
                           ),
                         );

@@ -41,14 +41,11 @@ class CustomerDetailsModel {
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "email": email,
-        "first_name": firstName,
-        "last_name": lastName,
-        "username": username,
+        "first_name": firstName ?? "",
+        "last_name": lastName ?? "",
+        "username": username ?? "",
         "billing": billing?.toJson(),
         "shipping": shipping?.toJson(),
-        "avatar_url": avatarUrl,
       };
 }
 
@@ -94,16 +91,16 @@ class Ing {
       );
 
   Map<String, dynamic> toJson() => {
-        "first_name": firstName,
-        "last_name": lastName,
-        "company": company,
-        "address_1": address1,
-        "address_2": address2,
-        "city": city,
-        "postcode": postcode,
-        "country": country,
-        "state": state,
-        "email": email,
-        "phone": phone,
+        "first_name": firstName ?? "",
+        "last_name": lastName ?? "",
+        "company": company ?? "",
+        "address_1": address1 ?? "",
+        "address_2": address2 ?? "",
+        "city": city ?? "",
+        "postcode": postcode ?? "",
+        "country": country ?? "",
+        "state": state ?? "",
+        "email": email ?? "",
+        "phone": phone ?? "",
       };
 }
