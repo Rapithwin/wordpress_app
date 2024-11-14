@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:wordpress_app/constants/constants.dart';
 import 'package:wordpress_app/models/woocommerce/customer_details_model.dart';
+import 'package:wordpress_app/pages/payment_options/payment_options.dart';
 import 'package:wordpress_app/provider/customer_details_provider.dart';
 import 'package:wordpress_app/utils/custom_appbar.dart';
 import 'package:wordpress_app/utils/extention.dart';
@@ -229,7 +231,17 @@ class _VerifyAddressPageState extends State<VerifyAddressPage> {
                 Row(
                   children: <Widget>[
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          PageTransition(
+                            child: const PaymentOptionsPage(),
+                            type: PageTransitionType.fade,
+                            curve: Curves.easeIn,
+                            duration: const Duration(milliseconds: 300),
+                          ),
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Constants.primaryColor,
                         elevation: 3,
@@ -288,7 +300,7 @@ class _VerifyAddressPageState extends State<VerifyAddressPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar.customAppBarAddress(context),
+      appBar: CustomAppBar.customAppBarAddress(context, "تکمیل اطلاعات"),
       body: Consumer<CustomerDetailsProvider>(
         builder: (context, detailsModel, child) {
           if (detailsModel.customerDetailsModel?.id != null) {

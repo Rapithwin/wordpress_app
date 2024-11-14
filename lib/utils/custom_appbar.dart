@@ -16,7 +16,7 @@ class CustomAppBar {
     );
   }
 
-  static AppBar customAppBarAddress(BuildContext context) {
+  static AppBar customAppBarAddress(BuildContext context, String title) {
     return AppBar(
       toolbarHeight: 80,
       leadingWidth: 80,
@@ -46,7 +46,7 @@ class CustomAppBar {
         child: Align(
           alignment: Alignment.centerRight,
           child: Text(
-            "تکمیل اطلاعات",
+            title,
             style: Theme.of(context).textTheme.titleLarge,
             textDirection: TextDirection.rtl,
           ),
