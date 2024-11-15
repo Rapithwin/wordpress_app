@@ -41,13 +41,11 @@ class PaymentButtomAppBar extends StatelessWidget {
 class BuildPaymentOptions extends StatelessWidget {
   const BuildPaymentOptions({
     super.key,
-    required this.assetImage,
+    required this.icon,
     required this.title,
-    required this.description,
   });
-  final String assetImage;
+  final IconData icon;
   final String title;
-  final String description;
 
   @override
   Widget build(BuildContext context) {
