@@ -232,6 +232,7 @@ class _VerifyAddressPageState extends State<VerifyAddressPage> {
                   children: <Widget>[
                     ElevatedButton(
                       onPressed: () {
+                        // TODO: VALIDATE FORM
                         Navigator.push(
                           context,
                           PageTransition(
