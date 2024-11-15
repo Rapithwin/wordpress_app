@@ -73,26 +73,7 @@ class _CartPageState extends State<CartPage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Builder(
-              builder: (context) {
-                int totalPrice = 0;
-                for (var item
-                    in Provider.of<CartProvider>(context, listen: true)
-                        .cartItems!) {
-                  totalPrice += item.totals!.total!;
-                }
-                return Text(
-                  "${numberFormat.format(
-                    totalPrice,
-                  )} تومان",
-                  style: textTheme.labelLarge?.copyWith(
-                    fontSize: 25,
-                    color: Constants.blackColor,
-                  ),
-                  textDirection: TextDirection.rtl,
-                );
-              },
-            ),
+            Provider.of<CartProvider>(context, listen: true).getTotal(),
             const SizedBox(
               width: 10,
             ),

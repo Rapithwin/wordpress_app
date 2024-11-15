@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart' show NumberFormat;
 import 'package:wordpress_app/api/api_service.dart';
+import 'package:wordpress_app/constants/constants.dart';
 import 'package:wordpress_app/models/woocommerce/cart/addtocart_request_model.dart';
 import 'package:wordpress_app/models/woocommerce/cart/get_items_cart_model.dart';
 
@@ -26,6 +28,26 @@ class CartProvider with ChangeNotifier {
   // Delete item response
   bool? _itemDeleted;
   bool? get itemDeleted => _itemDeleted;
+
+  Text getTotal() {
+    int totalPrice = 0;
+    final NumberFormat numberFormat = NumberFormat.decimalPattern("fa");
+
+    for (var item in cartItems!) {
+      totalPrice += item.totals!.total!;
+    }
+    return Text(
+      "${numberFormat.format(
+        totalPrice,
+      )} تومان",
+      style: const TextStyle(
+        fontFamily: "Lalezar",
+        fontSize: 25,
+        color: Constants.blackColor,
+      ),
+      textDirection: TextDirection.rtl,
+    );
+  }
 
   Future<void> addToCart(
       AddCartRequestModel model, Function onCallBalck) async {
