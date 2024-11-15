@@ -21,7 +21,7 @@ class PaymentButtomAppBar extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Provider.of<CartProvider>(context, listen: true).getTotal(),
+            Provider.of<CartProvider>(context, listen: false).getTotal(),
             const SizedBox(
               width: 10,
             ),
@@ -35,5 +35,41 @@ class PaymentButtomAppBar extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class BuildPaymentOptions extends StatelessWidget {
+  const BuildPaymentOptions({
+    super.key,
+    required this.assetImage,
+    required this.title,
+    required this.description,
+  });
+  final String assetImage;
+  final String title;
+  final String description;
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
+
+class BuildPaymentMethods extends StatelessWidget {
+  const BuildPaymentMethods({
+    super.key,
+    required this.assetImage,
+    required this.title,
+    required this.description,
+    required this.onPressed,
+  });
+  final String assetImage;
+  final String title;
+  final String description;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
   }
 }
