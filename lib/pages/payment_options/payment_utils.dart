@@ -130,6 +130,9 @@ class BuildPaymentMethods extends StatelessWidget {
                   width: 50,
                 ),
               ),
+              const SizedBox(
+                width: 10,
+              ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -60,8 +60,8 @@ class _PaymentOptionsPageState extends State<PaymentOptionsPage> {
                 ),
                 BuildPaymentMethods(
                   assetImage: "assets/images/cod.png",
-                  title: "نکست پی",
-                  description: "پرداخت آنلاین با درگاه نکست پی",
+                  title: "پرداخت در محل",
+                  description: "پرداخت درب منزل با کارت خوان",
                   onPressed: () {},
                 ),
               ],
