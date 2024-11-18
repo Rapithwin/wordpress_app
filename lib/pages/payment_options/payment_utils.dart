@@ -49,7 +49,44 @@ class BuildPaymentOptions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    Size size = MediaQuery.of(context).size;
+    final textTheme = Theme.of(context).textTheme;
+
+    return SizedBox(
+      width: size.width,
+      height: 70,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: Icon(
+              icon,
+              size: 50,
+              color: Constants.primaryColor,
+            ),
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Text(
+                title,
+                style: textTheme.titleSmall,
+                textDirection: TextDirection.rtl,
+              ),
+              const Text(
+                "از روش‌های زیر یک مورد را انتخاب کنید.",
+                textDirection: TextDirection.rtl,
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }
 
@@ -68,6 +105,55 @@ class BuildPaymentMethods extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    Size size = MediaQuery.of(context).size;
+    final textTheme = Theme.of(context).textTheme;
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(15),
+        onTap: () {},
+        child: Container(
+          width: size.width,
+          height: 70,
+          decoration: BoxDecoration(
+            color: Constants.primaryColor.withOpacity(0.2),
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Row(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: Image.asset(
+                  assetImage,
+                  height: 50,
+                  width: 50,
+                ),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Text(
+                    title,
+                    style: textTheme.titleSmall?.copyWith(
+                      color: Constants.blackColor,
+                    ),
+                    textDirection: TextDirection.rtl,
+                  ),
+                  Text(
+                    description,
+                    textDirection: TextDirection.rtl,
+                    style: const TextStyle(
+                      color: Constants.blackColor,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
