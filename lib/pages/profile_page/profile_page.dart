@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:wordpress_app/constants/constants.dart';
 import 'package:wordpress_app/pages/profile_page/profile_widgets.dart';
+import 'package:wordpress_app/provider/customer_details_provider.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -10,6 +12,17 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  @override
+  void initState() {
+    Future.delayed(Duration.zero).then((val) {
+      CustomerDetailsProvider customerDetails =
+          Provider.of<CustomerDetailsProvider>(context, listen: false);
+      customerDetails.fetchShippingDetails();
+    });
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -29,10 +42,20 @@ class _ProfilePageState extends State<ProfilePage> {
                   width: 5,
                 ),
               ),
-              child: const CircleAvatar(
+              child: CircleAvatar(
                 backgroundColor: Colors.transparent,
                 radius: 50,
-                backgroundImage: AssetImage("assets/images/profile.jpg"),
+                backgroundImage: NetworkImage(
+                  context
+                      .watch<CustomerDetailsProvider>()
+                      .customerDetailsModel!
+                      .avatarUrl
+                      .toString()
+                      .replaceAll(
+                        "localhost",
+                        "10.0.2.2",
+                      ),
+                ),
               ),
             ),
             const SizedBox(
@@ -42,7 +65,7 @@ class _ProfilePageState extends State<ProfilePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "ساناز امینی",
+                  "${context.watch<CustomerDetailsProvider>().customerDetailsModel!.firstName} ${context.watch<CustomerDetailsProvider>().customerDetailsModel!.lastName}",
                   style: textTheme.bodyLarge?.copyWith(
                     color: Colors.black54,
                     fontSize: 20,
@@ -60,12 +83,17 @@ class _ProfilePageState extends State<ProfilePage> {
             const SizedBox(
               height: 12,
             ),
-            const Text(
-              "Example@gmail.com",
-              style: TextStyle(
-                  fontFamily: "nanumGothic",
-                  color: Colors.black45,
-                  fontSize: 15),
+            Text(
+              context
+                      .watch<CustomerDetailsProvider>()
+                      .customerDetailsModel!
+                      .email ??
+                  "ایمیل ثبت نشده",
+              style: const TextStyle(
+                fontFamily: "nanumGothic",
+                color: Colors.black45,
+                fontSize: 15,
+              ),
             ),
             const SizedBox(
               height: 30,
