@@ -31,17 +31,21 @@ class CustomRow extends StatelessWidget {
                     color: Colors.black54,
                   ),
                 ),
+                const SizedBox(
+                  width: 10,
+                ),
                 Text(
                   text,
-                  style: textTheme.titleMedium?.copyWith(
-                      color: Colors.black54,
-                      fontSize: 19,
-                      fontWeight: FontWeight.bold),
+                  style: textTheme.titleSmall?.copyWith(
+                    color: Colors.black54,
+                    fontSize: 19,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ],
             ),
             const Padding(
-              padding: EdgeInsets.only(left: 15),
+              padding: EdgeInsets.only(left: 25),
               child: Icon(
                 Icons.arrow_back_ios,
                 color: Colors.black45,
