@@ -5,15 +5,17 @@ class CustomRow extends StatelessWidget {
     super.key,
     required this.text,
     required this.icon,
+    required this.onPressed,
   });
   final String text;
   final IconData icon;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
     return InkWell(
-      onTap: () {},
+      onTap: onPressed,
       child: Padding(
         padding: const EdgeInsets.only(bottom: 20, top: 20),
         child: Row(

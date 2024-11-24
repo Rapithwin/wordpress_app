@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:wordpress_app/constants/constants.dart';
+import 'package:wordpress_app/pages/orders_page/orders_page.dart';
 import 'package:wordpress_app/pages/profile_page/profile_widgets.dart';
 import 'package:wordpress_app/provider/customer_details_provider.dart';
 
@@ -98,11 +100,25 @@ class _ProfilePageState extends State<ProfilePage> {
             const SizedBox(
               height: 30,
             ),
-            const CustomRow(text: "پروفایل من", icon: Icons.person),
-            const CustomRow(text: "سفارشات", icon: Icons.settings),
-            const CustomRow(text: "اطلاع‌رسانی‌ها", icon: Icons.notifications),
-            const CustomRow(text: "شبکه‌های اجتماعی", icon: Icons.share),
-            const CustomRow(text: "خروج", icon: Icons.logout),
+            CustomRow(text: "پروفایل من", icon: Icons.person, onPressed: () {}),
+            CustomRow(
+              text: "سفارشات",
+              icon: Icons.settings,
+              onPressed: () => Navigator.push(
+                context,
+                PageTransition(
+                  child: const OrdersPage(),
+                  type: PageTransitionType.bottomToTop,
+                ),
+              ),
+            ),
+            CustomRow(
+                text: "اطلاع‌رسانی‌ها",
+                icon: Icons.notifications,
+                onPressed: () {}),
+            CustomRow(
+                text: "شبکه‌های اجتماعی", icon: Icons.share, onPressed: () {}),
+            CustomRow(text: "خروج", icon: Icons.logout, onPressed: () {}),
           ],
         ),
       ),
