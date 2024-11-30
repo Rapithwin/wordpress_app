@@ -112,7 +112,7 @@ class BuildPaymentMethods extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 10),
       child: InkWell(
         borderRadius: BorderRadius.circular(15),
-        onTap: () {},
+        onTap: onPressed,
         child: Container(
           width: size.width,
           height: 70,

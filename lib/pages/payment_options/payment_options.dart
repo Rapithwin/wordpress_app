@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:wordpress_app/constants/constants.dart';
+import 'package:wordpress_app/pages/payment_options/create_order_page.dart';
 import 'package:wordpress_app/pages/payment_options/payment_utils.dart';
 import 'package:wordpress_app/utils/custom_appbar.dart';
 
@@ -62,7 +64,15 @@ class _PaymentOptionsPageState extends State<PaymentOptionsPage> {
                   assetImage: "assets/images/cod.png",
                   title: "پرداخت در محل",
                   description: "پرداخت درب منزل با کارت خوان",
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        child: const CreateOrderPage(),
+                        type: PageTransitionType.bottomToTop,
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
