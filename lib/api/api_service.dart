@@ -468,6 +468,7 @@ class APIService {
       );
       if (response.statusCode == 200) {
         responseModel = CustomerDetailsModel.fromJson(response.data);
+        print(responseModel.toJson());
       }
     } on DioException catch (e) {
       if (e.type == DioExceptionType.connectionTimeout) {
