@@ -241,25 +241,38 @@ class _VerifyAddressPageState extends State<VerifyAddressPage> {
                               lastName: lastName.text,
                               email: email.text,
                               shipping: Ing(
+                                firstName: firstName.text,
+                                lastName: lastName.text,
                                 address1: address1.text,
                                 city: city.text,
                                 country: country.text,
                                 state: state.text,
                                 phone: phone.text,
                                 postcode: postcode.text,
-                                email: email.text,
                               ),
+                              billing: Ing(
+                                  firstName: firstName.text,
+                                  lastName: lastName.text,
+                                  address1: address1.text,
+                                  city: city.text,
+                                  country: country.text,
+                                  state: state.text,
+                                  phone: phone.text,
+                                  postcode: postcode.text,
+                                  email: email.text),
                             ),
-                          );
-                          Navigator.push(
-                            context,
-                            PageTransition(
-                              child: const PaymentOptionsPage(),
-                              type: PageTransitionType.fade,
-                              curve: Curves.easeIn,
-                              duration: const Duration(milliseconds: 300),
-                            ),
-                          );
+                          )
+                              .then((_) {
+                            Navigator.push(
+                              context,
+                              PageTransition(
+                                child: const PaymentOptionsPage(),
+                                type: PageTransitionType.fade,
+                                curve: Curves.easeIn,
+                                duration: const Duration(milliseconds: 300),
+                              ),
+                            );
+                          });
                         }
                       },
                       style: ElevatedButton.styleFrom(
@@ -293,14 +306,25 @@ class _VerifyAddressPageState extends State<VerifyAddressPage> {
                               lastName: lastName.text,
                               email: email.text,
                               shipping: Ing(
+                                firstName: firstName.text,
+                                lastName: lastName.text,
                                 address1: address1.text,
                                 city: city.text,
                                 country: country.text,
                                 state: state.text,
                                 phone: phone.text,
                                 postcode: postcode.text,
-                                email: email.text,
                               ),
+                              billing: Ing(
+                                  firstName: firstName.text,
+                                  lastName: lastName.text,
+                                  address1: address1.text,
+                                  city: city.text,
+                                  country: country.text,
+                                  state: state.text,
+                                  phone: phone.text,
+                                  postcode: postcode.text,
+                                  email: email.text),
                             ),
                           );
                         }
