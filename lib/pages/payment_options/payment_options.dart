@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:wordpress_app/constants/constants.dart';
-import 'package:wordpress_app/pages/payment_options/create_order_page.dart';
 import 'package:wordpress_app/pages/payment_options/payment_utils.dart';
 import 'package:wordpress_app/utils/custom_appbar.dart';
 
