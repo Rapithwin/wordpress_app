@@ -2,11 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:wordpress_app/constants/constants.dart';
-import 'package:wordpress_app/models/woocommerce/cart/get_items_cart_model.dart';
-import 'package:wordpress_app/models/woocommerce/create_order_model.dart';
-import 'package:wordpress_app/models/woocommerce/customer_details_model.dart';
 import 'package:wordpress_app/pages/payment_options/payment_utils.dart';
-import 'package:wordpress_app/provider/cart_provider.dart';
 import 'package:wordpress_app/provider/customer_details_provider.dart';
 import 'package:wordpress_app/utils/custom_appbar.dart';
 
@@ -18,14 +14,11 @@ class PaymentOptionsPage extends StatefulWidget {
 }
 
 class _PaymentOptionsPageState extends State<PaymentOptionsPage> {
-  late List<CartItemsModel> itemsInCart;
-  CreateOrderModel orderModel = CreateOrderModel();
   @override
   void initState() {
     Provider.of<CustomerDetailsProvider>(context, listen: false)
         .fetchShippingDetails();
 
-    itemsInCart = Provider.of<CartProvider>(context, listen: false).cartItems!;
     super.initState();
   }
 
@@ -81,19 +74,6 @@ class _PaymentOptionsPageState extends State<PaymentOptionsPage> {
                   title: "پرداخت در محل",
                   description: "پرداخت درب منزل با کارت خوان",
                   onPressed: () {
-                    for (var item in itemsInCart) {
-                      orderModel.lineItems?.add(
-                        LineItems(
-                          quantity: item.quantity?.value,
-                          productId: item.id,
-                        ),
-                      );
-                    }
-                    CustomerDetailsModel customerDetails =
-                        Provider.of<CustomerDetailsProvider>(context,
-                                listen: false)
-                            .customerDetailsModel!;
-                    debugPrint(customerDetails.shipping.toString());
                     Navigator.push(
                       context,
                       PageTransition(
