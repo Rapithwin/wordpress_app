@@ -8,6 +8,7 @@ import 'package:wordpress_app/pages/cart_page/cart_page.dart';
 import 'package:wordpress_app/pages/catalog_page/catalog_page.dart';
 import 'package:wordpress_app/pages/home_page/home_page.dart';
 import 'package:wordpress_app/pages/login_page/login_page.dart';
+import 'package:wordpress_app/pages/payment_options/payment_options.dart';
 import 'package:wordpress_app/pages/product_details/product_details.dart';
 import 'package:wordpress_app/pages/root_page/root_page.dart';
 import 'package:wordpress_app/pages/verify_address/verify_address_page.dart';
@@ -15,6 +16,7 @@ import 'package:wordpress_app/provider/cart_provider.dart';
 import 'package:wordpress_app/provider/catalog_provider.dart';
 import 'package:wordpress_app/provider/customer_details_provider.dart';
 import 'package:wordpress_app/provider/loader_provider.dart';
+import 'package:wordpress_app/provider/order_provider.dart';
 import 'package:wordpress_app/provider/shop_provider.dart';
 
 void main() async {
@@ -60,6 +62,10 @@ class MainApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => CustomerDetailsProvider(),
           child: const VerifyAddressPage(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => OrderProvider(),
+          child: const PaymentOptionsPage(),
         ),
       ],
       child: MaterialApp(
