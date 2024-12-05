@@ -87,10 +87,13 @@ class _PaymentOptionsPageState extends State<PaymentOptionsPage> {
                       status: "processing",
                     );
                     orderProvider.createOrderProvider(orderModel, context);
+
                     Navigator.push(
                       context,
                       PageTransition(
-                        child: const CreateOrderPage(),
+                        child: CreateOrderPage(
+                          isOrderCreated: orderProvider.isOrderCreated,
+                        ),
                         type: PageTransitionType.bottomToTop,
                       ),
                     );

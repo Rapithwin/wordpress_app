@@ -163,7 +163,8 @@ class BuildPaymentMethods extends StatelessWidget {
 }
 
 class CreateOrderPage extends StatelessWidget {
-  const CreateOrderPage({super.key});
+  const CreateOrderPage({super.key, required this.isOrderCreated});
+  final bool isOrderCreated;
 
   @override
   Widget build(BuildContext context) {
@@ -174,14 +175,19 @@ class CreateOrderPage extends StatelessWidget {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image.asset("assets/images/successful_payment.png"),
+            Image.asset(isOrderCreated
+                ? "assets/images/successful_payment.png"
+                : "assets/images/unsuccessful_payment.png"),
             Text(
-              ".سفارش شما ثبت شد",
+              isOrderCreated ? ".سفارش شما ثبت شد" : "سفارش ثبت نشد",
               style: textTheme.titleMedium,
             ),
-            Text(
-              "کد پیگیری: ۲۲۲۲۲",
-              style: textTheme.titleMedium,
+            Visibility(
+              visible: isOrderCreated,
+              child: Text(
+                "کد پیگیری: ۲۲۲۲۲",
+                style: textTheme.titleMedium,
+              ),
             ),
             const SizedBox(
               height: 20,
