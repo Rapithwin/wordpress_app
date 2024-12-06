@@ -489,6 +489,8 @@ class APIService {
         url,
         data: model.toJson(),
         options: Options(
+          sendTimeout: const Duration(seconds: 10),
+          receiveTimeout: const Duration(seconds: 10),
           method: "POST",
           headers: {
             HttpHeaders.authorizationHeader: "Basic $authToken",

@@ -172,54 +172,62 @@ class CreateOrderPage extends StatelessWidget {
     return PopScope(
       canPop: false,
       child: Scaffold(
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Image.asset(isOrderCreated
-                ? "assets/images/successful_payment.png"
-                : "assets/images/unsuccessful_payment.png"),
-            Text(
-              isOrderCreated ? ".سفارش شما ثبت شد" : "سفارش ثبت نشد",
-              style: textTheme.titleMedium,
-            ),
-            Visibility(
-              visible: isOrderCreated,
-              child: Text(
-                "کد پیگیری: ۲۲۲۲۲",
-                style: textTheme.titleMedium,
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Icon(
+                isOrderCreated ? Icons.check_circle : Icons.error,
+                color: isOrderCreated
+                    ? Constants.primaryColor.withOpacity(0.8)
+                    : const Color.fromARGB(255, 209, 23, 10),
+                size: 100,
               ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const RootPage(),
+              const SizedBox(
+                height: 30,
+              ),
+              Text(
+                isOrderCreated
+                    ? ".سفارش شما با موفقیت ثبت شد"
+                    : "سفارش ثبت نشد",
+                style: isOrderCreated
+                    ? textTheme.titleMedium
+                    : textTheme.titleMedium?.copyWith(
+                        color: const Color.fromARGB(255, 209, 23, 10),
+                      ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const RootPage(),
+                    ),
+                    (_) => false,
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Constants.primaryColor,
+                  elevation: 3,
+                  side: BorderSide.none,
+                  shape: ContinuousRectangleBorder(
+                    borderRadius: BorderRadius.circular(25),
                   ),
-                  (_) => false,
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Constants.primaryColor,
-                elevation: 3,
-                side: BorderSide.none,
-                shape: ContinuousRectangleBorder(
-                  borderRadius: BorderRadius.circular(25),
                 ),
-              ),
-              child: const Text(
-                "بازگشت به صفحه اصلی",
-                style: TextStyle(
-                  fontFamily: "Lalezar",
-                  fontSize: 25,
-                  color: Colors.white,
+                child: const Text(
+                  "بازگشت به صفحه اصلی",
+                  style: TextStyle(
+                    fontFamily: "Lalezar",
+                    fontSize: 25,
+                    color: Colors.white,
+                  ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );
