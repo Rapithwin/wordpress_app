@@ -24,9 +24,7 @@ class OrderProvider with ChangeNotifier {
       CreateOrderModel createOrderModel, BuildContext context) async {
     _orderModel?.shipping ??= Ing();
 
-    if (createOrderModel.lineItems == null) {
-      _orderModel?.lineItems = [];
-    }
+    createOrderModel.lineItems ??= [];
 
     List<CartItemsModel> itemsInCart =
         Provider.of<CartProvider>(context, listen: false).cartItems!;
