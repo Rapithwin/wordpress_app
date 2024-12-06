@@ -496,14 +496,13 @@ class APIService {
           },
         ),
       );
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         isOrderCreated = true;
       }
     } on DioException catch (e) {
       if (e.type == DioExceptionType.connectionTimeout) {
         debugPrint("Timeout Error");
       }
-      debugPrint(e.response.toString());
       isOrderCreated = false;
     }
     return isOrderCreated;

@@ -86,17 +86,19 @@ class _PaymentOptionsPageState extends State<PaymentOptionsPage> {
                       setPaid: false,
                       status: "processing",
                     );
-                    orderProvider.createOrderProvider(orderModel, context);
-
-                    Navigator.push(
-                      context,
-                      PageTransition(
-                        child: CreateOrderPage(
-                          isOrderCreated: orderProvider.isOrderCreated,
+                    orderProvider
+                        .createOrderProvider(orderModel, context)
+                        .then((_) {
+                      Navigator.push(
+                        context,
+                        PageTransition(
+                          child: CreateOrderPage(
+                            isOrderCreated: orderProvider.isOrderCreated,
+                          ),
+                          type: PageTransitionType.bottomToTop,
                         ),
-                        type: PageTransitionType.bottomToTop,
-                      ),
-                    );
+                      );
+                    });
                   },
                 ),
               ],

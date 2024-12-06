@@ -9,7 +9,9 @@ import 'package:wordpress_app/provider/customer_details_provider.dart';
 
 class OrderProvider with ChangeNotifier {
   APIService? _apiService;
-
+  OrderProvider() {
+    _apiService = APIService();
+  }
   bool isLoading = false;
 
   bool _isOrderCreated = false;
@@ -22,14 +24,14 @@ class OrderProvider with ChangeNotifier {
       CreateOrderModel createOrderModel, BuildContext context) async {
     _orderModel?.shipping ??= Ing();
 
-    if (orderModel?.lineItems == null) {
+    if (createOrderModel.lineItems == null) {
       _orderModel?.lineItems = [];
     }
 
     List<CartItemsModel> itemsInCart =
         Provider.of<CartProvider>(context, listen: false).cartItems!;
     for (var item in itemsInCart) {
-      orderModel?.lineItems?.add(
+      createOrderModel.lineItems?.add(
         LineItems(
           quantity: item.quantity?.value,
           productId: item.id,
@@ -42,15 +44,15 @@ class OrderProvider with ChangeNotifier {
             .customerDetailsModel;
 
     if (customerDetails != null) {
-      orderModel?.shipping = customerDetails.shipping;
+      createOrderModel.shipping = customerDetails.shipping;
     }
 
     _isOrderCreated = (await _apiService?.createOrder(createOrderModel))!;
     notifyListeners();
   }
 
-  void proccessOrder(CreateOrderModel orderModel) {
-    _orderModel = orderModel;
+  void proccessOrder(CreateOrderModel createOrderModel) {
+    _orderModel = createOrderModel;
     notifyListeners();
   }
 
