@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wordpress_app/constants/constants.dart';
+import 'package:wordpress_app/pages/orders_page/orders_page.dart';
 import 'package:wordpress_app/pages/root_page/root_page.dart';
 import 'package:wordpress_app/provider/cart_provider.dart';
 
@@ -196,6 +197,23 @@ class CreateOrderPage extends StatelessWidget {
                         color: const Color.fromARGB(255, 209, 23, 10),
                       ),
               ),
+              Visibility(
+                  visible: isOrderCreated,
+                  child: TextButton(
+                    child: Text(
+                      "سفارش‌های من",
+                      style: textTheme.bodyLarge,
+                    ),
+                    onPressed: () {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const OrdersPage(),
+                        ),
+                        (_) => false,
+                      );
+                    },
+                  )),
               const SizedBox(
                 height: 20,
               ),
