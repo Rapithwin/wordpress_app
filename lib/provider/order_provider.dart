@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:html/dom_parsing.dart';
 import 'package:provider/provider.dart';
 import 'package:wordpress_app/api/api_service.dart';
 import 'package:wordpress_app/models/woocommerce/create_order_model.dart';
@@ -19,6 +20,9 @@ class OrderProvider with ChangeNotifier {
 
   OrderModel? _orderModel;
   OrderModel? get orderModel => _orderModel;
+
+  List<OrderModel>? _ordersList;
+  List<OrderModel>? get ordersList => _ordersList;
 
   Future<void> createOrderProvider(
       OrderModel createOrderModel, BuildContext context) async {
@@ -48,6 +52,14 @@ class OrderProvider with ChangeNotifier {
 
     _isOrderCreated = (await _apiService?.createOrder(createOrderModel))!;
     cartProvider.clearCartProvider();
+    notifyListeners();
+  }
+
+  Future<void> getAllOrdersProvider() async {
+    isLoading = true;
+    notifyListeners();
+    _ordersList = await _apiService?.getAllOrders();
+    isLoading = false;
     notifyListeners();
   }
 
