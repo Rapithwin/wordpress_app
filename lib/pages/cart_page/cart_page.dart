@@ -85,15 +85,17 @@ class _CartPageState extends State<CartPage> {
                   constraints: const BoxConstraints(maxWidth: 200),
                   height: 52,
                   child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        PageTransition(
-                          child: const VerifyAddressPage(),
-                          type: PageTransitionType.fade,
-                        ),
-                      );
-                    },
+                    onPressed: cartProvider.cartItems!.isEmpty
+                        ? null
+                        : () {
+                            Navigator.push(
+                              context,
+                              PageTransition(
+                                child: const VerifyAddressPage(),
+                                type: PageTransitionType.fade,
+                              ),
+                            );
+                          },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Constants.primaryColor,
                       elevation: 3,
