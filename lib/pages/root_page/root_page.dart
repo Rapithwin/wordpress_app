@@ -8,7 +8,8 @@ import 'package:wordpress_app/pages/profile_page/profile_page.dart';
 import 'package:wordpress_app/provider/cart_provider.dart';
 
 class RootPage extends StatefulWidget {
-  const RootPage({super.key});
+  const RootPage({super.key, this.passedIndex});
+  final int? passedIndex;
 
   @override
   State<RootPage> createState() => _RootPageState();
@@ -59,7 +60,8 @@ class _RootPageState extends State<RootPage> {
 
   @override
   void initState() {
-    bottomNavIndex = 0;
+    bottomNavIndex = widget.passedIndex ?? 0;
+
     super.initState();
   }
 

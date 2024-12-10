@@ -44,7 +44,7 @@ class _VerifyAddressPageState extends State<VerifyAddressPage> {
     state = TextEditingController(text: model.shipping!.state);
     phone = TextEditingController(text: model.shipping!.phone);
     postcode = TextEditingController(text: model.shipping!.postcode);
-    email = TextEditingController(text: model.shipping!.email);
+    email = TextEditingController(text: model.email);
 
     return Form(
       key: globalKey2,
@@ -212,7 +212,7 @@ class _VerifyAddressPageState extends State<VerifyAddressPage> {
                   child: CustomFormField(
                     labelName: "ایمیل",
                     controller: email,
-                    textDirection: TextDirection.rtl,
+                    textDirection: TextDirection.ltr,
                     inputAction: TextInputAction.done,
                     validator: (String? value) {
                       if (value!.isEmpty) {
@@ -232,16 +232,48 @@ class _VerifyAddressPageState extends State<VerifyAddressPage> {
                   children: <Widget>[
                     ElevatedButton(
                       onPressed: () {
-                        // TODO: VALIDATE FORM
-                        Navigator.push(
-                          context,
-                          PageTransition(
-                            child: const PaymentOptionsPage(),
-                            type: PageTransitionType.fade,
-                            curve: Curves.easeIn,
-                            duration: const Duration(milliseconds: 300),
-                          ),
-                        );
+                        if (globalKey2.currentState!.validate()) {
+                          Provider.of<CustomerDetailsProvider>(context,
+                                  listen: false)
+                              .updateCustomerDetails(
+                            CustomerDetailsModel(
+                              firstName: firstName.text,
+                              lastName: lastName.text,
+                              email: email.text,
+                              shipping: Ing(
+                                firstName: firstName.text,
+                                lastName: lastName.text,
+                                address1: address1.text,
+                                city: city.text,
+                                country: country.text,
+                                state: state.text,
+                                phone: phone.text,
+                                postcode: postcode.text,
+                              ),
+                              billing: Ing(
+                                  firstName: firstName.text,
+                                  lastName: lastName.text,
+                                  address1: address1.text,
+                                  city: city.text,
+                                  country: country.text,
+                                  state: state.text,
+                                  phone: phone.text,
+                                  postcode: postcode.text,
+                                  email: email.text),
+                            ),
+                          )
+                              .then((_) {
+                            Navigator.push(
+                              context,
+                              PageTransition(
+                                child: const PaymentOptionsPage(),
+                                type: PageTransitionType.fade,
+                                curve: Curves.easeIn,
+                                duration: const Duration(milliseconds: 300),
+                              ),
+                            );
+                          });
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Constants.primaryColor,
@@ -274,14 +306,25 @@ class _VerifyAddressPageState extends State<VerifyAddressPage> {
                               lastName: lastName.text,
                               email: email.text,
                               shipping: Ing(
+                                firstName: firstName.text,
+                                lastName: lastName.text,
                                 address1: address1.text,
                                 city: city.text,
                                 country: country.text,
                                 state: state.text,
                                 phone: phone.text,
                                 postcode: postcode.text,
-                                email: email.text,
                               ),
+                              billing: Ing(
+                                  firstName: firstName.text,
+                                  lastName: lastName.text,
+                                  address1: address1.text,
+                                  city: city.text,
+                                  country: country.text,
+                                  state: state.text,
+                                  phone: phone.text,
+                                  postcode: postcode.text,
+                                  email: email.text),
                             ),
                           );
                         }

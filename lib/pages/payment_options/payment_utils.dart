@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wordpress_app/constants/constants.dart';
+import 'package:wordpress_app/pages/orders_page/orders_page.dart';
+import 'package:wordpress_app/pages/root_page/root_page.dart';
 import 'package:wordpress_app/provider/cart_provider.dart';
 
 class PaymentButtomAppBar extends StatelessWidget {
@@ -112,7 +114,7 @@ class BuildPaymentMethods extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 10),
       child: InkWell(
         borderRadius: BorderRadius.circular(15),
-        onTap: () {},
+        onTap: onPressed,
         child: Container(
           width: size.width,
           height: 70,
@@ -153,6 +155,95 @@ class BuildPaymentMethods extends StatelessWidget {
                   ),
                 ],
               ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class CreateOrderPage extends StatelessWidget {
+  const CreateOrderPage({super.key, required this.isOrderCreated});
+  final bool isOrderCreated;
+
+  @override
+  Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Icon(
+                isOrderCreated ? Icons.check_circle : Icons.error,
+                color: isOrderCreated
+                    ? Constants.primaryColor.withOpacity(0.8)
+                    : const Color.fromARGB(255, 209, 23, 10),
+                size: 100,
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              Text(
+                isOrderCreated
+                    ? ".سفارش شما با موفقیت ثبت شد"
+                    : "سفارش ثبت نشد",
+                style: isOrderCreated
+                    ? textTheme.titleMedium
+                    : textTheme.titleMedium?.copyWith(
+                        color: const Color.fromARGB(255, 209, 23, 10),
+                      ),
+              ),
+              Visibility(
+                  visible: isOrderCreated,
+                  child: TextButton(
+                    child: Text(
+                      "سفارش‌های من",
+                      style: textTheme.bodyLarge,
+                    ),
+                    onPressed: () {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const OrdersPage(),
+                        ),
+                        (_) => false,
+                      );
+                    },
+                  )),
+              const SizedBox(
+                height: 20,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const RootPage(),
+                    ),
+                    (_) => false,
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Constants.primaryColor,
+                  elevation: 3,
+                  side: BorderSide.none,
+                  shape: ContinuousRectangleBorder(
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                ),
+                child: const Text(
+                  "بازگشت به صفحه اصلی",
+                  style: TextStyle(
+                    fontFamily: "Lalezar",
+                    fontSize: 25,
+                    color: Colors.white,
+                  ),
+                ),
+              )
             ],
           ),
         ),

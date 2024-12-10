@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wordpress_app/constants/constants.dart';
+import 'package:wordpress_app/pages/root_page/root_page.dart';
 
 class CustomAppBar {
   static AppBar customAppBarRegister(TextTheme textTheme, String title) {
@@ -32,7 +33,15 @@ class CustomAppBar {
           ),
           child: IconButton(
             onPressed: () {
-              Navigator.of(context).pop();
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const RootPage(
+                    passedIndex: 3,
+                  ),
+                ),
+                (_) => false,
+              );
             },
             icon: const Icon(
               Icons.close,

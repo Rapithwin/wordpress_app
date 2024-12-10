@@ -44,6 +44,7 @@ class CustomerDetailsModel {
         "first_name": firstName ?? "",
         "last_name": lastName ?? "",
         "username": username ?? "",
+        "email": email ?? "",
         "billing": billing?.toJson(),
         "shipping": shipping?.toJson(),
       };

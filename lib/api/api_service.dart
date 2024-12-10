@@ -8,6 +8,7 @@ import 'package:wordpress_app/models/woocommerce/cart/addtocart_request_model.da
 import 'package:wordpress_app/models/woocommerce/cart/get_items_cart_model.dart';
 import 'package:wordpress_app/models/woocommerce/categories_model.dart';
 import 'package:wordpress_app/models/posts_model.dart';
+import 'package:wordpress_app/models/woocommerce/create_order_model.dart';
 import 'package:wordpress_app/models/woocommerce/customer_model.dart';
 import 'package:wordpress_app/models/woocommerce/customer_details_model.dart';
 import 'package:wordpress_app/models/woocommerce/login_model.dart';
@@ -476,5 +477,38 @@ class APIService {
       debugPrint(e.response.toString());
     }
     return responseModel;
+  }
+
+  Future<bool> createOrder(CreateOrderModel model) async {
+    bool isOrderCreated = false;
+    // TODO
+    model.customerId = 1;
+    String url = "${WoocommerceInfo.baseUrl}${WoocommerceInfo.order}";
+    try {
+      var response = await Dio().request(
+        url,
+        data: model.toJson(),
+        options: Options(
+          sendTimeout: const Duration(seconds: 10),
+          receiveTimeout: const Duration(seconds: 10),
+          method: "POST",
+          headers: {
+            HttpHeaders.authorizationHeader: "Basic $authToken",
+            HttpHeaders.contentTypeHeader: "application/json",
+          },
+        ),
+      );
+      if (response.statusCode == 201) {
+        isOrderCreated = true;
+      }
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout) {
+        debugPrint("Timeout Error");
+      }
+      debugPrint(e.response.toString());
+
+      isOrderCreated = false;
+    }
+    return isOrderCreated;
   }
 }
