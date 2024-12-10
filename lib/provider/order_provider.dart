@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:html/dom_parsing.dart';
 import 'package:provider/provider.dart';
 import 'package:wordpress_app/api/api_service.dart';
 import 'package:wordpress_app/models/woocommerce/create_order_model.dart';
