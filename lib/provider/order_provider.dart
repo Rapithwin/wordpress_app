@@ -25,9 +25,10 @@ class OrderProvider with ChangeNotifier {
     _orderModel?.shipping ??= Ing();
 
     createOrderModel.lineItems ??= [];
+    CartProvider cartProvider =
+        Provider.of<CartProvider>(context, listen: false);
 
-    List<CartItemsModel> itemsInCart =
-        Provider.of<CartProvider>(context, listen: false).cartItems!;
+    List<CartItemsModel> itemsInCart = cartProvider.cartItems!;
     for (var item in itemsInCart) {
       createOrderModel.lineItems?.add(
         LineItems(
@@ -46,6 +47,7 @@ class OrderProvider with ChangeNotifier {
     }
 
     _isOrderCreated = (await _apiService?.createOrder(createOrderModel))!;
+    cartProvider.clearCartProvider();
     notifyListeners();
   }
 

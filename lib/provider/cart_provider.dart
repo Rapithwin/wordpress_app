@@ -29,6 +29,10 @@ class CartProvider with ChangeNotifier {
   bool? _itemDeleted;
   bool? get itemDeleted => _itemDeleted;
 
+  // Clear cart response
+  bool? _cartCleared;
+  bool? get cartCleared => _cartCleared;
+
   Text getTotal() {
     int totalPrice = 0;
     final NumberFormat numberFormat = NumberFormat.decimalPattern("fa");
@@ -85,6 +89,12 @@ class CartProvider with ChangeNotifier {
 
   Future<void> deleteItemProvider(String itemKey) async {
     final response = await _apiService.deleteItemCart(itemKey);
+    _itemDeleted = response;
+    notifyListeners();
+  }
+
+  Future<void> clearCartProvider() async {
+    final response = await _apiService.clearCart();
     _itemDeleted = response;
     notifyListeners();
   }

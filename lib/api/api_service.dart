@@ -359,6 +359,7 @@ class APIService {
 
   Future<bool> updateCart(String itemKey, String quantity) async {
     late bool cartUpdated;
+    // TODO
     String cartAuthToken = base64.encode(utf8.encode("api_test:12345678"));
     String url =
         "${WoocommerceInfo.wordpressUrl}${WoocommerceInfo.coCartUrl}${WoocommerceInfo.item}/$itemKey";
@@ -391,6 +392,7 @@ class APIService {
 
   Future<bool> deleteItemCart(String itemKey) async {
     late bool itemDeleted;
+    // TODO
     String cartAuthToken = base64.encode(utf8.encode("api_test:12345678"));
     String url =
         "${WoocommerceInfo.wordpressUrl}${WoocommerceInfo.coCartUrl}${WoocommerceInfo.item}/$itemKey";
@@ -418,6 +420,38 @@ class APIService {
       itemDeleted = false;
     }
     return itemDeleted;
+  }
+
+  Future<bool> clearCart() async {
+    late bool cartCleared;
+    // TODO
+    String cartAuthToken = base64.encode(utf8.encode("api_test:12345678"));
+    String url =
+        "${WoocommerceInfo.wordpressUrl}${WoocommerceInfo.coCartUrl}${WoocommerceInfo.clear}";
+
+    try {
+      var response = await Dio().request(
+        url,
+        options: Options(
+          method: "POST",
+          headers: {
+            HttpHeaders.authorizationHeader: "Basic $cartAuthToken",
+            HttpHeaders.contentTypeHeader: "application/json",
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        cartCleared = true;
+      }
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout) {
+        debugPrint("Timeout Error");
+        cartCleared = false;
+      }
+      debugPrint(e.message);
+      cartCleared = false;
+    }
+    return cartCleared;
   }
 
   Future<CustomerDetailsModel?> getCustomerDetails() async {
