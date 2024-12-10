@@ -50,7 +50,7 @@ class OrderProvider with ChangeNotifier {
     }
 
     _isOrderCreated = (await _apiService?.createOrder(createOrderModel))!;
-    cartProvider.clearCartProvider();
+    if (_isOrderCreated) cartProvider.clearCartProvider();
     notifyListeners();
   }
 

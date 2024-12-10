@@ -538,6 +538,7 @@ class APIService {
     } on DioException catch (e) {
       if (e.type == DioExceptionType.connectionTimeout) {
         debugPrint("Timeout Error");
+        isOrderCreated = false;
       }
       debugPrint(e.response.toString());
 
