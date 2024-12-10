@@ -83,8 +83,7 @@ class _PaymentOptionsPageState extends State<PaymentOptionsPage> {
                     OrderModel orderModel = OrderModel(
                       paymentMethod: "offline",
                       paymentMethodTitle: "پرداخت در محل",
-                      setPaid: false,
-                      status: "processing",
+                      setPaid: true,
                     );
                     orderProvider
                         .createOrderProvider(orderModel, context)
