@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wordpress_app/api/api_service.dart';
-import 'package:wordpress_app/models/woocommerce/create_order_model.dart';
+import 'package:wordpress_app/models/woocommerce/order_model.dart';
 import 'package:wordpress_app/models/woocommerce/customer_details_model.dart';
 import 'package:wordpress_app/models/woocommerce/cart/get_items_cart_model.dart';
 import 'package:wordpress_app/provider/cart_provider.dart';

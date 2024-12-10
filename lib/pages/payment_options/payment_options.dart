@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:wordpress_app/constants/constants.dart';
-import 'package:wordpress_app/models/woocommerce/create_order_model.dart';
+import 'package:wordpress_app/models/woocommerce/order_model.dart';
 import 'package:wordpress_app/pages/payment_options/payment_utils.dart';
 import 'package:wordpress_app/provider/customer_details_provider.dart';
 import 'package:wordpress_app/provider/order_provider.dart';

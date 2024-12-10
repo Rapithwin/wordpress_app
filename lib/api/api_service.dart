@@ -8,7 +8,7 @@ import 'package:wordpress_app/models/woocommerce/cart/addtocart_request_model.da
 import 'package:wordpress_app/models/woocommerce/cart/get_items_cart_model.dart';
 import 'package:wordpress_app/models/woocommerce/categories_model.dart';
 import 'package:wordpress_app/models/posts_model.dart';
-import 'package:wordpress_app/models/woocommerce/create_order_model.dart';
+import 'package:wordpress_app/models/woocommerce/order_model.dart';
 import 'package:wordpress_app/models/woocommerce/customer_model.dart';
 import 'package:wordpress_app/models/woocommerce/customer_details_model.dart';
 import 'package:wordpress_app/models/woocommerce/login_model.dart';
@@ -563,9 +563,10 @@ class APIService {
           },
         ),
       );
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200) {
         ordersList =
             (response.data as List).map((i) => OrderModel.fromJson(i)).toList();
+        debugPrint(ordersList.toString());
       }
     } on DioException catch (e) {
       if (e.type == DioExceptionType.connectionTimeout) {
