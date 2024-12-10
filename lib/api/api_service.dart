@@ -545,4 +545,36 @@ class APIService {
     }
     return isOrderCreated;
   }
+
+  Future<List<OrderModel>> getAllOrders() async {
+    late List<OrderModel> ordersList;
+    // TODO
+    String url = "${WoocommerceInfo.baseUrl}${WoocommerceInfo.order}";
+    try {
+      var response = await Dio().request(
+        url,
+        options: Options(
+          sendTimeout: const Duration(seconds: 10),
+          receiveTimeout: const Duration(seconds: 10),
+          method: "GET",
+          headers: {
+            HttpHeaders.authorizationHeader: "Basic $authToken",
+            HttpHeaders.contentTypeHeader: "application/json",
+          },
+        ),
+      );
+      if (response.statusCode == 201) {
+        ordersList =
+            (response.data as List).map((i) => OrderModel.fromJson(i)).toList();
+      }
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout) {
+        debugPrint("Timeout Error");
+      }
+      debugPrint(e.response.toString());
+
+      ordersList = <OrderModel>[];
+    }
+    return ordersList;
+  }
 }
