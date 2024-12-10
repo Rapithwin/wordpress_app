@@ -125,9 +125,19 @@ class _CartPageState extends State<CartPage> {
           }
           return value.cartItems!.isEmpty
               ? Center(
-                  child: Text(
-                    "سبد خرید خالی است",
-                    style: textTheme.titleLarge,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Image.asset(
+                        "assets/images/add-cart.png",
+                        height: 225,
+                        width: 225,
+                      ),
+                      Text(
+                        "سبد خرید خالی است",
+                        style: textTheme.titleLarge,
+                      ),
+                    ],
                   ),
                 )
               : SizedBox(
