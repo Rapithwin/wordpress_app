@@ -513,7 +513,7 @@ class APIService {
     return responseModel;
   }
 
-  Future<bool> createOrder(CreateOrderModel model) async {
+  Future<bool> createOrder(OrderModel model) async {
     bool isOrderCreated = false;
     // TODO
     model.customerId = 1;

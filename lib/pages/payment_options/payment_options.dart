@@ -80,7 +80,7 @@ class _PaymentOptionsPageState extends State<PaymentOptionsPage> {
                   title: "پرداخت در محل",
                   description: "پرداخت درب منزل با کارت خوان",
                   onPressed: () {
-                    CreateOrderModel orderModel = CreateOrderModel(
+                    OrderModel orderModel = OrderModel(
                       paymentMethod: "offline",
                       paymentMethodTitle: "پرداخت در محل",
                       setPaid: false,

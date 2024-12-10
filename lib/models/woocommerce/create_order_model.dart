@@ -1,6 +1,6 @@
 import 'package:wordpress_app/models/woocommerce/customer_details_model.dart';
 
-class CreateOrderModel {
+class OrderModel {
   int? customerId;
   int? orderId;
   String? paymentMethod;
@@ -13,7 +13,7 @@ class CreateOrderModel {
   DateTime? orderDate;
   Ing? shipping;
 
-  CreateOrderModel({
+  OrderModel({
     this.customerId,
     this.paymentMethod,
     this.paymentMethodTitle,
@@ -27,8 +27,7 @@ class CreateOrderModel {
     this.shipping,
   });
 
-  factory CreateOrderModel.fromJson(Map<String, dynamic> json) =>
-      CreateOrderModel(
+  factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
         customerId: json["customer_id"],
         orderId: json["id"],
         orderNumber: json["order_key"],

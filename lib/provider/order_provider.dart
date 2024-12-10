@@ -17,11 +17,11 @@ class OrderProvider with ChangeNotifier {
   bool _isOrderCreated = false;
   bool get isOrderCreated => _isOrderCreated;
 
-  CreateOrderModel? _orderModel;
-  CreateOrderModel? get orderModel => _orderModel;
+  OrderModel? _orderModel;
+  OrderModel? get orderModel => _orderModel;
 
   Future<void> createOrderProvider(
-      CreateOrderModel createOrderModel, BuildContext context) async {
+      OrderModel createOrderModel, BuildContext context) async {
     _orderModel?.shipping ??= Ing();
 
     createOrderModel.lineItems ??= [];
@@ -51,7 +51,7 @@ class OrderProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void proccessOrder(CreateOrderModel createOrderModel) {
+  void proccessOrder(OrderModel createOrderModel) {
     _orderModel = createOrderModel;
     notifyListeners();
   }
