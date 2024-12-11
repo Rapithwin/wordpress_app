@@ -102,7 +102,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             CustomRow(text: "پروفایل من", icon: Icons.person, onPressed: () {}),
             CustomRow(
-              text: "سفارشات",
+              text: "سفارش‌ها",
               icon: Icons.settings,
               onPressed: () => Navigator.push(
                 context,
