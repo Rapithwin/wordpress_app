@@ -17,13 +17,15 @@ class CustomAppBar {
     );
   }
 
-  static AppBar customAppBarAddress(BuildContext context, String title) {
+  static AppBar customAppBarAddress(BuildContext context, String title,
+      {PreferredSizeWidget? bottom}) {
     return AppBar(
       toolbarHeight: 80,
       leadingWidth: 80,
       backgroundColor: Colors.transparent,
       scrolledUnderElevation: 0,
       automaticallyImplyLeading: false,
+      bottom: bottom,
       leading: Padding(
         padding: const EdgeInsets.all(18.0),
         child: Container(
