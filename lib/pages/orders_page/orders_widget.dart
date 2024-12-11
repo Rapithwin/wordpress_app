@@ -20,7 +20,7 @@ class _BuildOrdersPageState extends State<BuildOrdersPage> {
     Future.delayed(Duration.zero).then((_) {
       OrderProvider orderProvider =
           Provider.of<OrderProvider>(context, listen: false);
-      orderProvider.getAllOrdersProvider();
+      orderProvider.getAllOrdersProvider(widget.status);
     });
     super.initState();
   }

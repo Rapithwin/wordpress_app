@@ -54,10 +54,10 @@ class OrderProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getAllOrdersProvider() async {
+  Future<void> getAllOrdersProvider(String? status) async {
     isLoading = true;
     notifyListeners();
-    _ordersList = await _apiService?.getAllOrders();
+    _ordersList = await _apiService?.getAllOrders(status);
     isLoading = false;
     notifyListeners();
   }

@@ -547,10 +547,13 @@ class APIService {
     return isOrderCreated;
   }
 
-  Future<List<OrderModel>> getAllOrders() async {
+  Future<List<OrderModel>> getAllOrders(String? status) async {
     late List<OrderModel> ordersList;
     // TODO
-    String url = "${WoocommerceInfo.baseUrl}${WoocommerceInfo.order}";
+
+    String url = status != null
+        ? "${WoocommerceInfo.baseUrl}${WoocommerceInfo.order}?status=$status"
+        : "${WoocommerceInfo.baseUrl}${WoocommerceInfo.order}";
     try {
       var response = await Dio().request(
         url,

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' show NumberFormat;
-import 'package:provider/provider.dart';
 import 'package:wordpress_app/constants/constants.dart';
 import 'package:wordpress_app/pages/orders_page/orders_widget.dart';
-import 'package:wordpress_app/provider/order_provider.dart';
 import 'package:wordpress_app/utils/custom_appbar.dart';
 
 class OrdersPage extends StatefulWidget {
@@ -17,18 +15,7 @@ class _OrdersPageState extends State<OrdersPage> {
   final NumberFormat numberFormat = NumberFormat.decimalPattern("fa");
 
   @override
-  void initState() {
-    Future.delayed(Duration.zero).then((_) {
-      OrderProvider orderProvider =
-          Provider.of<OrderProvider>(context, listen: false);
-      orderProvider.getAllOrdersProvider();
-    });
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     final TextTheme textTheme = Theme.of(context).textTheme;
 
     return DefaultTabController(
@@ -58,11 +45,15 @@ class _OrdersPageState extends State<OrdersPage> {
             ],
           ),
         ),
-        body: TabBarView(
+        body: const TabBarView(
           children: <Widget>[
             BuildOrdersPage(),
-            BuildOrdersPage(),
-            BuildOrdersPage(),
+            BuildOrdersPage(
+              status: "processing",
+            ),
+            BuildOrdersPage(
+              status: "completed",
+            ),
           ],
         ),
       ),
