@@ -93,7 +93,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                           int.parse(
                             widget.product!.price!,
                           ),
-                        )}  ریال",
+                        )}  تومان",
                         style: textTheme.titleMedium,
                       ),
                     ),

@@ -267,7 +267,7 @@ class _HomePageState extends State<HomePage> {
                                                         value.product![index]
                                                             .price!,
                                                       ),
-                                                    )}ریال",
+                                                    )}تومان",
                                                     style: textTheme.bodySmall!
                                                         .copyWith(
                                                             color:
