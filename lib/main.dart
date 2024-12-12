@@ -20,7 +20,7 @@ import 'package:wordpress_app/provider/order_provider.dart';
 import 'package:wordpress_app/provider/shop_provider.dart';
 
 void main() async {
-  // Override HttpClient globaly for self signed certificate issue
+  // FIXME: Override HttpClient globaly for self signed certificate issue
   // development only, should not be used in production code
   HttpOverrides.global = MyHttpOverrides();
   await dotenv.load(fileName: ".env");
