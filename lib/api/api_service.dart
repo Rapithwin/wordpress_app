@@ -248,32 +248,18 @@ class APIService {
     String sortOrder = "desc",
   }) async {
     List<ProductModel> productList = <ProductModel>[];
-    String parameter = "";
-    if (pageNumber != null) {
-      parameter += "&page=$pageNumber";
-    }
-    if (pageSize != null) {
-      parameter += "&per_page=$pageSize";
-    }
-    if (searchKeyword != null) {
-      parameter += "&search=$searchKeyword";
-    }
-    if (tagName != null) {
-      parameter += "&tag=$tagName";
-    }
-    if (sortBy != null) {
-      parameter += "&orderby=$sortBy";
-    }
-    if (sortOrder == "asc") {
-      parameter += "&order=asc";
-    }
-    parameter.replaceFirst("&", "");
-    final String productUrl =
-        "${WoocommerceInfo.baseUrl}${WoocommerceInfo.productsURL}?$parameter";
 
     try {
       var response = await Dio().request(
-        productUrl,
+        "${WoocommerceInfo.baseUrl}${WoocommerceInfo.productsURL}",
+        queryParameters: {
+          "page": pageNumber ?? "",
+          "per_page": pageSize ?? "",
+          "search": searchKeyword ?? "",
+          "tag": tagName ?? "",
+          "orderby": sortBy ?? "",
+          "order": sortOrder,
+        },
         options: Options(
           method: "GET",
           headers: {
