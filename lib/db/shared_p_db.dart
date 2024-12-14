@@ -25,4 +25,10 @@ class SharedServices {
       );
     }
   }
+
+  static Future<bool> isLoggedIn() async {
+    final sharedPref = await SharedPreferences.getInstance();
+
+    return sharedPref.getString("login_details") != null;
+  }
 }
