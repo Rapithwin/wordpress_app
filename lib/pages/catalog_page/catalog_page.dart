@@ -93,6 +93,7 @@ class _CatalogPageState extends State<CatalogPage> {
                       vertical: 5.0,
                     ),
                     // Search
+                    // FIXME: Bug when searching and then scrolling
                     child: SearchBar(
                       controller: _searchController,
                       leading: IconButton(
