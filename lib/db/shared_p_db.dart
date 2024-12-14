@@ -13,4 +13,16 @@ class SharedServices {
             ? jsonEncode(loginResponseModel.toJson())
             : "");
   }
+
+  static Future getLoginDetails() async {
+    final sharedPred = await SharedPreferences.getInstance();
+    if (sharedPred.getString("login_details").toString().isNotEmpty &&
+        sharedPred.getString("login_details") != null) {
+      return LoginModel.fromJson(
+        jsonDecode(
+          sharedPred.getString("login_details").toString(),
+        ),
+      );
+    }
+  }
 }
