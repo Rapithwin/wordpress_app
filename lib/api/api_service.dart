@@ -97,13 +97,13 @@ class APIService {
 
   Future<List<ProductModel>> getAllProducts(String? catId) async {
     List<ProductModel> productsList = <ProductModel>[];
-    String url = catId != null
-        ? "${WoocommerceInfo.baseUrl}${WoocommerceInfo.productsURL}?category=$catId"
-        : "${WoocommerceInfo.baseUrl}${WoocommerceInfo.productsURL}";
 
     try {
       var response = await Dio().request(
-        url,
+        "${WoocommerceInfo.baseUrl}${WoocommerceInfo.productsURL}",
+        queryParameters: {
+          "category": catId ?? "",
+        },
         options: Options(
           method: "GET",
           headers: {
