@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:wordpress_app/constants/constants.dart';
+import 'package:wordpress_app/db/shared_p_db.dart';
 import 'package:wordpress_app/models/woocommerce/cart/addtocart_request_model.dart';
 import 'package:wordpress_app/models/woocommerce/cart/get_items_cart_model.dart';
 import 'package:wordpress_app/models/woocommerce/categories_model.dart';
@@ -548,15 +549,11 @@ class APIService {
   }
 
   Future<List<OrderModel>> getAllOrders(String? status) async {
-    late List<OrderModel> ordersList;
-    // TODO
-
-    String url = status != null
-        ? "${WoocommerceInfo.baseUrl}${WoocommerceInfo.order}?status=$status"
-        : "${WoocommerceInfo.baseUrl}${WoocommerceInfo.order}";
+    List<OrderModel> ordersList = <OrderModel>[];
     try {
       var response = await Dio().request(
-        url,
+        "${WoocommerceInfo.baseUrl}${WoocommerceInfo.order}",
+        queryParameters: {"status": status ?? ""},
         options: Options(
           sendTimeout: const Duration(seconds: 10),
           receiveTimeout: const Duration(seconds: 10),
