@@ -31,4 +31,9 @@ class SharedServices {
 
     return sharedPref.getString("login_details") != null;
   }
+
+  static Future<void> logOut() async {
+    final sharedPref = await SharedPreferences.getInstance();
+    sharedPref.clear();
+  }
 }
