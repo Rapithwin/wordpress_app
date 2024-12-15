@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:wordpress_app/constants/constants.dart';
+import 'package:wordpress_app/db/shared_p_db.dart';
+import 'package:wordpress_app/pages/login_page/login_page.dart';
 import 'package:wordpress_app/pages/orders_page/orders_page.dart';
 import 'package:wordpress_app/pages/profile_page/profile_widgets.dart';
 import 'package:wordpress_app/provider/customer_details_provider.dart';
@@ -118,7 +120,24 @@ class _ProfilePageState extends State<ProfilePage> {
                 onPressed: () {}),
             CustomRow(
                 text: "شبکه‌های اجتماعی", icon: Icons.share, onPressed: () {}),
-            CustomRow(text: "خروج", icon: Icons.logout, onPressed: () {}),
+            CustomRow(
+              text: "خروج",
+              icon: Icons.logout,
+              onPressed: () {
+                SharedServices.logOut().then(
+                  (_) {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      PageTransition(
+                        child: const LoginPage(),
+                        type: PageTransitionType.fade,
+                      ),
+                      (_) => false,
+                    );
+                  },
+                );
+              },
+            ),
           ],
         ),
       ),
