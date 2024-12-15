@@ -86,15 +86,27 @@ class _BuildOrdersPageState extends State<BuildOrdersPage> {
                                         right: 10.0, top: 10.0),
                                     child: Row(
                                       children: <Widget>[
-                                        const Icon(
-                                          Icons.pending,
-                                          size: 35,
-                                        ),
+                                        order.ordersList![index].status! ==
+                                                "completed"
+                                            ? const Icon(
+                                                Icons.check_circle,
+                                                size: 35,
+                                                color: Constants.primaryColor,
+                                              )
+                                            : const Icon(
+                                                Icons.pending,
+                                                size: 35,
+                                                color: Color.fromARGB(
+                                                    255, 255, 170, 59),
+                                              ),
                                         const SizedBox(
                                           width: 6,
                                         ),
                                         Text(
-                                          order.ordersList![index].status!,
+                                          order.ordersList![index].status! ==
+                                                  "completed"
+                                              ? "تحویل شده"
+                                              : "جاری",
                                           style:
                                               textTheme.titleMedium!.copyWith(
                                             color: Constants.blackColor,
