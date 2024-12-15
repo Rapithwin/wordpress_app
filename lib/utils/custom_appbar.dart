@@ -88,23 +88,6 @@ class CustomAppBar {
           ),
         ),
       ),
-      actions: [
-        Padding(
-          padding: const EdgeInsets.all(18.0),
-          child: Container(
-            width: 50,
-            height: 50,
-            decoration: BoxDecoration(
-              color: Constants.primaryColor.withOpacity(0.2),
-              shape: BoxShape.circle,
-            ),
-            child: const Icon(
-              Icons.favorite,
-              color: Constants.primaryColor,
-            ),
-          ),
-        ),
-      ],
     );
   }
 }
