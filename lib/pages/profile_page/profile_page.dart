@@ -102,10 +102,9 @@ class _ProfilePageState extends State<ProfilePage> {
             const SizedBox(
               height: 30,
             ),
-            CustomRow(text: "پروفایل من", icon: Icons.person, onPressed: () {}),
             CustomRow(
               text: "سفارش‌ها",
-              icon: Icons.settings,
+              icon: Icons.shopping_bag,
               onPressed: () => Navigator.push(
                 context,
                 PageTransition(
