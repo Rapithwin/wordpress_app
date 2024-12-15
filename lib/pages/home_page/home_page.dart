@@ -45,49 +45,6 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0,
-                  ),
-                  child: Directionality(
-                    textDirection: TextDirection.rtl,
-                    child: SearchBar(
-                      leading: IconButton(
-                        icon: Icon(
-                          Icons.search,
-                          size: 28,
-                          color: Colors.grey[700],
-                        ),
-                        onPressed: () {},
-                      ),
-                      trailing: [
-                        IconButton(
-                          icon: const Icon(
-                            Icons.mic,
-                            size: 28,
-                          ),
-                          color: Colors.grey[700],
-                          onPressed: () {},
-                        )
-                      ],
-                      shape: WidgetStatePropertyAll<OutlinedBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(24),
-                        ),
-                      ),
-                      hintText: "جستجو...",
-                      textStyle: WidgetStatePropertyAll<TextStyle?>(
-                        Theme.of(context)
-                            .textTheme
-                            .bodyLarge
-                            ?.copyWith(color: Colors.grey[700]),
-                      ),
-                      elevation: const WidgetStatePropertyAll<double>(0),
-                      backgroundColor: WidgetStatePropertyAll<Color>(
-                          Constants.primaryColor.withOpacity(0.1)),
-                    ),
-                  ),
-                ),
                 Container(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
@@ -139,7 +96,7 @@ class _HomePageState extends State<HomePage> {
                 // Middle section
                 // Products
                 SizedBox(
-                  height: size.height * 0.3,
+                  height: size.height * 0.35,
                   child: value.isLoading
                       ? const Center(
                           child: CircularProgressIndicator(
@@ -165,7 +122,7 @@ class _HomePageState extends State<HomePage> {
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.only(
-                                        left: 3.0, right: 3.0),
+                                        left: 3.0, right: 3.0, bottom: 20.0),
                                     child: Container(
                                       width: 220.0,
                                       decoration: BoxDecoration(
@@ -186,11 +143,6 @@ class _HomePageState extends State<HomePage> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.end,
                                               children: <Widget>[
-                                                // Categories
-
-                                                const SizedBox(
-                                                  height: 6,
-                                                ),
                                                 // Product name
                                                 SizedBox(
                                                   width: 180,
@@ -292,7 +244,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 23, bottom: 8, right: 20),
+                  padding: const EdgeInsets.only(top: 5, bottom: 16, right: 20),
                   child: Text(
                     "مطالب وبلاگ",
                     style: textTheme.titleLarge?.copyWith(
@@ -308,8 +260,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       )
                     : Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 10),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
                         height: size.height * 0.29,
                         child: ListView.builder(
                           itemCount: value.psot!.length,
