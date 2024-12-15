@@ -443,8 +443,8 @@ class APIService {
 
   Future<CustomerDetailsModel?> getCustomerDetails() async {
     CustomerDetailsModel? responseModel;
-    // TODO
-    int userID = 1;
+    LoginModel? loginResponseModel = await SharedServices.getLoginDetails();
+    int userID = loginResponseModel!.userId!;
     String url =
         "${WoocommerceInfo.baseUrl}${WoocommerceInfo.customerURL}/$userID";
     try {
@@ -473,7 +473,8 @@ class APIService {
   Future<CustomerDetailsModel?> updateCustomerDetails(
       CustomerDetailsModel model) async {
     CustomerDetailsModel? responseModel;
-    int userID = 1;
+    LoginModel? loginResponseModel = await SharedServices.getLoginDetails();
+    int userID = loginResponseModel!.userId!;
     String url =
         "${WoocommerceInfo.baseUrl}${WoocommerceInfo.customerURL}/$userID";
     try {
@@ -502,8 +503,8 @@ class APIService {
 
   Future<bool> createOrder(OrderModel model) async {
     bool isOrderCreated = false;
-    // TODO
-    model.customerId = 1;
+    LoginModel? loginResponseModel = await SharedServices.getLoginDetails();
+    model.customerId = loginResponseModel?.userId;
     String url = "${WoocommerceInfo.baseUrl}${WoocommerceInfo.order}";
     try {
       var response = await Dio().request(
