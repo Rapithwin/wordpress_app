@@ -4,6 +4,7 @@ class LoginModel {
   String? username;
   String? displayName;
   String? message;
+  String? userId;
 
   LoginModel({
     this.token,
@@ -11,6 +12,7 @@ class LoginModel {
     this.email,
     this.username,
     this.displayName,
+    this.userId,
   });
 
   factory LoginModel.fromJson(Map<String, dynamic> json) => LoginModel(
@@ -19,6 +21,7 @@ class LoginModel {
         username: json["user_nicename"],
         displayName: json["user_display_name"],
         message: json["message"],
+        userId: json["user_id"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -27,5 +30,6 @@ class LoginModel {
         "user_nicename": username,
         "user_display_name": displayName,
         "message": message,
+        "user_id": userId,
       };
 }
