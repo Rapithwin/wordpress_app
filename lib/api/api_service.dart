@@ -282,8 +282,8 @@ class APIService {
 
   Future<String> addToCart(AddCartRequestModel model) async {
     late String cartResponse;
-    // TODO
-    String cartAuthToken = base64.encode(utf8.encode("api_test:12345678"));
+    LoginModel? loginResponseModel = await SharedServices.getLoginDetails();
+    String cartAuthToken = loginResponseModel!.token!;
     String url =
         "${WoocommerceInfo.wordpressUrl}${WoocommerceInfo.coCartUrl}${WoocommerceInfo.addItemToCart}";
 
@@ -294,7 +294,7 @@ class APIService {
         options: Options(
           method: "POST",
           headers: {
-            HttpHeaders.authorizationHeader: "Basic $cartAuthToken",
+            HttpHeaders.authorizationHeader: "Bearer $cartAuthToken",
             HttpHeaders.contentTypeHeader: "application/json",
           },
         ),
@@ -314,8 +314,8 @@ class APIService {
 
   Future<List<CartItemsModel>> getItemsInCart() async {
     late List<CartItemsModel> itemsInCart;
-    // TODO
-    String cartAuthToken = base64.encode(utf8.encode("api_test:12345678"));
+    LoginModel? loginResponseModel = await SharedServices.getLoginDetails();
+    String cartAuthToken = loginResponseModel!.token!;
     String url =
         "${WoocommerceInfo.wordpressUrl}${WoocommerceInfo.coCartUrl}${WoocommerceInfo.items}";
 
@@ -325,7 +325,7 @@ class APIService {
         options: Options(
           method: "GET",
           headers: {
-            HttpHeaders.authorizationHeader: "Basic $cartAuthToken",
+            HttpHeaders.authorizationHeader: "Bearer $cartAuthToken",
             HttpHeaders.contentTypeHeader: "application/json",
           },
         ),
@@ -346,8 +346,8 @@ class APIService {
 
   Future<bool> updateCart(String itemKey, String quantity) async {
     late bool cartUpdated;
-    // TODO
-    String cartAuthToken = base64.encode(utf8.encode("api_test:12345678"));
+    LoginModel? loginResponseModel = await SharedServices.getLoginDetails();
+    String cartAuthToken = loginResponseModel!.token!;
     String url =
         "${WoocommerceInfo.wordpressUrl}${WoocommerceInfo.coCartUrl}${WoocommerceInfo.item}/$itemKey";
 
@@ -358,7 +358,7 @@ class APIService {
         options: Options(
           method: "POST",
           headers: {
-            HttpHeaders.authorizationHeader: "Basic $cartAuthToken",
+            HttpHeaders.authorizationHeader: "Bearer $cartAuthToken",
             HttpHeaders.contentTypeHeader: "application/json",
           },
         ),
@@ -379,8 +379,8 @@ class APIService {
 
   Future<bool> deleteItemCart(String itemKey) async {
     late bool itemDeleted;
-    // TODO
-    String cartAuthToken = base64.encode(utf8.encode("api_test:12345678"));
+    LoginModel? loginResponseModel = await SharedServices.getLoginDetails();
+    String cartAuthToken = loginResponseModel!.token!;
     String url =
         "${WoocommerceInfo.wordpressUrl}${WoocommerceInfo.coCartUrl}${WoocommerceInfo.item}/$itemKey";
 
@@ -390,7 +390,7 @@ class APIService {
         options: Options(
           method: "DELETE",
           headers: {
-            HttpHeaders.authorizationHeader: "Basic $cartAuthToken",
+            HttpHeaders.authorizationHeader: "Bearer $cartAuthToken",
             HttpHeaders.contentTypeHeader: "application/json",
           },
         ),
@@ -411,8 +411,8 @@ class APIService {
 
   Future<bool> clearCart() async {
     late bool cartCleared;
-    // TODO
-    String cartAuthToken = base64.encode(utf8.encode("api_test:12345678"));
+    LoginModel? loginResponseModel = await SharedServices.getLoginDetails();
+    String cartAuthToken = loginResponseModel!.token!;
     String url =
         "${WoocommerceInfo.wordpressUrl}${WoocommerceInfo.coCartUrl}${WoocommerceInfo.clear}";
 
@@ -422,7 +422,7 @@ class APIService {
         options: Options(
           method: "POST",
           headers: {
-            HttpHeaders.authorizationHeader: "Basic $cartAuthToken",
+            HttpHeaders.authorizationHeader: "Bearer $cartAuthToken",
             HttpHeaders.contentTypeHeader: "application/json",
           },
         ),
