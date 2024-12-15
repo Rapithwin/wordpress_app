@@ -537,7 +537,7 @@ class APIService {
   Future<List<OrderModel>> getAllOrders(String? status) async {
     List<OrderModel> ordersList = <OrderModel>[];
     LoginModel? loginResponseModel = await SharedServices.getLoginDetails();
-    String? userId = loginResponseModel?.userId;
+    int? userId = loginResponseModel?.userId;
 
     try {
       var response = await Dio().request(
