@@ -132,8 +132,8 @@ class _CartPageState extends State<CartPage> {
                     children: <Widget>[
                       Image.asset(
                         "assets/images/add-cart.png",
-                        height: 225,
-                        width: 225,
+                        height: 145,
+                        width: 145,
                       ),
                       Text(
                         "سبد خرید خالی است",
