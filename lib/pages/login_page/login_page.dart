@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:wordpress_app/api/api_service.dart';
 import 'package:wordpress_app/constants/constants.dart';
+import 'package:wordpress_app/db/shared_p_db.dart';
 import 'package:wordpress_app/pages/root_page/root_page.dart';
 import 'package:wordpress_app/pages/signup_page/signup_page.dart';
 import 'package:wordpress_app/utils/custom_appbar.dart';
@@ -151,7 +152,7 @@ class _LoginPageState extends State<LoginPage> {
                           });
 
                           if (result.token != null) {
-                            debugPrint(result.token);
+                            SharedServices.setLoginDetails(result);
                             Navigator.pushAndRemoveUntil(
                               context,
                               PageTransition(

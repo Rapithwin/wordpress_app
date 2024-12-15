@@ -536,10 +536,16 @@ class APIService {
 
   Future<List<OrderModel>> getAllOrders(String? status) async {
     List<OrderModel> ordersList = <OrderModel>[];
+    LoginModel? loginResponseModel = await SharedServices.getLoginDetails();
+    String? userId = loginResponseModel?.userId;
+
     try {
       var response = await Dio().request(
         "${WoocommerceInfo.baseUrl}${WoocommerceInfo.order}",
-        queryParameters: {"status": status ?? ""},
+        queryParameters: {
+          "status": status ?? "",
+          "customer": userId,
+        },
         options: Options(
           sendTimeout: const Duration(seconds: 10),
           receiveTimeout: const Duration(seconds: 10),
