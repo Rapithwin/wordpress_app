@@ -149,7 +149,7 @@ class _LoginPageState extends State<LoginPage> {
                             isApiCalled = false;
                           });
 
-                          if (result.token != null) {
+                          if (result != null) {
                             SharedServices.setLoginDetails(result);
                             Navigator.pushAndRemoveUntil(
                               context,
@@ -163,7 +163,7 @@ class _LoginPageState extends State<LoginPage> {
                             CustomDialogBox.customDialog(
                               context,
                               textTheme,
-                              "Unkown Error",
+                              "نام کاربری/ایمیل یا رمزعبور اشتباه است.",
                               [
                                 TextButton(
                                   onPressed: () => Navigator.pop(context),

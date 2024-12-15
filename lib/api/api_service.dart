@@ -60,14 +60,14 @@ class APIService {
     return isCreated;
   }
 
-  Future<LoginModel> loginCustomer(
+  Future<LoginModel?> loginCustomer(
     String username,
     String password,
   ) async {
     Dio dio = Dio(options);
     String url = WoocommerceInfo.jwtUrl;
 
-    late LoginModel loginModel;
+    LoginModel? loginModel;
 
     try {
       var response = await dio.request(
