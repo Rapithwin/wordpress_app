@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' show NumberFormat;
 import 'package:provider/provider.dart';
+import 'package:shamsi_date/shamsi_date.dart';
 import 'package:wordpress_app/constants/constants.dart';
 import 'package:wordpress_app/provider/order_provider.dart';
+import 'package:wordpress_app/utils/extention.dart';
 
 class BuildOrdersPage extends StatefulWidget {
   const BuildOrdersPage({super.key, this.status});
@@ -23,6 +25,12 @@ class _BuildOrdersPageState extends State<BuildOrdersPage> {
       orderProvider.getAllOrdersProvider(widget.status);
     });
     super.initState();
+  }
+
+  String myDateFormat(Jalali date) {
+    final f = date.formatter;
+
+    return "${f.yyyy.farsiNumber}/${f.mm.farsiNumber}/${f.dd.farsiNumber}";
   }
 
   @override
@@ -166,9 +174,9 @@ class _BuildOrdersPageState extends State<BuildOrdersPage> {
                                         padding:
                                             const EdgeInsets.only(left: 20.0),
                                         child: Text(
-                                          order.ordersList![index].orderDate
-                                              .toString()
-                                              .substring(0, 10),
+                                          myDateFormat(order
+                                              .ordersList![index].orderDate!
+                                              .toJalali()),
                                           style: textTheme.bodyLarge,
                                           textDirection: TextDirection.ltr,
                                         ),
