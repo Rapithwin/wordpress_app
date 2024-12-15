@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:wordpress_app/api/api_service.dart';
 import 'package:wordpress_app/constants/constants.dart';
+import 'package:wordpress_app/db/shared_p_db.dart';
 import 'package:wordpress_app/pages/root_page/root_page.dart';
 import 'package:wordpress_app/pages/signup_page/signup_page.dart';
 import 'package:wordpress_app/utils/custom_appbar.dart';
@@ -15,10 +16,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  TextEditingController emailController =
-      TextEditingController(text: "amirkh@example.com");
-  TextEditingController passwordController =
-      TextEditingController(text: "123123123");
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   bool isApiCalled = false;
@@ -150,8 +149,8 @@ class _LoginPageState extends State<LoginPage> {
                             isApiCalled = false;
                           });
 
-                          if (result.token != null) {
-                            debugPrint(result.token);
+                          if (result != null) {
+                            SharedServices.setLoginDetails(result);
                             Navigator.pushAndRemoveUntil(
                               context,
                               PageTransition(
@@ -164,7 +163,7 @@ class _LoginPageState extends State<LoginPage> {
                             CustomDialogBox.customDialog(
                               context,
                               textTheme,
-                              "Unkown Error",
+                              "نام کاربری/ایمیل یا رمزعبور اشتباه است.",
                               [
                                 TextButton(
                                   onPressed: () => Navigator.pop(context),

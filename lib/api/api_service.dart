@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:wordpress_app/constants/constants.dart';
+import 'package:wordpress_app/db/shared_p_db.dart';
 import 'package:wordpress_app/models/woocommerce/cart/addtocart_request_model.dart';
 import 'package:wordpress_app/models/woocommerce/cart/get_items_cart_model.dart';
 import 'package:wordpress_app/models/woocommerce/categories_model.dart';
@@ -59,14 +60,14 @@ class APIService {
     return isCreated;
   }
 
-  Future<LoginModel> loginCustomer(
+  Future<LoginModel?> loginCustomer(
     String username,
     String password,
   ) async {
     Dio dio = Dio(options);
     String url = WoocommerceInfo.jwtUrl;
 
-    late LoginModel loginModel;
+    LoginModel? loginModel;
 
     try {
       var response = await dio.request(
@@ -96,13 +97,13 @@ class APIService {
 
   Future<List<ProductModel>> getAllProducts(String? catId) async {
     List<ProductModel> productsList = <ProductModel>[];
-    String url = catId != null
-        ? "${WoocommerceInfo.baseUrl}${WoocommerceInfo.productsURL}?category=$catId"
-        : "${WoocommerceInfo.baseUrl}${WoocommerceInfo.productsURL}";
 
     try {
       var response = await Dio().request(
-        url,
+        "${WoocommerceInfo.baseUrl}${WoocommerceInfo.productsURL}",
+        queryParameters: {
+          "category": catId ?? "",
+        },
         options: Options(
           method: "GET",
           headers: {
@@ -247,32 +248,18 @@ class APIService {
     String sortOrder = "desc",
   }) async {
     List<ProductModel> productList = <ProductModel>[];
-    String parameter = "";
-    if (pageNumber != null) {
-      parameter += "&page=$pageNumber";
-    }
-    if (pageSize != null) {
-      parameter += "&per_page=$pageSize";
-    }
-    if (searchKeyword != null) {
-      parameter += "&search=$searchKeyword";
-    }
-    if (tagName != null) {
-      parameter += "&tag=$tagName";
-    }
-    if (sortBy != null) {
-      parameter += "&orderby=$sortBy";
-    }
-    if (sortOrder == "asc") {
-      parameter += "&order=asc";
-    }
-    parameter.replaceFirst("&", "");
-    final String productUrl =
-        "${WoocommerceInfo.baseUrl}${WoocommerceInfo.productsURL}?$parameter";
 
     try {
       var response = await Dio().request(
-        productUrl,
+        "${WoocommerceInfo.baseUrl}${WoocommerceInfo.productsURL}",
+        queryParameters: {
+          "page": pageNumber ?? "",
+          "per_page": pageSize ?? "",
+          "search": searchKeyword ?? "",
+          "tag": tagName ?? "",
+          "orderby": sortBy ?? "",
+          "order": sortOrder,
+        },
         options: Options(
           method: "GET",
           headers: {
@@ -456,8 +443,8 @@ class APIService {
 
   Future<CustomerDetailsModel?> getCustomerDetails() async {
     CustomerDetailsModel? responseModel;
-    // TODO
-    int userID = 1;
+    LoginModel? loginResponseModel = await SharedServices.getLoginDetails();
+    int userID = loginResponseModel!.userId!;
     String url =
         "${WoocommerceInfo.baseUrl}${WoocommerceInfo.customerURL}/$userID";
     try {
@@ -486,7 +473,8 @@ class APIService {
   Future<CustomerDetailsModel?> updateCustomerDetails(
       CustomerDetailsModel model) async {
     CustomerDetailsModel? responseModel;
-    int userID = 1;
+    LoginModel? loginResponseModel = await SharedServices.getLoginDetails();
+    int userID = loginResponseModel!.userId!;
     String url =
         "${WoocommerceInfo.baseUrl}${WoocommerceInfo.customerURL}/$userID";
     try {
@@ -515,8 +503,8 @@ class APIService {
 
   Future<bool> createOrder(OrderModel model) async {
     bool isOrderCreated = false;
-    // TODO
-    model.customerId = 1;
+    LoginModel? loginResponseModel = await SharedServices.getLoginDetails();
+    model.customerId = loginResponseModel?.userId;
     String url = "${WoocommerceInfo.baseUrl}${WoocommerceInfo.order}";
     try {
       var response = await Dio().request(
@@ -548,15 +536,17 @@ class APIService {
   }
 
   Future<List<OrderModel>> getAllOrders(String? status) async {
-    late List<OrderModel> ordersList;
-    // TODO
+    List<OrderModel> ordersList = <OrderModel>[];
+    LoginModel? loginResponseModel = await SharedServices.getLoginDetails();
+    int? userId = loginResponseModel?.userId;
 
-    String url = status != null
-        ? "${WoocommerceInfo.baseUrl}${WoocommerceInfo.order}?status=$status"
-        : "${WoocommerceInfo.baseUrl}${WoocommerceInfo.order}";
     try {
       var response = await Dio().request(
-        url,
+        "${WoocommerceInfo.baseUrl}${WoocommerceInfo.order}",
+        queryParameters: {
+          "status": status ?? "",
+          "customer": userId,
+        },
         options: Options(
           sendTimeout: const Duration(seconds: 10),
           receiveTimeout: const Duration(seconds: 10),

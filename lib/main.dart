@@ -122,7 +122,7 @@ class MainApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home: const Scaffold(
           body: Center(
-            child: RootPage(),
+            child: LoginPage(),
           ),
         ),
       ),
