@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:wordpress_app/api/api_service.dart';
@@ -149,8 +150,8 @@ class _LoginPageState extends State<LoginPage> {
                             isApiCalled = false;
                           });
 
-                          if (result != null) {
-                            SharedServices.setLoginDetails(result);
+                          if (result.loginModel != null) {
+                            SharedServices.setLoginDetails(result.loginModel!);
                             Navigator.pushAndRemoveUntil(
                               context,
                               PageTransition(
@@ -160,20 +161,60 @@ class _LoginPageState extends State<LoginPage> {
                               (_) => false,
                             );
                           } else {
-                            CustomDialogBox.customDialog(
-                              context,
-                              textTheme,
-                              "نام کاربری/ایمیل یا رمزعبور اشتباه است.",
-                              [
-                                TextButton(
-                                  onPressed: () => Navigator.pop(context),
-                                  child: Text(
-                                    "بستن",
-                                    style: textTheme.labelSmall,
-                                  ),
-                                )
-                              ],
-                            );
+                            if (result.exceptionType ==
+                                    DioExceptionType.sendTimeout ||
+                                result.exceptionType ==
+                                    DioExceptionType.receiveTimeout ||
+                                result.exceptionType ==
+                                    DioExceptionType.connectionError ||
+                                result.exceptionType ==
+                                    DioExceptionType.connectionTimeout) {
+                              CustomDialogBox.customDialog(
+                                context,
+                                textTheme,
+                                "ارتباط با اینترنت برقرار نیست.",
+                                [
+                                  TextButton(
+                                    onPressed: () => Navigator.pop(context),
+                                    child: Text(
+                                      "بستن",
+                                      style: textTheme.labelSmall,
+                                    ),
+                                  )
+                                ],
+                              );
+                            } else if (result.exceptionType ==
+                                DioExceptionType.badResponse) {
+                              CustomDialogBox.customDialog(
+                                context,
+                                textTheme,
+                                "نام کاربری/ایمیل یا رمزعبور اشتباه است.",
+                                [
+                                  TextButton(
+                                    onPressed: () => Navigator.pop(context),
+                                    child: Text(
+                                      "بستن",
+                                      style: textTheme.labelSmall,
+                                    ),
+                                  )
+                                ],
+                              );
+                            } else {
+                              CustomDialogBox.customDialog(
+                                context,
+                                textTheme,
+                                "مشکلی رخ داده است.",
+                                [
+                                  TextButton(
+                                    onPressed: () => Navigator.pop(context),
+                                    child: Text(
+                                      "بستن",
+                                      style: textTheme.labelSmall,
+                                    ),
+                                  )
+                                ],
+                              );
+                            }
                           }
                         },
                       );
