@@ -76,6 +76,7 @@ class _CatalogPageState extends State<CatalogPage> {
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
+    final Size size = MediaQuery.of(context).size;
     bool isLoadingMore =
         context.watch<CatalogProvider>().getDataStatus() == DataStatus.loading;
 
@@ -102,7 +103,7 @@ class _CatalogPageState extends State<CatalogPage> {
                           size: 28,
                           color: Colors.grey[700],
                         ),
-                        onPressed: () {},
+                        onPressed: null,
                       ),
                       trailing: [
                         IconButton(
@@ -181,10 +182,10 @@ class _CatalogPageState extends State<CatalogPage> {
                   productModel.getDataStatus() != DataStatus.initial) {
                 return Directionality(
                   textDirection: TextDirection.rtl,
-                  child: Flexible(
+                  child: Expanded(
                     child: GridView.count(
                       controller: _scrollController,
-                      childAspectRatio: 0.85,
+                      childAspectRatio: 0.8,
                       crossAxisCount: 2,
                       shrinkWrap: true,
                       children: productModel.allProducts.map(
@@ -199,6 +200,7 @@ class _CatalogPageState extends State<CatalogPage> {
                                   type: PageTransitionType.leftToRight),
                             ),
                             child: Container(
+                              height: size.height * 0.4,
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(20.0),
@@ -214,6 +216,7 @@ class _CatalogPageState extends State<CatalogPage> {
                               ),
                               margin: const EdgeInsetsDirectional.all(10.0),
                               child: Container(
+                                height: size.height * 0.4,
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 20,
                                   vertical: 10,
