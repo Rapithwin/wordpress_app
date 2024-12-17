@@ -243,8 +243,10 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 5, bottom: 16, right: 20),
+                Container(
+                  height: size.width * 0.1,
+                  alignment: Alignment.centerRight,
+                  padding: const EdgeInsets.only(right: 20.0),
                   child: Text(
                     "مطالب وبلاگ",
                     style: textTheme.titleLarge?.copyWith(
@@ -261,7 +263,7 @@ class _HomePageState extends State<HomePage> {
                       )
                     : Container(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
-                        height: size.height * 0.29,
+                        height: size.height * 0.31,
                         child: ListView.builder(
                           itemCount: value.psot!.length,
                           itemBuilder: (context, index) {
