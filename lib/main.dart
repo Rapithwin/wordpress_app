@@ -12,6 +12,7 @@ import 'package:wordpress_app/pages/login_page/login_page.dart';
 import 'package:wordpress_app/pages/payment_options/payment_options.dart';
 import 'package:wordpress_app/pages/product_details/product_details.dart';
 import 'package:wordpress_app/pages/root_page/root_page.dart';
+import 'package:wordpress_app/pages/splash_screen.dart';
 import 'package:wordpress_app/pages/verify_address/verify_address_page.dart';
 import 'package:wordpress_app/provider/cart_provider.dart';
 import 'package:wordpress_app/provider/catalog_provider.dart';
@@ -121,15 +122,14 @@ class MainApp extends StatelessWidget {
           ),
         ),
         debugShowCheckedModeBanner: false,
-        home: Scaffold(
-          body: Center(
-            child: FutureBuilder(
-              future: SharedServices.isLoggedIn(),
-              builder: (context, snapshot) {
-                return snapshot.data! ? const RootPage() : const LoginPage();
-              },
-            ),
-          ),
+        home: FutureBuilder(
+          future: SharedServices.isLoggedIn(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return snapshot.data! ? const RootPage() : const LoginPage();
+            }
+            return const SplashScreen();
+          },
         ),
       ),
     );
