@@ -25,8 +25,9 @@ class APIService {
   BaseOptions options = BaseOptions(
     baseUrl: "https://10.0.2.2/",
     receiveDataWhenStatusError: true,
-    connectTimeout: const Duration(seconds: 45),
-    receiveTimeout: const Duration(seconds: 45),
+    connectTimeout: const Duration(seconds: 20),
+    sendTimeout: const Duration(seconds: 20),
+    receiveTimeout: const Duration(seconds: 20),
   );
 
   Future<bool> createCustomer(CustomerModel model) async {
@@ -60,7 +61,8 @@ class APIService {
     return isCreated;
   }
 
-  Future<LoginModel?> loginCustomer(
+  Future<({LoginModel? loginModel, DioExceptionType? exceptionType})>
+      loginCustomer(
     String username,
     String password,
   ) async {
@@ -78,6 +80,8 @@ class APIService {
         },
         options: Options(
           method: "POST",
+          sendTimeout: const Duration(seconds: 10),
+          receiveTimeout: const Duration(seconds: 10),
           headers: {
             HttpHeaders.contentTypeHeader: "application/json",
           },
@@ -87,12 +91,15 @@ class APIService {
         loginModel = LoginModel.fromJson(response.data);
       }
     } on DioException catch (e) {
-      if (e.type == DioExceptionType.connectionTimeout) {
-        debugPrint("Timeout Error");
-      }
-      debugPrint(e.message);
+      return (
+        loginModel: null,
+        exceptionType: e.type,
+      );
     }
-    return loginModel;
+    return (
+      loginModel: loginModel,
+      exceptionType: null,
+    );
   }
 
   Future<List<ProductModel>> getAllProducts(String? catId) async {
