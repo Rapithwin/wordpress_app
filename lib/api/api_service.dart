@@ -30,7 +30,11 @@ class APIService {
     receiveTimeout: const Duration(seconds: 20),
   );
 
-  Future<bool> createCustomer(CustomerModel model) async {
+  Future<
+      ({
+        bool isCreated,
+        DioExceptionType? exceptionType,
+      })> createCustomer(CustomerModel model) async {
     bool isCreated = false;
     Dio dio = Dio(options);
     String url = "${WoocommerceInfo.baseUrl}${WoocommerceInfo.customerURL}";
@@ -53,16 +57,22 @@ class APIService {
       }
     } on DioException catch (e) {
       isCreated = false;
-      if (e.type == DioExceptionType.connectionTimeout) {
-        throw "Connection Timeout";
-      }
-      debugPrint(e.message);
+      return (
+        isCreated: isCreated,
+        exceptionType: e.type,
+      );
     }
-    return isCreated;
+    return (
+      isCreated: isCreated,
+      exceptionType: null,
+    );
   }
 
-  Future<({LoginModel? loginModel, DioExceptionType? exceptionType})>
-      loginCustomer(
+  Future<
+      ({
+        LoginModel? loginModel,
+        DioExceptionType? exceptionType,
+      })> loginCustomer(
     String username,
     String password,
   ) async {

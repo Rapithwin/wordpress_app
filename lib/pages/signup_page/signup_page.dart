@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:wordpress_app/api/api_service.dart';
@@ -64,7 +65,6 @@ class _SignUpPageState extends State<SignUpPage> {
                   CustomFormField(
                     controller: firstName,
                     labelName: "نام",
-                    initialValue: customerModel.firstName,
                     textDirection: TextDirection.rtl,
                     inputAction: TextInputAction.next,
                     validator: (String? value) {
@@ -83,7 +83,6 @@ class _SignUpPageState extends State<SignUpPage> {
                   CustomFormField(
                     controller: lastName,
                     labelName: "نام خانوادگی",
-                    initialValue: customerModel.lastName,
                     textDirection: TextDirection.rtl,
                     inputAction: TextInputAction.next,
                     validator: (String? value) {
@@ -103,7 +102,6 @@ class _SignUpPageState extends State<SignUpPage> {
                     controller: email,
                     labelName: "ایمیل",
                     keyboardType: TextInputType.emailAddress,
-                    initialValue: customerModel.email,
                     textDirection: TextDirection.ltr,
                     inputAction: TextInputAction.next,
                     validator: (String? value) {
@@ -126,7 +124,6 @@ class _SignUpPageState extends State<SignUpPage> {
                     controller: password,
                     labelName: "رمز عبور",
                     keyboardType: TextInputType.visiblePassword,
-                    initialValue: customerModel.password,
                     obscureText: true,
                     textDirection: TextDirection.ltr,
                     inputAction: TextInputAction.next,
@@ -149,7 +146,6 @@ class _SignUpPageState extends State<SignUpPage> {
                   CustomFormField(
                     controller: username,
                     labelName: "نام کاربری",
-                    initialValue: customerModel.username,
                     textDirection: TextDirection.ltr,
                     inputAction: TextInputAction.done,
                     validator: (String? value) {
@@ -173,44 +169,68 @@ class _SignUpPageState extends State<SignUpPage> {
                           setState(() {
                             isApiCalled = true;
                           });
-                          apiService
-                              .createCustomer(customerModel)
-                              .then((result) {
-                            setState(() {
-                              isApiCalled = false;
-                            });
-                            if (result) {
-                              CustomDialogBox.customDialog(
-                                context,
-                                textTheme,
-                                "ثبت‌نام با موفقیت انجام شد",
-                                <Widget>[
-                                  TextButton(
-                                    onPressed: () => Navigator.pop(context),
-                                    child: Text(
-                                      "بستن",
-                                      style: textTheme.labelSmall,
-                                    ),
-                                  )
-                                ],
-                              );
-                            } else {
-                              CustomDialogBox.customDialog(
-                                context,
-                                textTheme,
-                                "ثبت‌نام انجام نشد.",
-                                <Widget>[
-                                  TextButton(
-                                    onPressed: () => Navigator.pop(context),
-                                    child: Text(
-                                      "بستن",
-                                      style: textTheme.labelSmall,
-                                    ),
-                                  )
-                                ],
-                              );
-                            }
-                          });
+                          apiService.createCustomer(customerModel).then(
+                            (result) {
+                              setState(() {
+                                isApiCalled = false;
+                              });
+                              if (result.isCreated) {
+                                CustomDialogBox.customDialog(
+                                  context,
+                                  textTheme,
+                                  "ثبت‌نام با موفقیت انجام شد",
+                                  <Widget>[
+                                    TextButton(
+                                      onPressed: () => Navigator.pop(context),
+                                      child: Text(
+                                        "بستن",
+                                        style: textTheme.labelSmall,
+                                      ),
+                                    )
+                                  ],
+                                );
+                              } else {
+                                if (result.exceptionType ==
+                                        DioExceptionType.sendTimeout ||
+                                    result.exceptionType ==
+                                        DioExceptionType.receiveTimeout ||
+                                    result.exceptionType ==
+                                        DioExceptionType.connectionError ||
+                                    result.exceptionType ==
+                                        DioExceptionType.connectionTimeout) {
+                                  CustomDialogBox.customDialog(
+                                    context,
+                                    textTheme,
+                                    "ارتباط با اینترنت برقرار نیست.",
+                                    [
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(context),
+                                        child: Text(
+                                          "بستن",
+                                          style: textTheme.labelSmall,
+                                        ),
+                                      )
+                                    ],
+                                  );
+                                } else {
+                                  CustomDialogBox.customDialog(
+                                    context,
+                                    textTheme,
+                                    "ثبت‌نام انجام نشد.",
+                                    <Widget>[
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(context),
+                                        child: Text(
+                                          "بستن",
+                                          style: textTheme.labelSmall,
+                                        ),
+                                      )
+                                    ],
+                                  );
+                                }
+                              }
+                            },
+                          );
                         }
                       },
                       style: ElevatedButton.styleFrom(
