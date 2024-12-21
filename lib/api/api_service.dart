@@ -34,6 +34,7 @@ class APIService {
       ({
         bool isCreated,
         DioExceptionType? exceptionType,
+        String? errorResponse
       })> createCustomer(CustomerModel model) async {
     bool isCreated = false;
     Dio dio = Dio(options);
@@ -57,14 +58,18 @@ class APIService {
       }
     } on DioException catch (e) {
       isCreated = false;
+      Map<String, dynamic> errorRes = jsonDecode(e.response.toString());
+      debugPrint(errorRes["code"].toString());
       return (
         isCreated: isCreated,
         exceptionType: e.type,
+        errorResponse: errorRes["code"].toString(),
       );
     }
     return (
       isCreated: isCreated,
       exceptionType: null,
+      errorResponse: null,
     );
   }
 

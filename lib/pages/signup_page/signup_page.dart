@@ -213,20 +213,62 @@ class _SignUpPageState extends State<SignUpPage> {
                                     ],
                                   );
                                 } else {
-                                  CustomDialogBox.customDialog(
-                                    context,
-                                    textTheme,
-                                    "ثبت‌نام انجام نشد.",
-                                    <Widget>[
-                                      TextButton(
-                                        onPressed: () => Navigator.pop(context),
-                                        child: Text(
-                                          "بستن",
-                                          style: textTheme.labelSmall,
-                                        ),
-                                      )
-                                    ],
-                                  );
+                                  switch (result.errorResponse) {
+                                    case "registration-error-username-exists":
+                                      {
+                                        CustomDialogBox.customDialog(
+                                          context,
+                                          textTheme,
+                                          "نام کاربری تکراری است.",
+                                          <Widget>[
+                                            TextButton(
+                                              onPressed: () =>
+                                                  Navigator.pop(context),
+                                              child: Text(
+                                                "بستن",
+                                                style: textTheme.labelSmall,
+                                              ),
+                                            )
+                                          ],
+                                        );
+                                      }
+                                    case "registration-error-email-exists":
+                                      {
+                                        CustomDialogBox.customDialog(
+                                          context,
+                                          textTheme,
+                                          "ایمیل تکراری است.",
+                                          <Widget>[
+                                            TextButton(
+                                              onPressed: () =>
+                                                  Navigator.pop(context),
+                                              child: Text(
+                                                "بستن",
+                                                style: textTheme.labelSmall,
+                                              ),
+                                            )
+                                          ],
+                                        );
+                                      }
+                                    default:
+                                      {
+                                        CustomDialogBox.customDialog(
+                                          context,
+                                          textTheme,
+                                          "ثبت‌نام انجام نشد.",
+                                          <Widget>[
+                                            TextButton(
+                                              onPressed: () =>
+                                                  Navigator.pop(context),
+                                              child: Text(
+                                                "بستن",
+                                                style: textTheme.labelSmall,
+                                              ),
+                                            )
+                                          ],
+                                        );
+                                      }
+                                  }
                                 }
                               }
                             },
