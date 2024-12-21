@@ -181,7 +181,15 @@ class _SignUpPageState extends State<SignUpPage> {
                                   "ثبت‌نام با موفقیت انجام شد",
                                   <Widget>[
                                     TextButton(
-                                      onPressed: () => Navigator.pop(context),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                        Navigator.pushAndRemoveUntil(
+                                            context,
+                                            PageTransition(
+                                                child: const LoginPage(),
+                                                type: PageTransitionType.fade),
+                                            (_) => false);
+                                      },
                                       child: Text(
                                         "بستن",
                                         style: textTheme.labelSmall,
