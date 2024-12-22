@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
@@ -49,17 +51,23 @@ class _ProfilePageState extends State<ProfilePage> {
               child: CircleAvatar(
                 backgroundColor: Colors.transparent,
                 radius: 50,
-                backgroundImage: NetworkImage(
-                  context
-                      .watch<CustomerDetailsProvider>()
-                      .customerDetailsModel!
-                      .avatarUrl
-                      .toString()
-                      .replaceAll(
-                        "localhost",
-                        "10.0.2.2",
-                      ),
-                ),
+                backgroundImage: context
+                            .watch<CustomerDetailsProvider>()
+                            .customerDetailsModel !=
+                        null
+                    ? NetworkImage(
+                        context
+                            .watch<CustomerDetailsProvider>()
+                            .customerDetailsModel!
+                            .avatarUrl
+                            .toString()
+                            .replaceAll(
+                              "localhost",
+                              "10.0.2.2",
+                            ),
+                      )
+                    : FileImage(
+                        File("assets/images/Profile_avatar_placeholder.png")),
               ),
             ),
             const SizedBox(
@@ -69,7 +77,7 @@ class _ProfilePageState extends State<ProfilePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "${context.watch<CustomerDetailsProvider>().customerDetailsModel!.firstName} ${context.watch<CustomerDetailsProvider>().customerDetailsModel!.lastName}",
+                  "${context.watch<CustomerDetailsProvider>().customerDetailsModel?.firstName} ${context.watch<CustomerDetailsProvider>().customerDetailsModel?.lastName}",
                   style: textTheme.bodyLarge?.copyWith(
                     color: Colors.black54,
                     fontSize: 20,
@@ -88,11 +96,14 @@ class _ProfilePageState extends State<ProfilePage> {
               height: 12,
             ),
             Text(
-              context
-                      .watch<CustomerDetailsProvider>()
-                      .customerDetailsModel!
-                      .email ??
-                  "ایمیل ثبت نشده",
+              context.watch<CustomerDetailsProvider>().customerDetailsModel !=
+                      null
+                  ? context
+                          .watch<CustomerDetailsProvider>()
+                          .customerDetailsModel!
+                          .email ??
+                      "ایمیل ثبت نشده"
+                  : "",
               style: const TextStyle(
                 fontFamily: "nanumGothic",
                 color: Colors.black45,
