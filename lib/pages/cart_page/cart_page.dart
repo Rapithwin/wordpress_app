@@ -147,128 +147,137 @@ class _CartPageState extends State<CartPage> {
               height: size.height,
               child: Stack(
                 children: <Widget>[
-                  ListView.builder(
-                    itemCount: value.cartItems!.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          height: size.height / 6,
-                          width: size.width,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(10.0),
+                  RefreshIndicator(
+                    color: Constants.primaryColor,
+                    onRefresh: () {
+                      return value.getItemsInCartProvider();
+                    },
+                    child: ListView.builder(
+                      itemCount: value.cartItems!.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            height: size.height / 6,
+                            width: size.width,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(10.0),
+                              ),
+                              border: Border.all(
+                                color: Constants.primaryColor,
+                              ),
                             ),
-                            border: Border.all(
-                              color: Constants.primaryColor,
-                            ),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  AddQuantity(
-                                    minNumber: 0,
-                                    maxNumber: 20,
-                                    iconSize: 17,
-                                    value: value
-                                        .cartItems![index].quantity!.value!,
-                                    valueChanged: (quantity) {
-                                      value.updateCartProvider(
-                                        value.cartItems![index].itemKey!,
-                                        quantity.toString(),
-                                      );
-                                      Future.delayed(
-                                        const Duration(
-                                          seconds: 1,
-                                        ),
-                                      ).then(
-                                        (_) {
-                                          value.getItemsInCartProvider();
-                                        },
-                                      );
-                                      if (quantity == 0) {
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    AddQuantity(
+                                      minNumber: 0,
+                                      maxNumber: 20,
+                                      iconSize: 17,
+                                      value: value
+                                          .cartItems![index].quantity!.value!,
+                                      valueChanged: (quantity) {
+                                        value.updateCartProvider(
+                                          value.cartItems![index].itemKey!,
+                                          quantity.toString(),
+                                        );
+                                        Future.delayed(
+                                          const Duration(
+                                            seconds: 1,
+                                          ),
+                                        ).then(
+                                          (_) {
+                                            value.getItemsInCartProvider();
+                                          },
+                                        );
+                                        if (quantity == 0) {
+                                          cartProvider.deleteItemProvider(
+                                            value.cartItems![index].itemKey!,
+                                          );
+                                          Future.delayed(
+                                                  const Duration(seconds: 1))
+                                              .then(
+                                            (_) {
+                                              cartProvider.initializeData();
+                                              cartProvider
+                                                  .getItemsInCartProvider();
+                                            },
+                                          );
+                                        }
+                                      },
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
                                         cartProvider.deleteItemProvider(
                                           value.cartItems![index].itemKey!,
                                         );
                                         Future.delayed(
-                                                const Duration(seconds: 1))
-                                            .then(
+                                          const Duration(seconds: 1),
+                                        ).then(
                                           (_) {
-                                            cartProvider.initializeData();
+                                            if (cartProvider
+                                                    .cartItems!.length ==
+                                                1) {
+                                              cartProvider.initializeData();
+                                            }
                                             cartProvider
                                                 .getItemsInCartProvider();
                                           },
                                         );
-                                      }
-                                    },
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      cartProvider.deleteItemProvider(
-                                        value.cartItems![index].itemKey!,
-                                      );
-                                      Future.delayed(
-                                        const Duration(seconds: 1),
-                                      ).then(
-                                        (_) {
-                                          if (cartProvider.cartItems!.length ==
-                                              1) {
-                                            cartProvider.initializeData();
-                                          }
-                                          cartProvider.getItemsInCartProvider();
-                                        },
-                                      );
-                                    },
-                                    style: ButtonStyle(
-                                      overlayColor: WidgetStateProperty.all(
-                                        Constants.primaryColor.withOpacity(0.1),
+                                      },
+                                      style: ButtonStyle(
+                                        overlayColor: WidgetStateProperty.all(
+                                          Constants.primaryColor
+                                              .withOpacity(0.1),
+                                        ),
+                                      ),
+                                      child: Text(
+                                        "حذف",
+                                        style: textTheme.labelLarge?.copyWith(
+                                          color: Colors.red,
+                                        ),
                                       ),
                                     ),
-                                    child: Text(
-                                      "حذف",
-                                      style: textTheme.labelLarge?.copyWith(
-                                        color: Colors.red,
-                                      ),
+                                    Text(
+                                      "${numberFormat.format(value.cartItems![index].totals?.total)} تومان",
+                                      textDirection: TextDirection.rtl,
                                     ),
-                                  ),
-                                  Text(
-                                    "${numberFormat.format(value.cartItems![index].totals?.total)} تومان",
+                                  ],
+                                ),
+                                SizedBox(
+                                  width: size.width / 2.3,
+                                  child: Text(
+                                    value.cartItems![index].title ?? "",
                                     textDirection: TextDirection.rtl,
+                                    maxLines: 3,
+                                    overflow: TextOverflow.ellipsis,
                                   ),
-                                ],
-                              ),
-                              SizedBox(
-                                width: size.width / 2.3,
-                                child: Text(
-                                  value.cartItems![index].title ?? "",
-                                  textDirection: TextDirection.rtl,
-                                  maxLines: 3,
-                                  overflow: TextOverflow.ellipsis,
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 7.5,
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 7.5,
+                                  ),
+                                  child: Image.network(
+                                    value.cartItems![index].featuredImage!
+                                        .replaceAll("localhost", "10.0.2.2"),
+                                    height: 80,
+                                    width: 80,
+                                    scale: 0.5,
+                                    fit: BoxFit.contain,
+                                  ),
                                 ),
-                                child: Image.network(
-                                  value.cartItems![index].featuredImage!
-                                      .replaceAll("localhost", "10.0.2.2"),
-                                  height: 80,
-                                  width: 80,
-                                  scale: 0.5,
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
                 ],
               ),
